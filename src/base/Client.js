@@ -1,31 +1,53 @@
 const { Client, Collection} = require('discord.js'),
-     { readdir } = require('fs');
+        Enmap = require('enmap'),
+     { readdir,existsSync,mkdirSync } = require('fs'),
+    Logger = require('../Utils/logger'),
+    option = require('../../option'),
+    Utils = require('../Utils/utils');
 
 class StructureBot extends Client{
 
-    constructor(options){
-        super(options.clientOption || {});
-        this.command = new Collection();
-        this.aliase = new Collection();
+    constructor(options) {
+        super(options.clientOptions || {});
+        this.commands = new Collection();
+        this.aliases = new Collection();
+        this.config = options.config ? require(`../../${options.config}`) : {};
+        this.perms = options.perms ? require(`../../${options.perms}`) : {};
+        this.logger = new Logger(this);
+        this.utils = new Utils();
+        this.guildDB = new Enmap({name: "guildDB", dataDir: './database'});
+        this.userDB= new Enmap({name: "userDB", dataDir: './database'});
+        this.config = option.config|| {}
 
-        this.config = options.config ? require(`../${options.config}`) : {}
+        console.log(`Client initialised. You are using node ${process.version}.`);
+    }
+    init(token){
+        this.createFolder();
+        this.initDatabase();
+        this.commandLoader();
+        this.eventLoader();
+        this.login(token);
+        return true
     }
     login(token){
         super.login(token)
     }
 
-    commandloader(path){
-        readdir(path,(err,files) =>{
-            if(err) this.emit('error');
+    commandLoader(){
+        readdir('./src/commandes/',(err,files) =>{
+            if(err)  this.emit('error',err);
             files.forEach(dir =>{
-                readdir(`../${path}/${dir}`,(err,com)=>{
-                    com.forEach(com =>{
+                readdir(`./src/commandes/${dir}/`,(err,commands)=>{
+                    if(err)  this.emit('error',err)
+                    commands.forEach(com =>{
                         try {
-                            const command = new(require(`../${path}/${dir}/${com}`));
-                            this.command.set(command.name,command);
-                            this.aliase.forEach(alias => this.aliase.set(alias,command.help))
+                            const command = new(require(`../commandes/${dir}/${com}`))(this);
+                            this.commands.set(command.help.name, command);
+                            command.conf.aliases.forEach(a => this.aliases.set(a, command.help.name));
+                            this.logger.info(`${com} chargé`)
+
                         }catch (e) {
-                            this.emit('error')
+                            this.emit('error',e)
                         }
                     })
 
@@ -35,23 +57,47 @@ class StructureBot extends Client{
         });
         return this
     }
-    eventloader(path){
-        readdir(path,(err,files) =>{
-            if(err) this.emit('error');
+    eventLoader(){
+        readdir('./src/events',(err,files) =>{
+            if(!files) return;
+
+            if(err) this.emit('error',err)
             files.forEach(dir =>{
-                readdir(`../${path}/${dir}`,(err,file)=>{
+                readdir(`./src/events/${dir}`,(err,file)=>{
+                    if(!file) return;
+                    if(err) this.emit('error',err)
                     file.forEach(evt =>{
+                        if(!evt) return;
                         try {
-                            const event = new(require(`../${path}/${dir}/${evt}`))(this);
+                            const event = new(require(`../events/${dir}/${evt}`))(this);
+                            this.logger.info(`${evt} chargé`);
                             super.on(evt.split('.')[0], (...args) =>event.run(...args));
                         }catch (e) {
-                            this.emit('error')
+                            this.emit('error',e)
                         }
                     })
                 })
             })
         });
         return this
+    }
+
+    createFolder(){
+        if (!existsSync('./database')) {
+            mkdirSync('./database');
+            this.logger.info('crée')
+        }
+        return true
+    }
+    initDatabase(){
+
+        this.guildDB.defer.then(()=>{
+            if (this.guildDB.isReady) {
+                this.logger.info('[Guilddb] Base de donnée pret')
+            } else {
+                this.logger.info('[Guilddb] Base de donnée pas pret')
+            }
+        })
     }
 }
 
