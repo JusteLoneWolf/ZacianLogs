@@ -9,7 +9,8 @@ class Ping extends Command{
             usage:`ping`,
             coolDown: 5000,
             aliases:['pong','p'],
-            permission: 'READ_MESSAGES'
+            permission: 'READ_MESSAGES',
+            category:'Générique'
         });
     }
 
