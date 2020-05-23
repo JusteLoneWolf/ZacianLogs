@@ -6,9 +6,19 @@ module.exports = class {
     }
 
     run(message) {
-
         this.client.guildDB.ensure(message.guild.id, {
             prefix: this.client.config.prefix,
+            badwords:{
+                active: false,
+                custom_words:false,
+                list:[],
+                ignore_role:[],
+                ignore_channel:[],
+                ignore_members:[],
+            },
+            channels:{
+              logs:''
+            }
         });
 
         const insulte = new AntiInsulte(this.client);
