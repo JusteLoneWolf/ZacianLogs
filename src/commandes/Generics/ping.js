@@ -1,21 +1,11 @@
 const Command = require('../../Base/Command');
-
+const {HELPER } = require('../../Utils/Constant/CommandeHelper');
 class Ping extends Command{
     constructor(client){
-
-        super(client,{
-            name:'ping',
-            description:'Envoi le ping du bot',
-            usage:`ping`,
-            coolDown: 5000,
-            aliases:['pong','p'],
-            permission: 'READ_MESSAGES',
-            category:'Générique'
-        });
+        super(client,HELPER.COMMANDS.GENERICS.PING);
     }
 
     run(message){
-        console.log()
         super.respond(`Ping: ${message.createdAt -Date.now()}ms`)
     }
 }

@@ -1,15 +1,9 @@
 const Command = require('../../Base/Command');
+const {HELPER } = require('../../Utils/Constant/CommandeHelper')
 
 class Help extends Command{
     constructor(client){
-        super(client,{
-            name:'help',
-            description:'Envoi la page d\'aide',
-            usage:`help`,
-            coolDown: 5000,
-            aliases:['h'],
-            permission: 'READ_MESSAGES'
-        });
+        super(client,HELPER.COMMANDS.INFO.HELP);
     }
 
    async run(message,args){
