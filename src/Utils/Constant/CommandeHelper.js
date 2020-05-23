@@ -24,4 +24,4 @@ const HELPER = {
     }
 }
 
-exports.HELPER = HELPER;
+module.exports.HELPER = HELPER;
