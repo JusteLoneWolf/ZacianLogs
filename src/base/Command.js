@@ -1,10 +1,9 @@
 class Command {
-
     constructor(client, options) {
         this.client = client;
         this.help = {
             name: options.name || null,
-            description: options.description || "No information specified.",
+            description: options.description || "Pas d'information donnée.",
             usage: options.usage ?  `${this.client.config.prefix}${options.usage}`: "",
             category: options.category || "Information"
         };
@@ -13,7 +12,8 @@ class Command {
             permission: options.permission || "SEND_MESSAGES",
             cooldown: options.cooldown || 1000,
             aliases: options.aliases || [],
-            allowDMs: options.allowDMs || false
+            allowDMs: options.allowDMs || false,
+            args : options.args || 'pas d\'arguments'
         };
         this.cooldown = new Set();
     }

@@ -15,6 +15,7 @@ class StructureBot extends Client{
         this.perms = options.perms ? require(`../../${options.perms}`) : {};
         this.logger = new Logger(this);
         this.utils = new Utils();
+        this.createFolder();
         this.guildDB = new Enmap({name: "guildDB", dataDir: './database'});
         this.userDB= new Enmap({name: "userDB", dataDir: './database'});
         this.config = option.config|| {}
@@ -22,7 +23,7 @@ class StructureBot extends Client{
         console.log(`Client initialised. You are using node ${process.version}.`);
     }
     init(token){
-        this.createFolder();
+
         this.initDatabase();
         this.commandLoader();
         this.eventLoader();
