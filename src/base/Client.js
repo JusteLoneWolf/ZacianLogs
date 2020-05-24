@@ -4,6 +4,7 @@ const { Client, Collection} = require('discord.js'),
     Logger = require('../Utils/logger'),
     option = require('../../option'),
     Utils = require('../Utils/utils');
+require('../process')
 
 class StructureBot extends Client{
 
@@ -81,6 +82,20 @@ class StructureBot extends Client{
             })
         });
         return this
+    }
+    processEventLoader(){
+        readdir('../process',(err,files) =>{
+            files.forEach(event=>{
+                if(!event) return
+                try {
+                    const processEvent = new(require(`../process/${event}`))
+                    this.logger.info(`${event} chargé`)
+                    process.on(event.split('.')[0], args => event.run(args))
+                }catch (e) {
+
+                }
+            })
+        })
     }
 
     createFolder(){
