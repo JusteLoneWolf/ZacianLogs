@@ -4,7 +4,6 @@ const { Client, Collection} = require('discord.js'),
     Logger = require('../Utils/logger'),
     option = require('../../option'),
     Utils = require('../Utils/utils');
-require('../process')
 
 class StructureBot extends Client{
 
