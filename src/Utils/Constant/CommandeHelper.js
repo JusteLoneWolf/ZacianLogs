@@ -11,6 +11,17 @@ const HELPER = {
                 category:'Générique'
             }
         },
+        OWNER:{
+            EVAL:{
+                name:'eval',
+                description:'Fait un eval',
+                usage:`eval [code]`,
+                coolDown: 2000,
+                aliases:['e'],
+                permission: 'READ_MESSAGES',
+                category:'Owner'
+            },
+        },
         INFO:{
             HELP:{
                 name:'help',
@@ -18,7 +29,8 @@ const HELPER = {
                 usage:`help`,
                 coolDown: 5000,
                 aliases:['h'],
-                permission: 'READ_MESSAGES'
+                permission: 'READ_MESSAGES',
+                category:'Information'
             }
         }
     }
