@@ -13,7 +13,12 @@ module.exports = {
         messageCacheLifetime: 120,
         messageSweepInterval: 120
     },
-    perm:{}
-
-
+    perm:{},
+    dashboard:{
+        oauthSecret: process.env.SECRET,
+        callbackURL:"http//localhost:3030/callback",
+        sSecret:process.env.SSECRET,
+        domain:'localhost',
+        port:3030
+    }
 };

@@ -4,7 +4,6 @@ const { Client, Collection} = require('discord.js'),
     Logger = require('../Utils/logger'),
     option = require('../../option'),
     Utils = require('../Utils/utils');
-require('../process')
 
 class StructureBot extends Client{
 
@@ -12,8 +11,10 @@ class StructureBot extends Client{
         super(options.clientOptions || {});
         this.commands = new Collection();
         this.aliases = new Collection();
-        this.config = options.config ? require(`../../${options.config}`) : {};
-        this.perms = options.perms ? require(`../../${options.perms}`) : {};
+        this.option = require('../../option');
+        this.config = this.option.config
+        this.perms = this.option.perm
+        this.web = this.option.dashboard
         this.logger = new Logger(this);
         this.utils = new Utils();
         this.createFolder();
