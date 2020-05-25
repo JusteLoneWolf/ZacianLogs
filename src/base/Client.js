@@ -21,8 +21,6 @@ class StructureBot extends Client{
         this.guildDB = new Enmap({name: "guildDB", dataDir: './database'});
         this.userDB= new Enmap({name: "userDB", dataDir: './database'});
         this.config = option.config|| {}
-
-        console.log(`Client initialised. You are using node ${process.version}.`);
     }
     init(token){
 
@@ -83,20 +81,6 @@ class StructureBot extends Client{
             })
         });
         return this
-    }
-    processEventLoader(){
-        readdir('../process',(err,files) =>{
-            files.forEach(event=>{
-                if(!event) return
-                try {
-                    const processEvent = new(require(`../process/${event}`))
-                    this.logger.info(`${event} chargé`)
-                    process.on(event.split('.')[0], args => event.run(args))
-                }catch (e) {
-
-                }
-            })
-        })
     }
 
     createFolder(){

@@ -3,7 +3,6 @@
 bot.commands.forEach((command) => { const cat = command.help.category; if
 (!help.hasOwnProperty(cat)) help[cat] = []; help[cat].push(command); }); %> <%
 for (const category in help) { %>
-    <hr />
     <h3 class="cmd-title"><%= category %></h3>
     <br />
     <% for (const command of help[category]) { %>

@@ -26,7 +26,7 @@ module.exports = class {
                 embed: {
                     title: 'Un membre est arrivé',
                     fields:[{
-                        name:'Invitation',
+                        name:'❱ Invitation',
                         value: invite? `\`${invite.code}\` par **${inviter.username}** avec **${invite.uses}** utilisations` : 'Invitation non trouvé'
                     }]
                 }
@@ -38,3 +38,5 @@ module.exports = class {
         })
     }
 };
+
+// a fini ptdr tous est peté

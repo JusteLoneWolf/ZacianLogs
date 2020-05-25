@@ -3,9 +3,32 @@
     margin: 0;
 }
 
+.navbar{
+    background-color: #2F2F2F;
+    color: beige;
+}
+
+.navbar-item{
+    color: beige;
+}
+
+.button.is-warning{
+    background-color:#262626 ;
+    color: beige;
+}
+
 html, body {
     height: 100%;
     overflow: auto;
+}
+
+body, .card {
+    background-color: #333;
+    color: beige;
+}
+
+strong, .card-header-title , .title ,.subtitle{
+    color: beige;
 }
 
 .hero {
@@ -57,4 +80,9 @@ footer strong {
 
 .card-content{
     padding: 1rem;
+}
+
+.counter {
+    animation-duration: 1s;
+    animation-delay: 0s;
 }

@@ -3,7 +3,10 @@ module.exports = class {
         this.client = client;
     }
     run(){
-        console.log('pret')
+
+        this.client.fetchApplication().then((data)=> {
+            this.client.logger.info(`${data.name} pret`)
+        });
         require('../../modules/dashboard')(this.client)
     }
 };

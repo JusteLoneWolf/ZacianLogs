@@ -45,11 +45,11 @@ module.exports = class {
                                     title:'Un membre est parti',
                                     fields:[
                                         {
-                                            name:'Utilisateur Kick',
+                                            name:'❱ Utilisateur Kick',
                                             value:member.user.username
                                         },
                                         {
-                                            name:'Moderateur',
+                                            name:'❱ Moderateur',
                                             value: executor
                                         },
                                     ]
