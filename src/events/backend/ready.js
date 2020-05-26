@@ -6,6 +6,7 @@ module.exports = class {
 
         this.client.fetchApplication().then((data)=> {
             this.client.logger.info(`${data.name} pret`)
+            this.client.user.setPresence({activity:{name:`${this.client.config.prefix}help `, type:'LISTENING'}})
         });
 
         this.client.guilds.cache.forEach(guild =>{
@@ -14,6 +15,7 @@ module.exports = class {
                 console.log(`Toutes les invitation get ${guild.id}`)
             })
         })
+
 
 
     }

@@ -19,6 +19,14 @@ module.exports = class {
             channels:{
               logs:''
             },
+            settings:{
+                punishment:{
+                    enabled : false,
+                    mute: 3,
+                    kick: 5,
+                    ban : 8,
+                }
+            }
         });
 
 
