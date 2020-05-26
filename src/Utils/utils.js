@@ -14,7 +14,6 @@ class Utils {
                 database.invites[guild.id] = invite
             db.set(guild.id,database)
         })
-        return db
     }
 }
 

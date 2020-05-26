@@ -21,9 +21,7 @@ module.exports = class {
             },
         });
 
-        this.client.utils.fetchInvite(message.guild,this.client.guildDB).then((data)=>{
-            console.log(`All invitation fetched ${data.get(message.guild.id,'invites')}`)
-        })
+
         const insulte = new AntiInsulte(this.client);
         insulte.run(message);
         if (message.author.bot || !message.content.startsWith(this.client.guildDB.get(message.guild.id, "prefix"))) return;

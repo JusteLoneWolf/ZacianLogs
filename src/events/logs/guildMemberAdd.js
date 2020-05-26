@@ -11,8 +11,6 @@ module.exports = class {
 
         member.guild.fetchInvites().then(guildInvites => {
             const ei = db.invites[member.guild.id];
-            console.log(ei.fetch())
-
             const invite = guildInvites.find(i =>
                 ei.get(i.code) ?
                 ei.get(i.code).uses < i.uses
@@ -21,14 +19,19 @@ module.exports = class {
 
             const inviter = invite? member.guild.members.cache.get(invite.inviter.id): false;
 
-
             logChannel.send({
                 embed: {
                     title: 'Un membre est arrivé',
-                    fields:[{
-                        name:'❱ Invitation',
-                        value: invite? `\`${invite.code}\` par **${inviter.username}** avec **${invite.uses}** utilisations` : 'Invitation non trouvé'
-                    }]
+                    fields:[
+                        {
+                            name: '❱ Membres',
+                            value: member.user.username
+                        },
+                        {
+                            name:'❱ Invitation',
+                            value: invite? `\`${invite.code}\` par **${inviter.user.username}** avec **${invite.uses}** utilisations` : 'Invitation non trouvé'
+                        }
+                        ]
                 }
             }).catch((err)=>{
                 this.client.emit('error',err)

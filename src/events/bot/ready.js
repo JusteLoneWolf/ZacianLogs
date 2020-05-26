@@ -7,6 +7,14 @@ module.exports = class {
         this.client.fetchApplication().then((data)=> {
             this.client.logger.info(`${data.name} pret`)
         });
-        //require('../../modules/dashboard')(this.client)
+
+        this.client.guilds.cache.forEach(guild =>{
+            if(!this.client.guildDB.get(guild.id)) return;
+            this.client.utils.fetchInvite(guild,this.client.guildDB).then(()=>{
+                console.log(`Toutes les invitation get ${guild.id}`)
+            })
+        })
+
+
     }
 };
