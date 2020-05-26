@@ -10,6 +10,7 @@ class Eval extends Command{
         const initialTime = process.hrtime();
         try {
             let code = args.join(' ');
+            console.log(code)
             let evaled = eval(code);
             if (typeof evaled !== 'string')
                 evaled = require('util').inspect(evaled);
