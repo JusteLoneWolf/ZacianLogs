@@ -7,9 +7,10 @@ class Eval extends Command{
     }
 
     async run(message,args){
+        const initialTime = process.hrtime();
         try {
-            const code = args.join(' ');
-            let evaled = eval(code)
+            let code = args.join(' ');
+            let evaled = eval(code);
             if (typeof evaled !== 'string')
                 evaled = require('util').inspect(evaled);
             if(evaled.includes(this.client.config.token)){
@@ -17,10 +18,31 @@ class Eval extends Command{
             }
             if(evaled .length > 2000) {
                 evaled  = evaled.substr(0, 1980);
-                evaled = evaled + "\nToo long..";
+                evaled = evaled + "\nTrop long..";
             }
 
-            message.channel.send('```js\n' + evaled + '```');
+            if(code.length > 2000) {
+                code  = code.substr(0, 1980);
+                code = code + "\nTrop long..";
+            }
+
+            const evalDiff = process.hrtime(initialTime);
+            await message.channel.send({
+                embed:{
+                    fields:[{
+                        name:'Code',
+                        value:`\`\`\`js\n ${code} \`\`\``
+                    },
+                        {
+                            name:'Resultat',
+                            value:`\`\`\`js\n ${evaled} \`\`\``
+                        }],
+                    footer:{
+                        text:evalDiff[0] > 0 ? `${evalDiff[0]}s ${evalDiff[1] / 1000000}ms` : `${evalDiff[1] / 100000}ms`
+                    }
+                }
+            })
+
         } catch (err) {
             console.log(err)
         }

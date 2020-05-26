@@ -7,6 +7,6 @@ module.exports = class {
         this.client.fetchApplication().then((data)=> {
             this.client.logger.info(`${data.name} pret`)
         });
-        require('../../modules/dashboard')(this.client)
+        //require('../../modules/dashboard')(this.client)
     }
 };
