@@ -19,17 +19,13 @@ module.exports = class {
             }).then(aLog => aLog.entries.first()).catch((err) => {
                 this.client.emit('error', err)
             });
-
-            let changes = aLogFound.changes;
-            console.log(aLogFound)
-
             logChannel.send({
                 embed: {
                     title: 'Une invitation a etait supprimé',
                     fields: [
                         {
                             name: '❱ Code',
-                            value: changes[0].old
+                            value: aLogFound.changes[0].old
                         },
                         {
                             name: '❱ Supprimé Par',
@@ -37,19 +33,19 @@ module.exports = class {
                         },
                         {
                             name: '❱ Channel',
-                            value: changes[1].old
+                            value: aLogFound.changes[1].old
                         },
                         {
                             name: '❱ Utilisation maximal',
-                            value: changes[4].old
+                            value: aLogFound.changes[4].old
                         },
                         {
                             name: '❱ Expiration',
-                            value: changes[5].old === 0 ? 'Infinie': changes[5].old+' secondes'
+                            value: aLogFound.changes[5].old === 0 ? 'Infinie': aLogFound.changes[5].old+' secondes'
                         },
                         {
                             name: '❱ Met le status membre provisoire',
-                            value: changes[6].old
+                            value: aLogFound.changes[6].old
                         }]
                 }
             })

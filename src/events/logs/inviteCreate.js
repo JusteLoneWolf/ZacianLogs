@@ -19,16 +19,13 @@ module.exports = class {
             }).then(aLog => aLog.entries.first()).catch((err) => {
                 this.client.emit('error', err)
             });
-
-            let changes = aLogFound.changes;
-
             logChannel.send({
                 embed: {
                     title: 'Une invitation a etait créer',
                     fields: [
                         {
                             name: '❱ Code',
-                            value: changes[0].new
+                            value: aLogFound.changes[0].new
                         },
                         {
                             name: '❱ Par',
@@ -36,19 +33,19 @@ module.exports = class {
                         },
                         {
                             name: '❱ Channel',
-                            value: changes[1].new
+                            value: aLogFound.changes[1].new
                         },
                         {
                             name: '❱ Utilisation maximal',
-                            value: changes[4].new
+                            value: aLogFound.changes[4].new
                         },
                         {
                             name: '❱ Expiration',
-                            value: changes[5].new === 0 ? 'Infinie': changes[5].new+' secondes'
+                            value: aLogFound.changes[5].new === 0 ? 'Infinie': aLogFound.changes[5].new+' secondes'
                         },
                         {
                             name: '❱ Met le status membre provisoire',
-                            value: changes[6].new
+                            value: aLogFound.changes[6].new
                         }]
                 }
             })
