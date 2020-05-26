@@ -26,7 +26,8 @@ module.exports = class {
                     kick: 5,
                     ban : 8,
                 }
-            }
+            },
+            warns:[]
         });
 
 

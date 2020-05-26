@@ -21,6 +21,15 @@ const HELPER = {
                 permission: 'READ_MESSAGES',
                 category:'Owner'
             },
+            TEST:{
+                name:'test',
+                description:'Commande de test',
+                usage:`test `,
+                coolDown: 2000,
+                aliases:[],
+                permission: 'READ_MESSAGES',
+                category:'Owner'
+            }
         },
         INFO:{
             HELP:{
@@ -41,6 +50,17 @@ const HELPER = {
                 permission: 'READ_MESSAGES',
                 category:'Information'
             }
+        },
+        MOD:{
+          WARN:{
+              name:'warn',
+              description:'Averti un utilisateur',
+              usage:'warn [user] <raison>',
+              coolDown:2000,
+              aliases:['w'],
+              permission: 'BAN_MEMBERS',
+              category:'Modération'
+          }
         }
     }
 }
