@@ -48,7 +48,7 @@ class StructureBot extends Client{
                             this.logger.info(`${com} chargé`)
 
                         }catch (e) {
-                            this.emit('error',e)
+                            this.emit('error',`${com} n'a pas chargé ${e.message}`)
                         }
                     })
 
