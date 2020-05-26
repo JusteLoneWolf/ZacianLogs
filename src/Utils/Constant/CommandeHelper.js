@@ -31,6 +31,15 @@ const HELPER = {
                 aliases:['h'],
                 permission: 'READ_MESSAGES',
                 category:'Information'
+            },
+            INFO:{
+                name:'stats',
+                description:'Stats les bot',
+                usage:'stats',
+                coolDown:2000,
+                aliases:['info'],
+                permission: 'READ_MESSAGES',
+                category:'Information'
             }
         }
     }
