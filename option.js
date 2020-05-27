@@ -1,8 +1,8 @@
-require('dotenv').config();
+require("dotenv").config();
 
 module.exports = {
     config:{
-        prefix : '!',
+        prefix : "!",
         token: process.env.TOKEN,
         owner: []
     },
@@ -18,7 +18,7 @@ module.exports = {
         oauthSecret: process.env.SECRET,
         callbackURL:"http//localhost:3030/callback",
         sSecret:process.env.SSECRET,
-        domain:'localhost',
+        domain:"localhost",
         port:3030
     }
 };

@@ -1,17 +1,17 @@
-const chalk = require('chalk'),
-     moment = require('moment');
-require('moment-duration-format');
+const chalk = require("chalk"),
+     moment = require("moment");
+require("moment-duration-format");
 
 class Logger{
     constructor(client){
         this.client = client
     }
     info(content){
-        return console.log(`[${moment.utc(Date.now()).format('HH:mm:ss')}] ${chalk.bgBlack.green(content)}`)
+        return console.log(`[${moment.utc(Date.now()).format("HH:mm:ss")}] ${chalk.bgBlack.green(content)}`)
     }
 
     error(content){
-        return console.error(`[${moment.utc(Date.now()).format('HH:mm:ss')}] ${chalk.bgBlack.red(content)}`)
+        return console.error(`[${moment.utc(Date.now()).format("HH:mm:ss")}] ${chalk.bgBlack.red(content)}`)
     }
 }
 

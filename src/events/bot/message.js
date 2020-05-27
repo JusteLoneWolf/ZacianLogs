@@ -1,4 +1,4 @@
-const AntiInsulte = require('../../modules/antiInsulte')
+const AntiInsulte = require("../../modules/antiInsulte")
 
 module.exports = class {
     constructor(client) {
@@ -17,7 +17,7 @@ module.exports = class {
                 ignore_members:[],
             },
             channels:{
-              logs:''
+              logs:""
             },
             settings:{
                 punishment:{

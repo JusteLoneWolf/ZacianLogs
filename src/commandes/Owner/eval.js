@@ -1,5 +1,5 @@
-const Command = require('../../Base/Command');
-const {HELPER } = require('../../Utils/Constant/CommandeHelper');
+const Command = require("../../Base/Command");
+const {HELPER } = require("../../Utils/Constant/CommandeHelper");
 
 class Eval extends Command{
     constructor(client){
@@ -9,13 +9,13 @@ class Eval extends Command{
     async run(message,args){
         const initialTime = process.hrtime();
         try {
-            let code = args.join(' ');
+            let code = args.join(" ");
             console.log(code)
             let evaled = eval(code);
-            if (typeof evaled !== 'string')
-                evaled = require('util').inspect(evaled);
+            if (typeof evaled !== "string")
+                evaled = require("util").inspect(evaled);
             if(evaled.includes(this.client.config.token)){
-                evaled = evaled.replace(this.client.config.token,'TOKEN')
+                evaled = evaled.replace(this.client.config.token,"TOKEN")
             }
             if(evaled .length > 2000) {
                 evaled  = evaled.substr(0, 1980);
@@ -31,11 +31,11 @@ class Eval extends Command{
             await message.channel.send({
                 embed:{
                     fields:[{
-                        name:'Code',
+                        name:"Code",
                         value:`\`\`\`js\n ${code} \`\`\``
                     },
                         {
-                            name:'Resultat',
+                            name:"Resultat",
                             value:`\`\`\`js\n ${evaled} \`\`\``
                         }],
                     footer:{

@@ -3,18 +3,18 @@ module.exports = class {
         this.client = client;
     }
     async run(member){
-        let db = this.client.guildDB.get(member.guild.id,'channels.logs');
-            const botPerms = member.guild.me.permissions.has(['SEND_MESSAGES', 'VIEW_AUDIT_LOG', 'EMBED_LINKS'], true);
+        let db = this.client.guildDB.get(member.guild.id,"channels.logs");
+            const botPerms = member.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS"], true);
            if (botPerms) {
                 const logChannel = member.guild.channels.cache.find(channel => channel.id === db);
                 if(!logChannel) return;
                 const tempTimestamp = Date.now();
 
                 const aLogFound = await member.guild.fetchAuditLogs({
-                    type: 'MEMBER_KICK',
+                    type: "MEMBER_KICK",
                     limit: 1
                 }).then(aLog => aLog.entries.first()).catch((err) =>{
-                    this.client.emit('error',err)
+                    this.client.emit("error",err)
                 });
 
                 if (aLogFound) {
@@ -25,9 +25,9 @@ module.exports = class {
                         if (uTarget.id !== member.id && logChannel) {
                             return logChannel.send({
                                 embed: {
-                                    title:'Un membre est parti',
+                                    title:"Un membre est parti",
                                     fields:[{
-                                        name:'Utilisateur',
+                                        name:"Utilisateur",
                                         value:member.user.username
                                     }]
                                 }
@@ -35,21 +35,21 @@ module.exports = class {
                         } else if (uTarget.id === member.id) {
 
                             const executor = await member.guild.fetchAuditLogs({
-                                type: 'MEMBER_KICK',
+                                type: "MEMBER_KICK",
                                 limit: 1
                             }).then(aLog => aLog.entries.first().executor).then(user => user.username).catch((err) =>{
-                                this.client.emit('error',err)
+                                this.client.emit("error",err)
                             });
                            return logChannel.send({
                                 embed: {
-                                    title:'Un membre est parti',
+                                    title:"Un membre est parti",
                                     fields:[
                                         {
-                                            name:'❱ Utilisateur Kick',
+                                            name:"Utilisateur Kick",
                                             value:member.user.username
                                         },
                                         {
-                                            name:'❱ Moderateur',
+                                            name:"Moderateur",
                                             value: executor
                                         },
                                     ]
@@ -59,9 +59,9 @@ module.exports = class {
                     } else{
                          return logChannel.send({
                             embed: {
-                                title:'Un membre est parti',
+                                title:"Un membre est parti",
                                 fields:[{
-                                    name:'Utilisateur',
+                                    name:"Utilisateur",
                                     value:member.user.username
                                 }]
                             }
@@ -70,9 +70,9 @@ module.exports = class {
                 } else {
                         return logChannel.send({
                             embed: {
-                                title:'Un membre est parti',
+                                title:"Un membre est parti",
                                 fields:[{
-                                    name:'Utilisateur',
+                                    name:"Utilisateur",
                                     value:member.user.username
                                 }]
                             }

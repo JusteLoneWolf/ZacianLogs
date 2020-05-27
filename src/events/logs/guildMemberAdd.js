@@ -21,23 +21,23 @@ module.exports = class {
 
             logChannel.send({
                 embed: {
-                    title: 'Un membre est arrivé',
+                    title: "Un membre est arrivé",
                     fields:[
                         {
-                            name: '❱ Membres',
+                            name: "Membres",
                             value: member.user.username
                         },
                         {
-                            name:'❱ Invitation',
-                            value: invite? `\`${invite.code}\` par **${inviter.user.username}** avec **${invite.uses}** utilisations` : 'Invitation non trouvé'
+                            name:"Invitation",
+                            value: invite? `\`${invite.code}\` par **${inviter.user.username}** avec **${invite.uses}** utilisations` : "Invitation non trouvé"
                         }
                         ]
                 }
             }).catch((err)=>{
-                this.client.emit('error',err)
+                this.client.emit("error",err)
             })
         }).catch((err)=>{
-            this.client.emit('error',err)
+            this.client.emit("error",err)
         })
     }
 };

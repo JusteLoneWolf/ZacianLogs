@@ -4,7 +4,7 @@ class Utils {
     }
 
     parseMessage(content){
-       return content.replace(/@(everyone|here)/g, '@\u200b$1').replace(/\u202e/g, '')
+       return content.replace(/@(everyone|here)/g, "@\u200b$1").replace(/\u202e/g, "")
     }
 
     async fetchInvite(guild,db){
@@ -18,20 +18,20 @@ class Utils {
 
     resolveUser(message,member, permission){
         if(!message.member.permissions.has(permission,true)){
-            message.channel.send(`Tu n\'as pas la permission d\'éxecute la commande (${permission})`)
+            message.channel.send(`Tu n\"as pas la permission d\"éxecute la commande (${permission})`)
             return false
         }
 
         if(!member) {
-            message.channel.send('Tu doit mentionné un utilisateur')
+            message.channel.send("Tu doit mentionné un utilisateur")
             return false
         }
         if(member.id === message.author.id){
-            message.channel.send('Tu ne peux pas faire ça sur toi même')
+            message.channel.send("Tu ne peux pas faire ça sur toi même")
             return false
         }
         if(member.id === message.guild.ownerID){
-            message.channel.send('Tu ne peux pas faire ça sur toi même')
+            message.channel.send("Tu ne peux pas faire ça sur toi même")
             return false
         }
 
@@ -39,7 +39,7 @@ class Utils {
 
         if(message.author.id !== message.guild.ownerID){
             if(member.role.highest >= message.guild.member(message.member).role.highest){
-                message.channel.send('Le member mentionné a un role plus haut que toi')
+                message.channel.send("Le member mentionné a un role plus haut que toi")
                 return false
             }
         }
