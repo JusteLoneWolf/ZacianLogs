@@ -60,7 +60,24 @@ const HELPER = {
               aliases:['w'],
               permission: 'BAN_MEMBERS',
               category:'Modération'
-          }
+          },
+            KICK:{
+                name:'kick',
+                description:'Kick un utilisateur',
+                usage:'kick [user] <raison>',
+                coolDown:2000, aliases:['k'],
+                permission: 'KICK_MEMBERS',
+                category:'Modération'
+            },
+            BAN:{
+                name:'ban',
+                description:'Ban un utilisateur',
+                usage:'ban [user] <raison>',
+                coolDown:2000,
+                aliases:['k'],
+                permission: 'BAN_MEMBERS',
+                category:'Modération'
+            }
         }
     }
 }
