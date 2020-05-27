@@ -9,7 +9,7 @@ class Kick extends Command{
     async run(message,args){
         let member = message.mentions.members.first()
         const reason = args.slice(1).join(' ') || 'Aucune raison'
-        if(!this.client.utils.resolveUser(message, member)) return;
+        if(!this.client.utils.resolveUser(message, member, HELPER.COMMANDS.MOD.KICK.permission)) return;
 
         member = message.guild.member(member)
 

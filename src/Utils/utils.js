@@ -16,7 +16,12 @@ class Utils {
         })
     }
 
-    resolveUser(message,member){
+    resolveUser(message,member, permission){
+        if(!message.member.permissions.has(permission,true)){
+            message.channel.send(`Tu n\'as pas la permission d\'éxecute la commande (${permission})`)
+            return false
+        }
+
         if(!member) {
             message.channel.send('Tu doit mentionné un utilisateur')
             return false
