@@ -77,6 +77,15 @@ const HELPER = {
                 aliases:["k"],
                 permission: "BAN_MEMBERS",
                 category:"Modération"
+            },
+            MUTE:{
+                name:"mute",
+                description:"Mute un utilisateur",
+                usage:"mute [user] <raison>",
+                coolDown:2000,
+                aliases:["k"],
+                permission: "MANAGE_MEMBERS",
+                category:"Modération"
             }
         }
     }

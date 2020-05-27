@@ -1,4 +1,5 @@
 const AntiInsulte = require("../../modules/antiInsulte")
+const {Collection} = require("discord.js")
 
 module.exports = class {
     constructor(client) {
@@ -25,9 +26,13 @@ module.exports = class {
                     mute: 3,
                     kick: 5,
                     ban : 8,
+                },
+                roles:{
+                  mute:""
                 }
             },
-            warns:[]
+            warns: [],
+            members: []
         });
 
 
