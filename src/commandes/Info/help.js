@@ -9,11 +9,12 @@ class Help extends Command{
    async run(message,args){
         if(!args[0]){
             const categorie = [];
-            await this.client.commands.forEach(async (c) => {
-                if (!categorie.includes(c.help.category)) {
-                    categorie.push(c.help.category);
+
+                for(const c of this.client.commands.array()){
+                    if (!categorie.includes(c.help.category)) {
+                        categorie.push(c.help.category);
+                    }
                 }
-            });
             await message.channel.send({
                 embed: {
                     title: this.client.user.username,

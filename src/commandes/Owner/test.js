@@ -6,14 +6,13 @@ class Test extends Command{
     }
 
     run(message){
-        let test = {caca:[]}
+    let test = require('../../../index.js')
 
-        test.caca[message.guild.id]= []
-        test.caca[message.guild.id][test.caca[message.guild.id].length] ={ bite : 'lol'}
+    test('Crave rave',1).then((res)=>{
+        console.log(res.length)
+   })
 
-        test.caca[message.guild.id][test.caca[message.guild.id].length] ={ bite : 'loli'}
 
-        console.log(test)
     }
 }
 

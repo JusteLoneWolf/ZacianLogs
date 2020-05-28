@@ -39,6 +39,7 @@ const HELPER = {
                 coolDown: 5000,
                 aliases:["h"],
                 permission: "READ_MESSAGES",
+                allowDMs: true,
                 category:"Information"
             },
             INFO:{
