@@ -22,11 +22,24 @@ class Eval extends Command{
             }
 
             const evalDiff = process.hrtime(initialTime);
-            await message.channel.send('```js\n' + evaled + '```');
-            message.channel.send(evalDiff[0] > 0 ? `${evalDiff[0]}s ${evalDiff[1] / 1000000}ms` : `${evalDiff[1] / 100000}ms`)
-
+            await message.channel.send({
+                embed:{
+                    fields:[
+                        {
+                        name:"Code",
+                        value:`\`\`\`js\n ${code} \`\`\``
+                        },
+                        {
+                            name:"Resultat",
+                            value:`\`\`\`js\n ${evaled} \`\`\``
+                        }],
+                    footer:{
+                        text:evalDiff[0] > 0 ? `${evalDiff[0]}s ${evalDiff[1] / 1000000}ms` : `${evalDiff[1] / 100000}ms`
+                    }
+                }
+            })
         } catch (err) {
-            console.log(err)
+            this.client.emit("error",err)
         }
     }
 }
