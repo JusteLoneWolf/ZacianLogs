@@ -9,7 +9,7 @@ module.exports = class {
 
         if(!db.members[member.id]){
             if(!db.members[member.id].mute){
-                let role = member.guild.roles.cache.find(r=> r.name === 'Mute' || r.id === db.roles.mute)
+                let role = member.guild.roles.cache.find(r=> r.name === 'Mute' || r.id === db.settings.roles.mute)
                 if(!role) {
                     member.guild.role.create({
                         name: "Muted",
@@ -17,26 +17,24 @@ module.exports = class {
                     }).then((roleCreate) => {
                         role = roleCreate
                     })
-                    db.roles.mute = role.id
-                    this.client.guildDB.set(member.guild.id, db)
                 }
                 let channels = member.guild.channels.cache.array()
                 for (const channel of channels) {
-                    await channel.overwritePermissions(role, {
-                        SEND_MESSAGES: false,
-                        ADD_REACTIONS: false
-                    })
+                    await channel.overwritePermissions([
+                        {
+                            id:role.id,
+                            deny:["SEND_MESSAGES","ADD_REACTIONS"]
+                        }
+                    ])
                 }
                 let toMute = member.guild.member(member)
                 toMute.roles.add(role).then(()=>{
+                    db.settings.roles.mute = role.id
                     db.members[member.id] ={}
                     db.members[member.id].mute = true
                     this.client.guildDB.set(member.guild.id,db)
                 })
-
-
             }
-
         }
         const logChannel = member.guild.channels.cache.find(channel => channel.id === db.channels.logs);
         if (!logChannel) return;

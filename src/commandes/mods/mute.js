@@ -12,7 +12,8 @@ class Mute extends Command {
         let member = message.mentions.members.first()
         if (!this.client.utils.resolveUser(message, member, HELPER.COMMANDS.MOD.MUTE.permission)) return
         let channels = message.guild.channels.cache.array()
-        let role = message.guild.roles.cache.find(r=> r.name === 'Mute' || r.id === db.roles.mute)
+        let role = message.guild.roles.cache.find(r=> r.name === 'Mute' || r.id === db.settings.roles.mute)
+        let reason = args.slice(1).join(" ") || "Aucune raison donnée"
 
         if(!role) {
             message.guild.role.create({
@@ -21,20 +22,21 @@ class Mute extends Command {
             }).then((roleCreate) => {
                 role = roleCreate
             })
-            db.roles.mute = role.id
-            this.client.guildDB.set(message.guild.id, db)
         }
 
         for (const channel of channels) {
-            await channel.overwritePermissions(role, {
-                SEND_MESSAGES: false,
-                ADD_REACTIONS: false
-            })
+            await channel.overwritePermissions([
+                {
+                    id:role.id,
+                    deny:["SEND_MESSAGES","ADD_REACTIONS"]
+                }
+            ],reason)
         }
         member = message.guild.member(member)
         member.roles.add(role).then(()=>{
-            message.channels.send(`${member.user.username} a était mute par ${message.author.username}`)
+            message.channel.send(`${member.user.username} a était mute par ${message.author.username}`)
             db.members[member.id] ={}
+            db.settings.roles.mute = role.id
             db.members[member.id].mute = true
             this.client.guildDB.set(message.guild.id,db)
         })

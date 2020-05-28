@@ -30,8 +30,9 @@ class Utils {
             message.channel.send("Tu ne peux pas faire ça sur toi même")
             return false
         }
+
         if(member.id === message.guild.ownerID){
-            message.channel.send("Tu ne peux pas faire ça sur toi même")
+            message.channel.send("Tu ne peux pas faire ca sur l'owner")
             return false
         }
 
