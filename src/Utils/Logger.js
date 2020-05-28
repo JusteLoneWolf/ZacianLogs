@@ -1,5 +1,6 @@
 const chalk = require("chalk"),
-     moment = require("moment");
+     moment = require("moment"),
+{error} = require('../Utils/CustomError');
 require("moment-duration-format");
 
 class Logger{
@@ -11,7 +12,7 @@ class Logger{
     }
 
     error(content){
-        return console.error(`[${moment.utc(Date.now()).format("HH:mm:ss")}] ${chalk.bgBlack.red(content)}`)
+        return error(`[${moment.utc(Date.now()).format("HH:mm:ss")}] ${chalk.bgBlack.red(content)}`)
     }
 }
 
