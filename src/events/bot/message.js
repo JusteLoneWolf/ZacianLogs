@@ -7,6 +7,7 @@ module.exports = class {
     }
 
     run(message) {
+        if (message.channel.type === "dm") return this.client.emit("DirectMessage", message);
         this.client.guildDB.ensure(message.guild.id, {
             prefix: this.client.config.prefix,
             badwords:{
