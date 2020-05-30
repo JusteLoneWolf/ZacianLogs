@@ -34,7 +34,7 @@ const HELPER = {
         INFO:{
             HELP:{
                 name:"help",
-                description:"Envoi la page d\"aide",
+                description:"Envoi la page d\'aide",
                 usage:`help`,
                 coolDown: 5000,
                 aliases:["h"],
