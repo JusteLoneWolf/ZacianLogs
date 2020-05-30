@@ -12,7 +12,7 @@ class Logger{
     }
 
     error(content){
-        return error(`[${moment.utc(Date.now()).format("HH:mm:ss")}] ${chalk.bgBlack.red(content)}`)
+        return console.error(`[${moment.utc(Date.now()).format("HH:mm:ss")}] ${chalk.bgBlack.red(content)}`)
     }
 }
 

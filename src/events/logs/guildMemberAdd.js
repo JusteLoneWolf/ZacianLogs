@@ -51,7 +51,8 @@ module.exports = class {
 
             logChannel.send({
                 embed: {
-                    title: "Un membre est arrivé",
+                    title:"Bienvenue Logs",
+                    description:"Un membre arrive",
                     fields:[
                         {
                             name: "Membres",

@@ -18,8 +18,9 @@ module.exports = (client, oldMember,newMember) =>{
         client.emit('guildMemberUnboost', newMember);
     }
 
-    for(const role in addedRoles){
-        client.emit('guildMemberRoleAdd', oldMember, role);
+    for(const role of addedRoles){
+        console.log(role)
+        client.emit('guildMemberRoleAdd', newMember, role);
     }
 
     for(const role in removedRoles){

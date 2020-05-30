@@ -42,7 +42,8 @@ module.exports = class {
                             });
                            return logChannel.send({
                                 embed: {
-                                    title:"Un membre est parti",
+                                    title:"Aurevoir Logs",
+                                    description:"Un membre est parti",
                                     fields:[
                                         {
                                             name:"Utilisateur Kick",
@@ -59,7 +60,8 @@ module.exports = class {
                     } else{
                          return logChannel.send({
                             embed: {
-                                title:"Un membre est parti",
+                                title:"Aurevoir Logs",
+                                description:"Un membre est parti",
                                 fields:[{
                                     name:"Utilisateur",
                                     value:member.user.username
@@ -70,7 +72,8 @@ module.exports = class {
                 } else {
                         return logChannel.send({
                             embed: {
-                                title:"Un membre est parti",
+                                title:"Aurevoir Logs",
+                                description:"Un membre est parti",
                                 fields:[{
                                     name:"Utilisateur",
                                     value:member.user.username

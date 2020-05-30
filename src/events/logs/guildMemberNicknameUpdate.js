@@ -11,7 +11,7 @@ module.exports = class {
 
         channel.send({
             embed:{
-                title:"Boost Logs",
+                title:"Nouveau pseudo",
                 description:"Un membre de change de pseudo",
                 color :0xF5AD2E,
                 fields:[
@@ -22,6 +22,10 @@ module.exports = class {
                     {
                         name:'Nouveau pseudo',
                         value:newMember.nickname === null ? newMember.user.username : newMember.nickname
+                    },
+                    {
+                        name: 'Utilisateur',
+                        value: newMember.user.username
                     }
                 ]
             }
