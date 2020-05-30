@@ -5,6 +5,6 @@ module.exports = class {
         this.client = client;
     }
     run(oldMember,newMember){
-        this.client.logger.info(`[SHARD] Shard ${id} disconnect`)
+       require('../../Utils/Logs/handlerMemberUpdate')(this.client,oldMember,newMember)
     }
 }
