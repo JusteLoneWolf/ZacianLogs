@@ -8,7 +8,7 @@ module.exports = class {
 
         if(!channel )return
 
-        message.channel.send({
+        channel.send({
             embed:{
                 title:"Anti Insulte Logs",
                 description:"Message supprimer",
