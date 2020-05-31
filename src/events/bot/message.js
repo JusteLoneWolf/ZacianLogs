@@ -1,5 +1,4 @@
 const AntiInsulte = require("../../modules/antiInsulte")
-const {Collection} = require("discord.js")
 
 module.exports = class {
     constructor(client) {
@@ -8,6 +7,7 @@ module.exports = class {
 
     run(message) {
         if (message.channel.type === "dm") return this.client.emit("DirectMessage", message);
+        //require('')
         this.client.guildDB.ensure(message.guild.id, {
             prefix: this.client.config.prefix,
             badwords:{

@@ -11,7 +11,7 @@ module.exports = class {
 
         channel.send({
             embed:{
-                title:"Nouveau pseudo",
+                title:"Membre Logs",
                 description:"Un membre de change de pseudo",
                 color :0xF5AD2E,
                 fields:[

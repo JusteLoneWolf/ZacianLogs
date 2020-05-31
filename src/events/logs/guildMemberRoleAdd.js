@@ -25,7 +25,7 @@ module.exports = class {
                     },
                     {
                         name:'Roles actuelle',
-                        value: newMember.roles.cache.filter(r => r.name !== "everyone").map(roles => roles.name).join(", ")
+                        value: newMember.roles.cache.filter(r => r.name !== "@everyone").map(roles => roles.name).join(", ")
                     }
                 ]
             }
