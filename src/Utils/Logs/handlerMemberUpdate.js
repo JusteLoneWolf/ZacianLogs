@@ -1,6 +1,4 @@
 module.exports = (client, oldMember,newMember) =>{
-    let listed = false
-
     if (!oldMember.premiumSince && newMember.premiumSince) {
         client.emit('guildMemberBoost', newMember);
     }
@@ -9,20 +7,16 @@ module.exports = (client, oldMember,newMember) =>{
         client.emit('guildMemberUnboost', newMember);
     }
 
-    for(const role of getAddedRole()){
-        console.log(role)
+    for(let role of getAddedRole()){
         client.emit('guildMemberRoleAdd', newMember, role);
-        listed = true
     }
 
-    for(const role in getRemoveRole()){
+    for(let role in getRemoveRole()){
         client.emit('guildMemberRoleRemove', newMember, role);
-        listed = true
     }
 
     if (oldMember.nickname !== newMember.nickname) {
         client.emit('guildMemberNicknameUpdate',oldMember, newMember);
-        listed = true
     }
 
     function getAddedRole(){
@@ -39,10 +33,4 @@ module.exports = (client, oldMember,newMember) =>{
         });
         return removedRoles
     }
-    if(listed){
-        client.emit('unhandledGuildMemberUpdate', oldMember, newMember);
-    }
-
-
-
 }
