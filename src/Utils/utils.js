@@ -8,6 +8,7 @@ class Utils {
     }
 
     async fetchInvite(guild,db){
+
         let database = db.get(guild.id)
         await guild.fetchInvites().then(invite=>{
                 database.invites ={}
