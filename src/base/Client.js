@@ -38,7 +38,6 @@ class StructureBot extends Client {
     }
 
     commandLoader() {
-        console.log(this.options)
         readdir("./src/commandes/", (err, files) => {
             if (err) this.emit("error", err);
             for (const dir of files) {
