@@ -4,11 +4,12 @@ const {Client, Collection} = require("discord.js"),
     Logger = require("../Utils/logger"),
     option = require("../../option"),
     Utils = require("../Utils/utils");
+options = 'e'
 
 class StructureBot extends Client {
 
     constructor(options) {
-        super(options.clientOptions || {});
+        super(options);
         this.commands = new Collection();
         this.aliases = new Collection();
         this.option = require("../../option");
@@ -32,10 +33,12 @@ class StructureBot extends Client {
     }
 
     login(token) {
+
         super.login(token)
     }
 
     commandLoader() {
+        console.log(this.options)
         readdir("./src/commandes/", (err, files) => {
             if (err) this.emit("error", err);
             for (const dir of files) {

@@ -7,7 +7,8 @@ module.exports = {
         owner: []
     },
     clientOption:{
-        disableEveryone: true,
+        ws:{intents:["GUILD_MEMBERS"]},
+        disableEveryone: false,
         fetchAllMembers: false,
         messageCacheMaxSize: 20,
         messageCacheLifetime: 120,

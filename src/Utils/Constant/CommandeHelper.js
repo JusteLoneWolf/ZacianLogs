@@ -9,6 +9,15 @@ const HELPER = {
                 aliases:["pong","p"],
                 permission: "READ_MESSAGES",
                 category:"Générique"
+            },
+            SAY:{
+                name:"say",
+                description:"Envoi le ping du bot",
+                usage:`say`,
+                coolDown: 5000,
+                aliases:["say"],
+                permission: "READ_MESSAGES",
+                category:"Générique"
             }
         },
         OWNER:{
@@ -97,7 +106,19 @@ const HELPER = {
                 permission: "MANAGE_MEMBERS",
                 category:"Modération"
             }
+        },
+        ADMIN:{
+            CONFIGURATION:{
+                name:"configuration",
+                description:"Configure le bot",
+                usage:"configuration <set> <logs> [channel/mention channel]",
+                coolDown:2000,
+                aliases:["conf","config"],
+                permission: "MANAGE_GUILD",
+                category:"Admin"
+            }
         }
+
     }
 }
 
