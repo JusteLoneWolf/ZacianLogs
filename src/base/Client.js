@@ -24,20 +24,20 @@ class StructureBot extends Client {
         this.config = option.config || {}
     }
 
-    init(token) {
+    init() {
         this.initDatabase();
         this.commandLoader();
         this.eventLoader();
-        this.login(token);
+        this.login();
         return true
     }
 
-    login(token) {
-
-        super.login(token)
+    login() {
+        super.login(this.option.config.token)
     }
 
     commandLoader() {
+        console.log(this.options)
         readdir("./src/commandes/", (err, files) => {
             if (err) this.emit("error", err);
             for (const dir of files) {
