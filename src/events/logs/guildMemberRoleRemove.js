@@ -8,7 +8,6 @@ module.exports = class {
         let channel = newMember.guild.channels.cache.get(this.client.guildDB.get(newMember.guild.id,"channels.logs"))
 
         if(!channel )return
-
         channel.send({
             embed:{
                 title:"Role Logs",
@@ -25,7 +24,7 @@ module.exports = class {
                     },
                     {
                         name:'Roles actuelle',
-                        value: newMember.roles.cache.filter(r => r.name !== "@everyone").map(roles => roles.name).join(", ")
+                        value: newMember.roles.cache.filter(r => r.name !== "@everyone").size  > 0 ? newMember.roles.cache.filter(r => r.name !== "@everyone").map(roles => roles.name).join(", ") : "Aucun role"
                     }
                 ]
             }

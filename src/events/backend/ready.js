@@ -19,7 +19,6 @@ module.exports = class {
                 console.log(`Toutes les invitation get ${guild[selector]}`)
                 selector++
             })
-
         }
         this.client.logger.info(`${this.client.user.username} pret`)
 

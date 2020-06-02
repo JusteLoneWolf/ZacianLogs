@@ -11,8 +11,8 @@ module.exports = (client, oldMember,newMember) =>{
         client.emit('guildMemberRoleAdd', newMember, role);
     }
 
-    for(let role in getRemoveRole()){
-        client.emit('guildMemberRoleRemove', newMember, role);
+    for(let roleRemove of getRemoveRole()){
+        client.emit('guildMemberRoleRemove', newMember, roleRemove);
     }
 
     if (oldMember.nickname !== newMember.nickname) {
@@ -32,5 +32,6 @@ module.exports = (client, oldMember,newMember) =>{
             if (!newMember.roles.cache.has(role.id)) removedRoles.push(role);
         });
         return removedRoles
+
     }
 }

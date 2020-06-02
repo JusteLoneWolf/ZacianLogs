@@ -10,9 +10,9 @@ module.exports = class {
         //require('')
         this.client.guildDB.ensure(message.guild.id, {
             prefix: this.client.config.prefix,
+            id : message.guild.id,
             badwords:{
                 active: false,
-                custom_words:false,
                 list:[],
                 ignore_role:[],
                 ignore_channel:[],
@@ -37,8 +37,8 @@ module.exports = class {
         });
 
 
-        const insulte = new AntiInsulte(this.client);
-        insulte.run(message);
+        //const insulte = new AntiInsulte(this.client);
+        //insulte.run(message);
         if (message.author.bot || !message.content.startsWith(this.client.guildDB.get(message.guild.id, "prefix"))) return;
 
         const args = message.content.split(' ').slice(1);
