@@ -4,7 +4,6 @@ const {Client, Collection} = require("discord.js"),
     Logger = require("../Utils/logger"),
     option = require("../../option"),
     Utils = require("../Utils/utils");
-options = 'e'
 
 class StructureBot extends Client {
 
@@ -37,7 +36,6 @@ class StructureBot extends Client {
     }
 
     commandLoader() {
-        console.log(this.options)
         readdir("./src/commandes/", (err, files) => {
             if (err) this.emit("error", err);
             for (const dir of files) {
