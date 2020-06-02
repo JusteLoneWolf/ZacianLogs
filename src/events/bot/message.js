@@ -37,8 +37,8 @@ module.exports = class {
         });
 
 
-        //const insulte = new AntiInsulte(this.client);
-        //insulte.run(message);
+        const insulte = new AntiInsulte(this.client);
+        insulte.run(message);
         if (message.author.bot || !message.content.startsWith(this.client.guildDB.get(message.guild.id, "prefix"))) return;
 
         const args = message.content.split(' ').slice(1);
