@@ -3,7 +3,7 @@ module.exports = class {
         this.client = client;
     }
     run(id){
-        if(!this.client.shard) return
+        if(!this.client.shard) return;
         this.client.logger.info(`[SHARD] Shard ${id} resume`)
     }
-}
+};

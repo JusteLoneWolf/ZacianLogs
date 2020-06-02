@@ -18,12 +18,12 @@ class AntiInsulte {
 
 
         if (db.badwords.list) {
-            let msg = message.content.split(" ")
+            let msg = message.content.split(" ");
 
             for (let word = 0; word < db.badwords.list.length; word++) {
                 if (db.badwords.list.includes(msg[word])) {
                     message.delete().then(() => {
-                        let data = msg[word]
+                        let data = msg[word];
                         return message.channel.send("This message is in badwords").then(() => {
                             this.client.emit("InsulteLogs", message, data)
                         })

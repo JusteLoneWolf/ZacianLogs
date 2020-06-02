@@ -7,4 +7,4 @@ module.exports = class {
     run(oldMember,newMember){
        require('../../Utils/Logs/handlerMemberUpdate')(this.client,oldMember,newMember)
     }
-}
+};

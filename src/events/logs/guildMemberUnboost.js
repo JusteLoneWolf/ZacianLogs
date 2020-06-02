@@ -4,9 +4,9 @@ module.exports = class {
     }
 
     async run(member) {
-        let channel = member.guild.channels.cache.get(this.client.guildDB.get(member.guild.id,"channels.logs"))
+        let channel = member.guild.channels.cache.get(this.client.guildDB.get(member.guild.id,"channels.logs"));
 
-        if(!channel )return
+        if(!channel )return;
 
         channel.send({
             embed:{
@@ -15,7 +15,7 @@ module.exports = class {
                 color :0xF5AD2E,
                 fields:[
                     {
-                        name:" Utilisateur",
+                        name:"❱ Utilisateur",
                         value : member.user.username
                     },
                 ]
@@ -23,4 +23,4 @@ module.exports = class {
         })
 
     }
-}
+};

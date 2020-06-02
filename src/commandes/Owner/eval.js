@@ -18,7 +18,7 @@ class Eval extends Command{
             }
             if(evaled .length > 2000) {
                 evaled  = evaled.substr(0, 1980);
-                evaled = evaled + "\nTrop long..";
+                evaled += "\nTrop long..";
             }
 
             const evalDiff = process.hrtime(initialTime);

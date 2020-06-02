@@ -5,9 +5,9 @@ module.exports = class {
         this.client = client;
     }
     run(oldGuild,newGuild){
-        let channel = newGuild.channels.cache.get(this.client.guildDB.get(newGuild.id,"channels.logs"))
+        let channel = newGuild.channels.cache.get(this.client.guildDB.get(newGuild.id,"channels.logs"));
 
-        if(!channel )return
+        if(!channel )return;
 
         channel.send({
             embed:{
@@ -16,11 +16,11 @@ module.exports = class {
                 color :0xF5AD2E,
                 fields:[
                     {
-                        name:" Ancien Niveau",
+                        name:"❱ Ancien Niveau",
                         value : oldGuild.premiumTier
                     },
                     {
-                        name:"Nouveau Niveau",
+                        name:"❱ Nouveau Niveau",
                         value : newGuild.premiumTier
                     }
 
@@ -28,4 +28,4 @@ module.exports = class {
             }
         })
     }
-}
+};

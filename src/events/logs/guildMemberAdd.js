@@ -9,7 +9,7 @@ module.exports = class {
 
         if(!db.members[member.id]){
             if(!db.members[member.id].mute){
-                let role = member.guild.roles.cache.find(r=> r.name === 'Mute' || r.id === db.settings.roles.mute)
+                let role = member.guild.roles.cache.find(r=> r.name === 'Mute' || r.id === db.settings.roles.mute);
                 if(!role) {
                     member.guild.role.create({
                         name: "Muted",
@@ -18,7 +18,7 @@ module.exports = class {
                         role = roleCreate
                     })
                 }
-                let channels = member.guild.channels.cache.array()
+                let channels = member.guild.channels.cache.array();
                 for (const channel of channels) {
                     await channel.overwritePermissions([
                         {
@@ -27,11 +27,11 @@ module.exports = class {
                         }
                     ])
                 }
-                let toMute = member.guild.member(member)
+                let toMute = member.guild.member(member);
                 toMute.roles.add(role).then(()=>{
-                    db.settings.roles.mute = role.id
-                    db.members[member.id] ={}
-                    db.members[member.id].mute = true
+                    db.settings.roles.mute = role.id;
+                    db.members[member.id] ={};
+                    db.members[member.id].mute = true;
                     this.client.guildDB.set(member.guild.id,db)
                 })
             }
@@ -55,11 +55,11 @@ module.exports = class {
                     description:"Un membre arrive",
                     fields:[
                         {
-                            name: "Membres",
+                            name: "❱ Membres",
                             value: member.user.username
                         },
                         {
-                            name:"Invitation",
+                            name:"❱ Invitation",
                             value: invite? `\`${invite.code}\` par **${inviter.user.username}** avec **${invite.uses}** utilisations` : "Invitation non trouvé"
                         }
                         ]
@@ -72,5 +72,3 @@ module.exports = class {
         })
     }
 };
-
-// a fini ptdr tous est peté

@@ -1,4 +1,4 @@
-module.exports = (client, oldMember,newMember) =>{
+module.exports = (client, oldMember,newMember) => {
     if (!oldMember.premiumSince && newMember.premiumSince) {
         client.emit('guildMemberBoost', newMember);
     }
@@ -34,4 +34,4 @@ module.exports = (client, oldMember,newMember) =>{
         return removedRoles
 
     }
-}
+};

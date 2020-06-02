@@ -120,6 +120,6 @@ const HELPER = {
         }
 
     }
-}
+};
 
 module.exports.HELPER = HELPER;

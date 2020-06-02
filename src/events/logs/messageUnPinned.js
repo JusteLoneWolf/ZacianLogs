@@ -6,9 +6,9 @@ module.exports = class {
 
     async run(newMessage) {
 
-        let channel = newMessage.guild.channels.cache.get(this.client.guildDB.get(newMessage.guild.id,"channels.logs"))
+        let channel = newMessage.guild.channels.cache.get(this.client.guildDB.get(newMessage.guild.id,"channels.logs"));
 
-        if(!channel )return
+        if(!channel )return;
 
 
         channel.send({
@@ -18,11 +18,11 @@ module.exports = class {
                 color :0xF5AD2E,
                 fields:[
                     {
-                        name:" Utilisateur",
+                        name:"❱ Utilisateur",
                         value : newMessage.member.user.username
                     },
                     {
-                        name:'Message',
+                        name:"❱ Message",
                         value: newMessage.content
                     },
                 ]
@@ -30,4 +30,4 @@ module.exports = class {
         })
 
     }
-}
+};

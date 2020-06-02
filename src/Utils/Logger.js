@@ -1,6 +1,5 @@
 const chalk = require("chalk"),
-     moment = require("moment"),
-{error} = require('../Utils/CustomError');
+     moment = require("moment");
 require("moment-duration-format");
 
 class Logger{

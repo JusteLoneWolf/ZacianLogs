@@ -1,4 +1,4 @@
-const AntiInsulte = require("../../modules/antiInsulte")
+const AntiInsulte = require("../../modules/antiInsulte");
 
 module.exports = class {
     constructor(client) {
@@ -6,7 +6,6 @@ module.exports = class {
     }
 
     run(oldMessage,newMessage) {
-        return
         if (newMessage.channel.type === "dm") return this.client.emit("DirectMessage", newMessage);
 
         const insulte = new AntiInsulte(this.client);

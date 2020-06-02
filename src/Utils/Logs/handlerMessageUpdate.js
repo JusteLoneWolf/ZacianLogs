@@ -10,4 +10,4 @@ module.exports = (client, oldMessage,newMessage) =>{
     if (newMessage.pinned !== oldMessage.pinned && newMessage.pinned === true) {
         client.emit('messagePinned', newMessage);
     }
-}
+};

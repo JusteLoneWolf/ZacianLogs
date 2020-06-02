@@ -1,4 +1,4 @@
-const AntiInsulte = require("../../modules/antiInsulte")
+const AntiInsulte = require("../../modules/antiInsulte");
 
 module.exports = class {
     constructor(client) {

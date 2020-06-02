@@ -1,5 +1,5 @@
 const Command = require("../../Base/Command");
-const {HELPER } = require("../../Utils/Constant/CommandeHelper")
+const {HELPER } = require("../../Utils/Constant/CommandeHelper");
 
 class Help extends Command{
     constructor(client){

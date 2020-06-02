@@ -4,9 +4,9 @@ module.exports = class {
     }
     run(message,data){
 
-        let channel = message.guild.channels.cache.get(this.client.guildDB.get(message.guild.id,"channels.logs"))
+        let channel = message.guild.channels.cache.get(this.client.guildDB.get(message.guild.id,"channels.logs"));
 
-        if(!channel )return
+        if(!channel )return;
 
         channel.send({
             embed:{
@@ -15,19 +15,19 @@ module.exports = class {
                 color :0xF5AD2E,
                 fields:[
                     {
-                        name:" Utilisateur",
+                        name:"❱ Utilisateur",
                         value : message.author.username
                     },
                     {
-                        name:" Contenu",
+                        name:"❱ Contenu",
                         value:message.content.length > 1090 ? message.content.substr(0,10) +"..." : message.content
                     },
                     {
-                        name:" Roles",
+                        name:"❱ Roles",
                         value:message.member.roles.cache.size<0 ? message.member.roles.cache.filter(filter => filter.name !== "@everyone").map(role => `${role.name}`).join(" - ") : "Pas de roles"
                     },
                     {
-                        name:" Mauvais mot",
+                        name:"❱ Mauvais mot",
                         value: data,
                     }
                 ]

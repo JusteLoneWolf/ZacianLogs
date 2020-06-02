@@ -5,8 +5,8 @@ module.exports = class {
         this.client = client;
     }
     run(oldGuild,newGuild){
-        let channel = newGuild.channels.cache.get(this.client.guildDB.get(newGuild.id,"channels.logs"))
-        if(!channel )return
+        let channel = newGuild.channels.cache.get(this.client.guildDB.get(newGuild.id,"channels.logs"));
+        if(!channel )return;
 
         channel.send({
             embed:{
@@ -15,15 +15,15 @@ module.exports = class {
                 color :0xF5AD2E,
                 fields:[
                     {
-                        name:" Ancienne Region",
+                        name:"❱ Ancienne Region",
                         value : oldGuild.afkChannel ? oldGuild.afkChannel : "Pas de channel AFK"
                     },
                     {
-                        name:"Nouvelle Region",
+                        name:"❱ Nouvelle Region",
                         value : newGuild.afkChannel? newGuild.afkChannel : "Pas de channel AFK"
                     }
                 ]
             }
         })
     }
-}
+};

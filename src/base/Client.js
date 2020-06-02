@@ -12,9 +12,9 @@ class StructureBot extends Client {
         this.commands = new Collection();
         this.aliases = new Collection();
         this.option = require("../../option");
-        this.config = this.option.config
-        this.perms = this.option.perm
-        this.web = this.option.dashboard
+        this.config = this.option.config;
+        //this.perms = this.option.perm;
+        this.web = this.option.dashboard;
         this.logger = new Logger(this);
         this.utils = new Utils();
         this.createFolder();
@@ -32,7 +32,7 @@ class StructureBot extends Client {
     }
 
     login() {
-        super.login(this.option.config.token)
+        return super.login(this.option.config.token)
     }
 
     commandLoader() {
@@ -40,10 +40,10 @@ class StructureBot extends Client {
             if (err) this.emit("error", err);
             for (const dir of files) {
                 readdir(`./src/commandes/${dir}/`, (err, commands) => {
-                    if (err) this.emit("error", err)
+                    if (err) this.emit("error", err);
                     for (const com of commands) {
                         try {
-                            if (!com) return
+                            if (!com) return;
                             const command = new (require(`../commandes/${dir}/${com}`))(this);
                             this.commands.set(command.help.name, command);
                             command.conf.aliases.forEach(a => this.aliases.set(a, command.help.name));
@@ -63,11 +63,11 @@ class StructureBot extends Client {
     eventLoader() {
         readdir("./src/events", (err, files) => {
             if (!files) return;
-            if (err) this.emit("error", err)
+            if (err) this.emit("error", err);
             for (const dir of files) {
                 readdir(`./src/events/${dir}`, (err, file) => {
                     if (!file) return;
-                    if (err) this.emit("error", err)
+                    if (err) this.emit("error", err);
                     for (const evt of file) {
                         try {
                             if (!evt) return;
@@ -80,7 +80,7 @@ class StructureBot extends Client {
                     }
                 })
             }
-        })
+        });
         return this
     }
 

@@ -9,39 +9,39 @@ class Utils {
 
     async fetchInvite(guild,db){
 
-        let database = db.get(guild.id)
+        let database = db.get(guild.id);
         await guild.fetchInvites().then(invite=>{
-                database.invites ={}
-                database.invites[guild.id] = invite
+                database.invites ={};
+                database.invites[guild.id] = invite;
             db.set(guild.id,database)
         })
     }
 
     resolveUser(message,member, permission){
         if(!message.member.permissions.has(permission,true)){
-            message.channel.send(`Tu n\"as pas la permission d\"éxecute la commande (${permission})`)
+            message.channel.send(`Tu n\"as pas la permission d\"éxecute la commande (${permission})`);
             return false
         }
 
         if(!member) {
-            message.channel.send("Tu doit mentionné un utilisateur")
+            message.channel.send("Tu doit mentionné un utilisateur");
             return false
         }
         if(member.id === message.author.id){
-            message.channel.send("Tu ne peux pas faire ça sur toi même")
+            message.channel.send("Tu ne peux pas faire ça sur toi même");
             return false
         }
 
         if(member.id === message.guild.ownerID){
-            message.channel.send("Tu ne peux pas faire ca sur l'owner")
+            message.channel.send("Tu ne peux pas faire ca sur l'owner");
             return false
         }
 
-        member = message.guild.member(member)
+        let user = message.guild.member(member);
 
         if(message.author.id !== message.guild.ownerID){
-            if(member.role.highest >= message.guild.member(message.member).role.highest){
-                message.channel.send("Le member mentionné a un role plus haut que toi")
+            if(user.role.highest >= message.guild.member(message.member).role.highest){
+                message.channel.send("Le member mentionné a un role plus haut que toi");
                 return false
             }
         }

@@ -1,4 +1,4 @@
-const {ShardingManager} = require('discord.js')
+const {ShardingManager} = require('discord.js');
 
 const manager = new ShardingManager("./main.js",{
    token: require('./option').config.token,
@@ -9,7 +9,7 @@ const manager = new ShardingManager("./main.js",{
 
 manager.on("shardCreate",()=>{
     console.log('shard lancé')
-})
+});
 
 
-manager.spawn()
+manager.spawn();

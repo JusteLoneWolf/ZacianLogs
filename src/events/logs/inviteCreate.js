@@ -24,27 +24,27 @@ module.exports = class {
                     title: "Une invitation a etait créer",
                     fields: [
                         {
-                            name: " Code",
+                            name: "❱ Code",
                             value: aLogFound.changes[0].new
                         },
                         {
-                            name: " Par",
+                            name: "❱ Par",
                             value: aLogFound.executor.username
                         },
                         {
-                            name: " Channel",
+                            name: "❱ Channel",
                             value: aLogFound.changes[1].new
                         },
                         {
-                            name: " Utilisation maximal",
+                            name: "❱ Utilisation maximal",
                             value: aLogFound.changes[4].new
                         },
                         {
-                            name: " Expiration",
+                            name: "❱ Expiration",
                             value: aLogFound.changes[5].new === 0 ? "Infinie": aLogFound.changes[5].new+" secondes"
                         },
                         {
-                            name: " Met le status membre provisoire",
+                            name: "❱ Met le status membre provisoire",
                             value: aLogFound.changes[6].new
                         }]
                 }

@@ -7,4 +7,4 @@ module.exports = class {
     run(oldGuild,newGuild){
         require('../../Utils/Logs/handlerGuildUpdate')(this.client,oldGuild,newGuild)
     }
-}
+};

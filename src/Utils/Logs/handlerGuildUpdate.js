@@ -15,4 +15,4 @@
     if (!oldGuild.afkChannel && newGuild.afkChannel) {
         client.emit('guildAfkChannelAdd', oldGuild, newGuild);
     }
-}
+};

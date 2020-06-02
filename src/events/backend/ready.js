@@ -9,14 +9,14 @@ module.exports = class {
                     name: `${this.client.config.prefix}help `,
                     type: "LISTENING"
                 }
-            }).then(()=>console.log('Status set !'))
-        let selector = 0
+            }).then(()=>console.log('Status set !'));
+        let selector = 0;
 
         for (const guild of this.client.guilds.cache) {
-            let guildData = this.client.guilds.cache.get(guild[selector])
+            let guildData = this.client.guilds.cache.get(guild[selector]);
             if(!this.client.guildDB.get(guild[selector])) continue;
             await this.client.utils.fetchInvite(guildData,this.client.guildDB).then(()=>{
-                console.log(`Toutes les invitation get ${guild[selector]}`)
+                console.log(`Toutes les invitation get ${guild[selector]}`);
                 selector++
             })
         }

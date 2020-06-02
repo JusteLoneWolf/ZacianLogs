@@ -5,9 +5,9 @@ module.exports = class {
         this.client = client;
     }
     run(oldMember,newMember){
-        let channel = newMember.guild.channels.cache.get(this.client.guildDB.get(newMember.guild.id,"channels.logs"))
+        let channel = newMember.guild.channels.cache.get(this.client.guildDB.get(newMember.guild.id,"channels.logs"));
 
-        if(!channel )return
+        if(!channel )return;
 
         channel.send({
             embed:{
@@ -16,19 +16,19 @@ module.exports = class {
                 color :0xF5AD2E,
                 fields:[
                     {
-                        name:"Ancien pseudo",
+                        name:"❱ Ancien pseudo",
                         value : oldMember.nickname === null ? oldMember.user.username : oldMember.nickname
                     },
                     {
-                        name:'Nouveau pseudo',
+                        name:"❱ Nouveau pseudo",
                         value:newMember.nickname === null ? newMember.user.username : newMember.nickname
                     },
                     {
-                        name: 'Utilisateur',
+                        name: "❱ Utilisateur",
                         value: newMember.user.username
                     }
                 ]
             }
         })
     }
-}
+};

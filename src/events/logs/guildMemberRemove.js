@@ -27,7 +27,7 @@ module.exports = class {
                                 embed: {
                                     title:"Un membre est parti",
                                     fields:[{
-                                        name:"Utilisateur",
+                                        name:"❱ Utilisateur",
                                         value:member.user.username
                                     }]
                                 }
@@ -46,11 +46,11 @@ module.exports = class {
                                     description:"Un membre est parti",
                                     fields:[
                                         {
-                                            name:"Utilisateur Kick",
+                                            name:"❱ Utilisateur Kick",
                                             value:member.user.username
                                         },
                                         {
-                                            name:"Moderateur",
+                                            name:"❱ Moderateur",
                                             value: executor
                                         },
                                     ]
@@ -63,7 +63,7 @@ module.exports = class {
                                 title:"Aurevoir Logs",
                                 description:"Un membre est parti",
                                 fields:[{
-                                    name:"Utilisateur",
+                                    name:"❱ Utilisateur",
                                     value:member.user.username
                                 }]
                             }

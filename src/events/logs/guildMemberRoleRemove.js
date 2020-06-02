@@ -5,9 +5,9 @@ module.exports = class {
         this.client = client;
     }
     run(newMember,role){
-        let channel = newMember.guild.channels.cache.get(this.client.guildDB.get(newMember.guild.id,"channels.logs"))
+        let channel = newMember.guild.channels.cache.get(this.client.guildDB.get(newMember.guild.id,"channels.logs"));
 
-        if(!channel )return
+        if(!channel )return;
         channel.send({
             embed:{
                 title:"Role Logs",
@@ -15,19 +15,19 @@ module.exports = class {
                 color :0xF5AD2E,
                 fields:[
                     {
-                        name:"Ancien role",
+                        name:"❱ Ancien role",
                         value : role.name
                     },
                     {
-                        name: 'Utilisateur',
+                        name: "❱ Utilisateur",
                         value: newMember.user.username
                     },
                     {
-                        name:'Roles actuelle',
+                        name:"❱ Roles actuelle",
                         value: newMember.roles.cache.filter(r => r.name !== "@everyone").size  > 0 ? newMember.roles.cache.filter(r => r.name !== "@everyone").map(roles => roles.name).join(", ") : "Aucun role"
                     }
                 ]
             }
         })
     }
-}
+};

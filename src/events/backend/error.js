@@ -5,4 +5,4 @@ module.exports = class {
     run(error){
         this.client.logger.error(error)
     }
-}
+};
