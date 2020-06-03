@@ -3,7 +3,7 @@ module.exports = class {
         this.client = client;
     }
     async run(message){
-       if( this.client.guildDB.get(message.guild.id)){
+       if(!this.client.guildDB.get(message.guild.id)){
            this.client.guildDB.ensure(message.guild.id, {
                prefix: this.client.config.prefix,
                id : message.guild.id,
