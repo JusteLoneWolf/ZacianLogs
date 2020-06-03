@@ -22,7 +22,7 @@ class Help extends Command{
                         name: `${this.client.user.username} | Commands`,
                         icon_url: this.client.user.avatarURL()
                     },
-                    description: `${this.client.guildDB.get(message.guild.id,'prefix')}help [command name] for more information `,
+                    description: `${this.client.guildDB.get(message.guild.id,'prefix')}help [nom de la commande] pour plus d'aide `,
                     fields: categorie.sort().map(c => {
                         return {
                             name: c,
