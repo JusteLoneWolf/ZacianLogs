@@ -7,34 +7,8 @@ module.exports = class {
 
     run(message) {
         if (message.channel.type === "dm") return this.client.emit("DirectMessage", message);
-        //require('')
-        this.client.guildDB.ensure(message.guild.id, {
-            prefix: this.client.config.prefix,
-            id : message.guild.id,
-            badwords:{
-                active: false,
-                list:[],
-                ignore_role:[],
-                ignore_channel:[],
-                ignore_members:[],
-            },
-            channels:{
-              logs:""
-            },
-            settings:{
-                punishment:{
-                    enabled : false,
-                    mute: 3,
-                    kick: 5,
-                    ban : 8,
-                },
-                roles:{
-                  mute:""
-                }
-            },
-            warns: [],
-            members: []
-        });
+
+        this.client.emit('createDatabase',message);
 
 
         const insulte = new AntiInsulte(this.client);
