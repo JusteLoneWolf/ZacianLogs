@@ -5,9 +5,10 @@ module.exports = class {
         this.client = client;
     }
     run(oldChannel,newChannel){
-        console.log(newChannel.permissionOverwrites)
+        console.log(2)
+        console.log(newChannel.permissionOverwrites);
 
-        let channel = newChannel.guild.channels.cache.get(this.client.guildDB.get(channel.guild.id,"channels.logs"));
+        let channel = newChannel.guild.channels.cache.get(this.client.guildDB.get(newChannel.guild.id,"channels.logs"));
         if(!channel )return;
 
 
