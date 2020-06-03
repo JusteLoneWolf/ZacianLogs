@@ -39,7 +39,7 @@ class Eval extends Command{
                 }
             })
         } catch (err) {
-            this.client.emit("error",err)
+            this.client.emit("error",err,message.channel)
         }
     }
 }

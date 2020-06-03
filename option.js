@@ -2,7 +2,7 @@ require("dotenv").config();
 
 module.exports = {
     config:{
-        prefix : "!",
+        prefix : "zac!",
         token: process.env.TOKEN,
         owner: ['236627494764150784']
     },

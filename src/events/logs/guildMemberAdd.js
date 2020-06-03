@@ -7,8 +7,8 @@ module.exports = class {
     async run(member) {
         let db = this.client.guildDB.get(member.guild.id);
 
-        if(!db.members[member.id]){
-            if(!db.members[member.id].mute){
+        if(db.members[member.id]){
+            if(db.members[member.id].mute){
                 let role = member.guild.roles.cache.find(r=> r.name === 'Mute' || r.id === db.settings.roles.mute);
                 if(!role) {
                     member.guild.role.create({

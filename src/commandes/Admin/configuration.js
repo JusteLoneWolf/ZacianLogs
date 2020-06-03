@@ -6,75 +6,121 @@ class Configuration extends Command {
         super(client, HELPER.COMMANDS.ADMIN.CONFIGURATION);
     }
 
-    run(message,args) {
+    run(message, args) {
         let db = this.client.guildDB.get(message.guild.id);
         switch (args[0]) {
             case "set":
                 switch (args[1]) {
                     case "logs":
-                        let channel = message.mentions.channels.first() ?message.mentions.channels.first() : args.slice(2) ? args.slice(2).join(' '): false;
-                        channel = channel ? message.mentions.channels.first() ? channel.name : args.slice(2).join(' '): message.channel.name;
+                        let channel = message.mentions.channels.first() ? message.mentions.channels.first() : args.slice(2) ? args.slice(2).join(' ') : false;
+                        channel = channel ? message.mentions.channels.first() ? channel.name : args.slice(2).join(' ') : message.channel.name;
                         channel = message.guild.channels.cache.find(c => c.name === channel || c.id === channel);
-                        if(db.channels.logs === channel.id) return super.respond(`Le channel de logs est deja mis sur ${channel.name}`);
+                        if (db.channels.logs === channel.id) return super.respond(`Le channel de logs est deja mis sur ${channel.name}`);
 
                         db.channels.logs = channel.id;
-                        this.client.guildDB.set(message.guild.id,db);
+                        this.client.guildDB.set(message.guild.id, db);
                         super.respond(`Les logs sont mis sur ${channel.name}`);
                         break;
                     case "ignorerole":
-                        let roles = message.mentions.roles.first() ? message.mentions.roles.first() : args.slice(2) ? args.slice(2).join(' '): false;
-                        if(!roles) return false;
+                        let roles = message.mentions.roles.first() ? message.mentions.roles.first() : args.slice(2) ? args.slice(2).join(' ') : false;
+                        if (!roles) return false;
                         roles = message.mentions.roles.first() ? roles.name : args.slice(2).join(' ');
-                        if(!roles) return false;
+                        if (!roles) return false;
                         roles = message.guild.roles.cache.find(r => r.name === roles || r.id === roles);
-                        if(db.badwords.ignore_role.includes(roles.id)) return super.respond(`Le role ${roles.name} est deja dans la liste`);
+                        if (db.badwords.ignore_role.includes(roles.id)) return super.respond(`Le role ${roles.name} est deja dans la liste`);
                         db.badwords.ignore_role.push(roles.id);
 
-                        this.client.guildDB.set(message.guild.id,db);
+                        this.client.guildDB.set(message.guild.id, db);
                         super.respond(`Le role ${roles.name} est maintenant ignoré`);
                         break;
                     case "blacklistwords":
                         switch (args[2]) {
                             case "on":
                                 db.badwords.active = true;
-                                this.client.guildDB.set(message.guild.id,db);
+                                this.client.guildDB.set(message.guild.id, db);
                                 super.respond(`La blacklist word est activé`);
                                 break
                         }
                         let words = args.slice(2).join(' ');
-                        if(db.badwords.list.includes(words)) return super.respond(`Le mot ${words} est déja listé`);
+                        if (db.badwords.list.includes(words)) return super.respond(`Le mot ${words} est déja listé`);
                         db.badwords.list.push(words);
-                        this.client.guildDB.set(message.guild.id,db);
-                        super.respond(`Le mot ${words} est blacklist`)
-
-
+                        this.client.guildDB.set(message.guild.id, db);
+                        super.respond(`Le mot ${words} est blacklist`);
+                        break;
+                    case "prefix":
+                        console.log(args.slice(2).join(' '));
+                        if (!args.slice(2).toString()) return super.respond('Merci de definir un prefix');
+                        if (args.slice(2).join(' ').length <= 3) return super.respond(`Le prefix doit avoir plus de  **3** characters`);
+                        if (args.slice(2).join(' ').includes('*') || args.slice(2).join(' ').includes('_') || args.slice(2).join(' ').includes('~') || args.slice(2).join(' ').includes('`')) return super.respond(`Les caracterres \`*\`, \`_\`, \`~\`, \`~\`, \`\`\` ne sont pas accepté`);
+                        db.prefix = args.slice(2).join('');
+                        this.client.guildDB.set(message.guild.id, db);
+                        super.respond(`Le prefix est maintenant **${db.prefix}**`)
                 }
                 break;
             case "remove":
                 switch (args[1]) {
                     case "ignorerole":
-                        let roles = message.mentions.roles.first() ? message.mentions.roles.first() : args.slice(2) ? args.slice(2).join(' '): false;
-                        if(!roles) return false;
+                        let roles = message.mentions.roles.first() ? message.mentions.roles.first() : args.slice(2) ? args.slice(2).join(' ') : false;
+                        if (!roles) return false;
                         roles = message.mentions.roles.first() ? roles.name : args.slice(2).join(' ');
-                        if(!roles) return false;
+                        if (!roles) return false;
                         roles = message.guild.roles.cache.find(r => r.name === roles || r.id === roles);
                         console.log(roles.id);
-                        if(!db.badwords.ignore_role.includes(roles.id)) return super.respond(`Le role ${roles.name} n'est pas dans la liste`);
+                        if (!db.badwords.ignore_role.includes(roles.id)) return super.respond(`Le role ${roles.name} n'est pas dans la liste`);
                         let ignoredRole = db.badwords.ignore_role;
                         let newIgnoredRole = [];
-                         ignoredRole.forEach(role =>{
-                             if(role !== roles.id){
-                                 newIgnoredRole.push(role)
-                             }
-                             db.badwords.ignore_role = newIgnoredRole;
-                             this.client.guildDB.set(message.guild.id,db)
-                         });
+                        ignoredRole.forEach(role => {
+                            if (role !== roles.id) {
+                                newIgnoredRole.push(role)
+                            }
+                            db.badwords.ignore_role = newIgnoredRole;
+                            this.client.guildDB.set(message.guild.id, db)
+                        });
                         super.respond(`Le role ${roles.name} a etait supprimé`)
+                        break
+                    case "blacklistwords":
+                        let words = args.slice(2).join(' ');
+                        if (!db.badwords.list.includes(words)) return super.respond(`Le mot ${words} n'est déja listé`);
+                        let badWord = db.badwords.list;
+                        let newBadWord = [];
+                        badWord.forEach(role => {
+                            if (role !== words) {
+                                newBadWord.push(role)
+                            }
+                            db.badwords.list = newBadWord;
+                            this.client.guildDB.set(message.guild.id, db)
+                        });
+
+                        this.client.guildDB.set(message.guild.id, db);
+                        super.respond(`Le mot ${words} n'est plus blacklist`);
+                        break;
                 }
-                break
-
+                break;
+            case"view":
+                return message.channel.send({
+                    embed: {
+                        title: "Configuration du bot",
+                        fields: [
+                            {
+                                name: 'Channel de logs',
+                                value: message.guild.channels.cache.get(this.client.guildDB.get(message.guild.id, "channels.logs"))
+                            },
+                            {
+                                name: "Systeme mauvais mot",
+                                value: this.client.guildDB.get(message.guild.id).badwords.active ? "Activé" : "Désactivé"
+                            },
+                            {
+                                name: "Role ignoré",
+                                value: this.client.guildDB.get(message.guild.id).badwords.ignore_role.map(id => message.guild.roles.cache.get(id) ? message.guild.roles.cache.get(id) : "Role introuvable").join(" ") || "Pas de roles"
+                            },
+                            {
+                                name: "Liste des mauvais mot",
+                                value: this.client.guildDB.get(message.guild.id).badwords.list.map(badword => badword).join(", ") || "Pas de roles"
+                            }
+                        ]
+                    }
+                })
         }
-
     }
 }
 

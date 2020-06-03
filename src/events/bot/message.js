@@ -47,9 +47,15 @@ module.exports = class {
         const cmd = this.client.commands.get(command) || this.client.commands.get(this.client.aliases.get(command));
         if (!cmd) return;
         if (cmd.cooldown.has(message.author.id)) return message.delete();
+        if(cmd.help.category === 'Owner' && !this.client.config.owner.includes(message.author.id)) return message.channel.send('Vous devez etre dévellopeur du bot');
 
         cmd.setMessage(message);
-        cmd.run(message, args);
+        try{
+            cmd.run(message, args);
+        }catch (e) {
+            this.client.emit('error',e.stack,message.channel)
+        }
+
 
         if (cmd.conf.cooldown > 0) cmd.startCooldown(message.author.id);
     }

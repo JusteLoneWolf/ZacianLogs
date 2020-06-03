@@ -59,7 +59,17 @@ const HELPER = {
                 aliases:["info"],
                 permission: "READ_MESSAGES",
                 category:"Information"
-            }
+            },
+            BOTINFO:{
+                name:"botinfo",
+                description:"Envoi la page d\'information du bot",
+                usage:`botinfo`,
+                coolDown: 5000,
+                aliases:["bi"],
+                permission: "READ_MESSAGES",
+                allowDMs: true,
+                category:"Information"
+            },
         },
         MOD:{
           WARN:{
