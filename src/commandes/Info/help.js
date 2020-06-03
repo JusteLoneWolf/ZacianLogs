@@ -32,13 +32,13 @@ class Help extends Command{
                 }
             })
         }else{
-            let command = args[0]
+            let command = args[0];
             if(this.client.commands.has(command)){
                 command = this.client.commands.get(command);
             } else if (this.client.aliases.has(command)) {
                 command = this.client.commands.get(this.client.aliases.get(command));
             }
-            if(!command.conf) return message.channel.send("Cette commande n'existe pas")
+            if(!command.conf) return message.channel.send("Cette commande n'existe pas");
 
            return message.channel.send({
                 embed:{
