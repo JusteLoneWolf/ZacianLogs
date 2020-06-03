@@ -103,7 +103,7 @@ class Configuration extends Command {
                         fields: [
                             {
                                 name: 'Channel de logs',
-                                value: message.guild.channels.cache.get(this.client.guildDB.get(message.guild.id, "channels.logs"))
+                                value: message.guild.channels.cache.get(this.client.guildDB.get(message.guild.id, "channels.logs")) ? message.guild.channels.cache.get(this.client.guildDB.get(message.guild.id, "channels.logs")) :"Pas de channel"
                             },
                             {
                                 name: "Systeme mauvais mot",

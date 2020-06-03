@@ -121,8 +121,9 @@ const HELPER = {
             CONFIGURATION:{
                 name:"configuration",
                 description:"Configure le bot",
-                usage:"configuration <set> <logs> [channel/mention channel]",
-                coolDown:2000,
+                usage:"configuration <set/remove/view> <logs/ignorerole/blacklistwords/prefix> [channel/mention channel/role/mot]",
+                exemple: "zac!configuration set logs #ChannelMention/nom du channel \nzac!configuration set ignorerole @roleMemtion/role name\nzac!configuration set prefix ! ",
+                oolDown:2000,
                 aliases:["conf","config"],
                 permission: "MANAGE_GUILD",
                 category:"Admin"
