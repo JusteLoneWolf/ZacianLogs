@@ -5,7 +5,8 @@ class Command {
             name: options.name || null,
             description: options.description || "Pas d'information donnée.",
             usage: options.usage ?  `${this.client.config.prefix}${options.usage}`: "",
-            category: options.category || "Information"
+            category: options.category || "Information",
+            exemple: options.exemple || "Pas d'exemple"
         };
         this.conf = {
             permLevel: options.permLevel || 0,
