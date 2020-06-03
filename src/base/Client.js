@@ -1,19 +1,17 @@
 const {Client, Collection} = require("discord.js"),
     Enmap = require("enmap"),
     {readdir, existsSync, mkdirSync} = require("fs"),
-    Logger = require("../Utils/logger"),
     option = require("../../option"),
+    Logger = require("../Utils/Logger"),
     Utils = require("../Utils/utils");
 
 class StructureBot extends Client {
-
     constructor(options) {
         super(options);
         this.commands = new Collection();
         this.aliases = new Collection();
         this.option = require("../../option");
         this.config = this.option.config;
-        //this.perms = this.option.perm;
         this.web = this.option.dashboard;
         this.logger = new Logger(this);
         this.utils = new Utils();
@@ -28,12 +26,12 @@ class StructureBot extends Client {
         this.commandLoader();
         this.eventLoader();
         this.login();
-        return true
     }
 
     login() {
         return super.login(this.option.config.token)
     }
+
 
     commandLoader() {
         readdir("./src/commandes/", (err, files) => {
