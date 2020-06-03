@@ -15,10 +15,7 @@ module.exports = class {
         }).then(aLog => aLog.entries.first()).catch((err) => {
             this.client.emit("error", err)
         });
-        console.log(aLogFound.changes[2].new)
-        for(const role of aLogFound.changes[2].new){
-            console.log(role)
-        }
+
         channeldb.send({
             embed:{
                 title:"Channel Logs",
@@ -33,13 +30,13 @@ module.exports = class {
                         name:"❱ Nom du channel",
                         value : aLogFound.changes[0].new
                     },
-                    {
+                    /*{
                         name:"❱ Permission",
                         value : aLogFound.changes[2].new.map(role => channel.guild.roles.cache.get(aLogFound.changes[2].new))
-                    },
+                    },*/
                     {
-                        name:"❱ Nom du channel",
-                        value : aLogFound.changes[0].new
+                        name:"❱ NSFW",
+                        value : aLogFound.changes[3].new ? "Oui" : "Non"
                     }
                 ]
             }
