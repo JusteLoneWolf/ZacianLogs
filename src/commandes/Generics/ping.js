@@ -6,7 +6,7 @@ class Ping extends Command{
     }
 
     run(message){
-        super.respond(`Ping: ${message.createdAt -Date.now()}ms\nPing du bot ${this.client.ws.ping}ms `)
+        super.respond(`Ping: ${Date.now()-message.createdAt}ms\nPing du bot ${this.client.ws.ping}ms `)
     }
 }
 
