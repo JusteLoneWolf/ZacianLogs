@@ -8,6 +8,7 @@ class Configuration extends Command {
 
     run(message, args) {
         let db = this.client.guildDB.get(message.guild.id);
+        if(!args[0]) return message.channel.send(`Exemple: ${this.help.exemple}`)
         switch (args[0]) {
             case "set":
                 switch (args[1]) {

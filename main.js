@@ -1,4 +1,4 @@
-const Client = require("./src/Base/Client"),
+const Client = require("./src/base/Client"),
     options = require('./option'),
     client = new Client(options.clientOption);
 
