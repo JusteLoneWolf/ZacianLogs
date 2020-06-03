@@ -6,6 +6,9 @@ module.exports = class {
     }
 
     run(oldMessage,newMessage) {
+
+        if (message.author.bot) return
+
         if (newMessage.channel.type === "dm") return this.client.emit("DirectMessage", newMessage);
 
         const insulte = new AntiInsulte(this.client);
