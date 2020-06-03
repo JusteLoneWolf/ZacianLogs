@@ -4,13 +4,9 @@ module.exports = class {
     }
     run(error, message){
         this.client.logger.error(error);
-        if(error.length > 1000) {
-            error = error.substr(0, 500);
-            error  += "\nTrop long..";
-        }
         if(message){
-            if(error.length > 1000) {
-                error = error.substr(0, 500);
+            if(error.length > 950) {
+                error = error.substr(0, 950);
                 error  += "\nTrop long..";
             }
             message.send({
@@ -20,7 +16,7 @@ module.exports = class {
                     fields:[
                         {
                             name:"Erreur",
-                            value:`\`\`\`js\n${error}\`\`\``
+                            value:`\`\`\`js\n${error.substr(0, 950)}\`\`\``
                         }
                     ]
                 }
@@ -28,7 +24,7 @@ module.exports = class {
         }
         const {WebhookClient} = require('discord.js')
         const log = new WebhookClient('717677164836814888', process.env.WHLOG);
-        log.send(`\`\`\`js\n${error}\`\`\``,)
+        return log.send(`\`\`\`js\n${error}\`\`\``,)
 
 
     }

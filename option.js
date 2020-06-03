@@ -17,7 +17,8 @@ module.exports = {
         disableEveryone: true,
         fetchAllMembers: false,
         messageCacheMaxSize: 100,
-        messageSweepInterval: 120
+        messageSweepInterval: 120,
+        partialS:["GUILD_MEMBER","MESSAGE","USER","CHANNEL"]
     },
     perm:{},
     /*dashboard:{
