@@ -5,6 +5,8 @@ module.exports = class {
     }
 
     async run(member) {
+        if (!this.client.guildDB.get(member.guild.id)) return
+
         let db = this.client.guildDB.get(member.guild.id);
 
         if(db.members[member.id]){

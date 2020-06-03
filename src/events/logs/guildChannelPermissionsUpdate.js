@@ -5,6 +5,8 @@ module.exports = class {
         this.client = client;
     }
     run(oldChannel,newChannel){
+        if (!this.client.guildDB.get(newChannel.guild.id)) return
+
         console.log(2)
         console.log(newChannel.permissionOverwrites);
 

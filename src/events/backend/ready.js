@@ -18,7 +18,9 @@ module.exports = class {
             await this.client.utils.fetchInvite(guildData,this.client.guildDB).then(()=>{
                 console.log(`Toutes les invitation get ${guild[selector]}`);
                 selector++
-            })
+            }).catch((err)=>{
+                console.error(err)
+            });
         }
         this.client.logger.info(`${this.client.user.username} pret`)
 

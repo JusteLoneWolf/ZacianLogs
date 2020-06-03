@@ -3,6 +3,7 @@ module.exports = class {
         this.client = client;
     }
     run(message,data){
+        if (!this.client.guildDB.get(message.guild.id)) return
 
         let channel = message.guild.channels.cache.get(this.client.guildDB.get(message.guild.id,"channels.logs"));
 

@@ -3,13 +3,12 @@ module.exports = class {
     constructor(client) {
         this.client = client;
     }
-
     async run(oldMessage,newMessage) {
+        if (!this.client.guildDB.get(newMessage.guild.id)) return
 
         let channel = newMessage.guild.channels.cache.get(this.client.guildDB.get(newMessage.guild.id,"channels.logs"));
 
         if(!channel )return;
-
 
         channel.send({
             embed:{

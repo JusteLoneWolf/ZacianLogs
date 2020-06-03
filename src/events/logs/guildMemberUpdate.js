@@ -5,6 +5,8 @@ module.exports = class {
         this.client = client;
     }
     run(oldMember,newMember){
-       require('../../Utils/Logs/handlerMemberUpdate')(this.client,oldMember,newMember)
+        if (!this.client.guildDB.get(newMember.guild.id)) return
+
+        require('../../Utils/Logs/handlerMemberUpdate')(this.client,oldMember,newMember)
     }
 };

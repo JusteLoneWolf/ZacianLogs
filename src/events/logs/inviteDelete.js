@@ -4,6 +4,8 @@ module.exports = class {
     }
 
     async run(invite) {
+        if (!this.client.guildDB.get(invite.guild.id)) return
+
         const moment = require("moment");
         require("moment-duration-format");
         moment.locale("fr");
