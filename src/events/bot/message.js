@@ -13,11 +13,11 @@ module.exports = class {
             this.client.emit('createDatabase',message.guild);
         }
 
-        await this.client.utils.fetchInvite(message.guild,this.client.guildDB).then(()=>{
+        /*await this.client.utils.fetchInvite(message.guild,this.client.guildDB).then(()=>{
             console.log(`Toutes les invitation get ${message.guild.id}`);
         }).catch((err)=>{
             console.error(err)
-        });
+        });*/
 
 
 
