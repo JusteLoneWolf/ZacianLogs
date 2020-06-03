@@ -4,7 +4,7 @@ module.exports = {
     config:{
         prefix : "!",
         token: process.env.TOKEN,
-        owner: []
+        owner: ['236627494764150784']
     },
     clientOption:{
         /*ws:{intents:[
@@ -21,11 +21,11 @@ module.exports = {
         messageSweepInterval: 120
     },
     perm:{},
-    dashboard:{
+    /*dashboard:{
         oauthSecret: process.env.SECRET,
         callbackURL:"http//localhost:3030/callback",
         sSecret:process.env.SSECRET,
         domain:"localhost",
         port:3030
-    }
+    }*/
 };
