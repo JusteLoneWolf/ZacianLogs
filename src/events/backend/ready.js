@@ -14,13 +14,15 @@ module.exports = class {
 
         for (const guild of this.client.guilds.cache) {
             let guildData = this.client.guilds.cache.get(guild[selector]);
-            if(!this.client.guildDB.get(guild[selector])) continue;
-            await this.client.utils.fetchInvite(guildData,this.client.guildDB).then(()=>{
-                console.log(`Toutes les invitation get ${guild[selector]}`);
-                selector++
-            }).catch((err)=>{
-                console.error(err)
-            });
+            if(this.client.guildDB.get(guild[selector])){
+                await this.client.utils.fetchInvite(guildData,this.client.guildDB).then(()=>{
+                    console.log(`Toutes les invitation get ${guild[selector]}`);
+                    selector++
+                }).catch((err)=>{
+                    console.error(err)
+                });
+            }
+
         }
         this.client.logger.info(`${this.client.user.username} pret`)
 
