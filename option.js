@@ -16,8 +16,7 @@ module.exports = {
             ]},*/
         disableEveryone: true,
         fetchAllMembers: false,
-        messageCacheMaxSize: 20,
-        messageCacheLifetime: 120,
+        messageCacheMaxSize: 100,
         messageSweepInterval: 120
     },
     perm:{},
