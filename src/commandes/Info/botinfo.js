@@ -1,6 +1,5 @@
 const moment = require("moment");
 moment.locale("fr");
-const {totalmem,cpus,loadavg} = require("os");
 
 const Command = require("../../Base/Command");
 const {HELPER } = require("../../Utils/Constant/CommandeHelper");

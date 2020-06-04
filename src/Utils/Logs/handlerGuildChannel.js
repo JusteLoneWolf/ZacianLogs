@@ -1,5 +1,4 @@
 module.exports = (client, oldChannel,newChannel) => {
-console.log(oldChannel.permissionOverwrites )
     if (oldChannel.permissionOverwrites !== newChannel.permissionOverwrites) {
         client.emit('guildChannelPermissionsUpdate',oldChannel,newChannel);
     }

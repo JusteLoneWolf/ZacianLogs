@@ -163,7 +163,7 @@ class Configuration extends Command {
                 }
                 break;
             case"view":
-                let eventlist = ["Ajout/Mise a jour/Suppression de Channel","Ajout de channel AFK","Ajout de la bannierre du serveur","Ajout/Suprression de boost","Augmentation/Diminution du niveau du serveur","Ajout/Mise a jours/Suppression de membres","Changement de pseudo","Ajout/Suppression de role","Mise a jours de la region","Ajout/Suppression des invitations","Edition de message","Ajout/Suppression de message épinglé"]
+                let eventlist = ["Ajout/Mise a jour/Suppression de Channel","Ajout de channel AFK","Ajout de la bannierre du serveur","Ajout/Suprression de boost","Augmentation/Diminution du niveau du serveur","Ajout/Mise a jours/Suppression de membres","Changement de pseudo","Ajout/Suppression de role","Mise a jours de la region","Ajout/Suppression des invitations","Edition de message","Ajout/Suppression de message épinglé"];
                 return message.channel.send({
                     embed: {
                         title: "Configuration du bot",

@@ -23,7 +23,11 @@ module.exports = class {
         if (cmd.cooldown.has(newMessage.author.id)) return newMessage.delete();
 
         cmd.setMessage(newMessage);
-        cmd.run(newMessage, args);
+        try{
+            cmd.run(newMessage, args);
+        }catch (e) {
+            this.client.emit('error',e.stack,newMessage.channel)
+        }
 
         if (cmd.conf.cooldown > 0) cmd.startCooldown(newMessage.author.id);
     }

@@ -20,13 +20,16 @@ module.exports = class {
                     await this.client.utils.fetchInvite(guildData, this.client.guildDB).then(() => {
                         console.log(`Toutes les invitation get ${guild.id}`);
                     }).catch((err) => {
+                        this.client.emit("error",err);
+
                         console.log(`Aucune invitation get ${guild.id} (manque de permission)`);
                     });
                 }
             } catch (err) {
+                this.client.emit("error",err);
                 console.log(`Aucune invitation get ${guild.id} (manque de permission)`);
             }
-        })
+        });
 
 
         this.client.logger.info(`${this.client.user.username} pret`)

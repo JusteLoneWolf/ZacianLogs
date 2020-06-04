@@ -5,7 +5,7 @@ module.exports = class {
     }
 
     async run(newMessage) {
-        if (!this.client.guildDB.get(newMember.guild.id)) return
+        if (!this.client.guildDB.get(newMember.guild.id)) return;
 
         let channel = newMessage.guild.channels.cache.get(this.client.guildDB.get(newMessage.guild.id,"channels.logs"));
 

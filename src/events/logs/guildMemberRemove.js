@@ -3,7 +3,7 @@ module.exports = class {
         this.client = client;
     }
     async run(member){
-        if (!this.client.guildDB.get(member.guild.id)) return
+        if (!this.client.guildDB.get(member.guild.id)) return;
 
         let db = this.client.guildDB.get(member.guild.id,"channels.logs");
             const botPerms = member.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS"], true);

@@ -6,7 +6,7 @@ module.exports = class {
     }
 
     async run(message) {
-        if (message.author.bot) return
+        if (message.author.bot) return;
         if (message.channel.type === "dm") return this.client.emit("DirectMessage", message);
 
         if(!this.client.guildDB.get(message.guild.id)){
@@ -38,7 +38,6 @@ module.exports = class {
         try{
             cmd.run(message, args);
         }catch (e) {
-            console.log(e)
             this.client.emit('error',e.stack,message.channel)
         }
 
