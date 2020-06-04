@@ -103,7 +103,7 @@ class Configuration extends Command {
                         if (args.slice(2).join(' ').includes('*') || args.slice(2).join(' ').includes('_') || args.slice(2).join(' ').includes('~') || args.slice(2).join(' ').includes('`')) return super.respond(`Les caracterres \`*\`, \`_\`, \`~\`, \`~\`, \`\`\` ne sont pas accepté`);
                         db.prefix = args.slice(2).join('');
                         this.client.guildDB.set(message.guild.id, db);
-                        super.respond(`Le prefix est maintenant **${db.prefix}**`)
+                        super.respond(`Le prefix est maintenant **${db.prefix}**`);
                         break
                 }
                 break;
@@ -142,8 +142,8 @@ class Configuration extends Command {
                             db.badwords.ignore_role = newIgnoredRole;
                             this.client.guildDB.set(message.guild.id, db)
                         });
-                        super.respond(`Le role ${roles.name} a etait supprimé`)
-                        break
+                        super.respond(`Le role ${roles.name} a etait supprimé`);
+                        break;
                     case "blacklistwords":
                         let words = args.slice(2).join(' ');
                         if (!db.badwords.list.includes(words)) return super.respond(`Le mot ${words} n'est déja listé`);
