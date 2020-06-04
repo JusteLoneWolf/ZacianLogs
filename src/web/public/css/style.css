@@ -28,7 +28,7 @@ body, .card {
 }
 
 strong, .card-header-title , .title ,.subtitle{
-    color: beige;
+    color: white;
 }
 
 .hero {
@@ -62,14 +62,24 @@ footer strong {
 
 .img-brand {
     border-radius: 50%;
-    margin-right: 5px;
+    size: 1rem;
+    margin: 1rem;
 }
 
-.card {
+.card{
+    width: 15%;
+    margin: 1rem;
+    display: inline-block;
+    color: white;
+    background: #5b5a5a;
+}
+.card-shard {
     margin-bottom: 10px;
     width: 32%;
     margin-left: 10px;
     display: inline-block;
+    color: white;
+    background: #5b5a5a;
 }
 
 .cmd-title {
@@ -78,6 +88,9 @@ footer strong {
     margin-top: 10px;
 }
 
+.card-content {
+    padding: 1rem;
+}
 .card-content{
     padding: 1rem;
 }

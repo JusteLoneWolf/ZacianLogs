@@ -21,11 +21,11 @@ module.exports = {
         partialS:["GUILD_MEMBER","MESSAGE","USER","CHANNEL"]
     },
     perm:{},
-    /*dashboard:{
+    dashboard:{
         oauthSecret: process.env.SECRET,
         callbackURL:"http//localhost:3030/callback",
         sSecret:process.env.SSECRET,
         domain:"localhost",
         port:3030
-    }*/
+    }
 };
