@@ -11,15 +11,16 @@ class Eval extends Command{
         try {
             let code = args.join(' ');
             let evaled = eval(code);
+            if(evaled.length > 900) {
+                evaled  = evaled.substr(0, 900);
+                evaled += "\nTrop long..";
+            }
             if (typeof evaled !== 'string')
                 evaled = require('util').inspect(evaled);
             if(evaled.includes(this.client.config.token)){
                 evaled = evaled.replace(this.client.config.token,'TOKEN')
             }
-            if(evaled .length > 2000) {
-                evaled  = evaled.substr(0, 1980);
-                evaled += "\nTrop long..";
-            }
+
 
             const evalDiff = process.hrtime(initialTime);
             await message.channel.send({
@@ -39,7 +40,7 @@ class Eval extends Command{
                 }
             })
         } catch (err) {
-            this.client.emit("error",err,message.channel)
+            this.client.emit("error",err.stack,message.channel)
         }
     }
 }
