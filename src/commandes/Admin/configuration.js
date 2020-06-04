@@ -70,27 +70,9 @@ class Configuration extends Command {
                     case "blacklistwords":
                         switch (args[2]) {
                             case "on":
-                                if (!args[2]) {
-                                    return message.channel.send({
-                                        embed: {
-                                            title: "Mauvais Argument",
-                                            fields: [
-                                                {
-                                                    name: "Utilisation",
-                                                    value: this.help.usage
-                                                },
-                                                {
-                                                    name: "Exemple",
-                                                    value: this.help.exemple
-                                                }
-                                            ]
-                                        }
-                                    })
-                                }
                                 db.badwords.active = true;
                                 this.client.guildDB.set(message.guild.id, db);
-                                super.respond(`La blacklist word est activé`);
-                                break
+                                return super.respond(`La blacklist word est activé`);
                         }
                         if (!args[2]) {
                             return message.channel.send({
