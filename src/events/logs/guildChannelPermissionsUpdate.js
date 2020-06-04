@@ -10,6 +10,7 @@ module.exports = class {
         let channel = newChannel.guild.channels.cache.get(this.client.guildDB.get(newChannel.guild.id,"channels.logs"));
         if(!channel )return;
 
+        return console.log(oldChannel.permissionOverwrites)
 
         channel.send({
             embed:{
