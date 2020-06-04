@@ -19,13 +19,13 @@ class Help extends Command{
                 embed: {
                     title: this.client.user.username,
                     author: {
-                        name: `${this.client.user.username} | Commands`,
+                        name: `${this.client.user.username} | Commandes`,
                         icon_url: this.client.user.avatarURL()
                     },
                     description: `${this.client.guildDB.get(message.guild.id,'prefix')}help [nom de la commande] pour plus d'aide `,
                     fields: categorie.sort().map(c => {
                         return {
-                            name: c,
+                            name: `❱ ${c}`,
                             value: this.client.commands.filter((command) => command.help.category === c).map((command) => `\`${command.help.name}\``).join(`, `),
                         };
                     }),

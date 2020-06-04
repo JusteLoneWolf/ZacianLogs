@@ -14,15 +14,15 @@ class Botinfo extends Command {
                 description:"Information du bot",
                 fields:[
                     {
-                        name:"Créateur",
+                        name:"❱ Créateur",
                         value:`${this.client.users.cache.get(this.client.config.owner[0]).username || '[BCFB] zechaos#2310'} `,
                     },
                     {
-                        name:"Code Source",
+                        name:"❱ Code Source",
                         value: "[Code source du bot](https://github.com/zechaos031/ZacianLogs)"
                     },
                     {
-                        name: "Invitation",
+                        name: "❱ Invitation",
                         value: "[Invitation du bot](https://discord.com/api/oauth2/authorize?client_id=717658826379231256&permissions=268504246&scope=bot)"
                     },
                 ]

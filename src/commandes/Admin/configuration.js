@@ -14,11 +14,11 @@ class Configuration extends Command {
                     title: "Mauvais Argument",
                     fields: [
                         {
-                            name: "Utilisation",
+                            name: "❱ Utilisation",
                             value: this.help.usage
                         },
                         {
-                            name: "Exemple",
+                            name: "❱ Exemple",
                             value: this.help.exemple
                         }
                     ]
@@ -33,11 +33,11 @@ class Configuration extends Command {
                             title: "Mauvais Argument",
                             fields: [
                                 {
-                                    name: "Utilisation",
+                                    name: "❱ Utilisation",
                                     value: this.help.usage
                                 },
                                 {
-                                    name: "Exemple",
+                                    name: "❱ Exemple",
                                     value: this.help.exemple
                                 }
                             ]
@@ -80,11 +80,11 @@ class Configuration extends Command {
                                     title: "Mauvais Argument",
                                     fields: [
                                         {
-                                            name: "Utilisation",
+                                            name: "❱ Utilisation",
                                             value: this.help.usage
                                         },
                                         {
-                                            name: "Exemple",
+                                            name: "❱ Exemple",
                                             value: this.help.exemple
                                         }
                                     ]
@@ -114,11 +114,11 @@ class Configuration extends Command {
                             title: "Mauvais Argument",
                             fields: [
                                 {
-                                    name: "Utilisation",
+                                    name: "❱ Utilisation",
                                     value: this.help.usage
                                 },
                                 {
-                                    name: "Exemple",
+                                    name: "❱ Exemple",
                                     value: this.help.exemple
                                 }
                             ]
@@ -169,23 +169,23 @@ class Configuration extends Command {
                         title: "Configuration du bot",
                         fields: [
                             {
-                                name: 'Channel de logs',
+                                name: '❱ Channel de logs',
                                 value: message.guild.channels.cache.get(this.client.guildDB.get(message.guild.id, "channels.logs")) ? message.guild.channels.cache.get(this.client.guildDB.get(message.guild.id, "channels.logs")) : "Pas de channel"
                             },
                             {
-                                name: "Systeme mauvais mot",
+                                name: "❱ Systeme mauvais mot",
                                 value: this.client.guildDB.get(message.guild.id).badwords.active ? "Activé" : "Désactivé"
                             },
                             {
-                                name: "Role ignoré",
+                                name: "❱ Role ignoré",
                                 value: this.client.guildDB.get(message.guild.id).badwords.ignore_role.map(id => message.guild.roles.cache.get(id) ? message.guild.roles.cache.get(id) : "Role introuvable").join(" ") || "Pas de roles"
                             },
                             {
-                                name: "Liste des mauvais mot",
+                                name: "❱ Liste des mauvais mot",
                                 value: this.client.guildDB.get(message.guild.id).badwords.list.map(badword => badword).join(", ") || "Pas de roles"
                             },
                             {
-                                name:"Liste des logs",
+                                name:"❱ Liste des logs",
                                 value: eventlist.sort().join('\n')
                             }
                         ]

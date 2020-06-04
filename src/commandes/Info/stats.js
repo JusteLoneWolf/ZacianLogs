@@ -26,6 +26,10 @@ class Ping extends Command {
                         name: "Uptime",
                         value: moment.duration(this.client.uptime).format(`y [année,] M [mois,] w [semaine,] d [jours ,] h [heures,] m [minutes ,] s [secondes]`).replace("secondses","secondes")
                     },
+                    {
+                        name:"Nombre de servers",
+                        value:this.client.guilds.cache.size
+                    }
                 ]
             }
         })

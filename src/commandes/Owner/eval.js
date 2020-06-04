@@ -27,11 +27,11 @@ class Eval extends Command{
                 embed:{
                     fields:[
                         {
-                        name:"Code",
+                        name:"❱ Code",
                         value:`\`\`\`js\n ${code} \`\`\``
                         },
                         {
-                            name:"Resultat",
+                            name:"❱ Resultat",
                             value:`\`\`\`js\n ${evaled} \`\`\``
                         }],
                     footer:{
