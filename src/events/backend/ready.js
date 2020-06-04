@@ -12,7 +12,7 @@ module.exports = class {
             }
         }).then(() => console.log('Status set !'));
 
-        require('../../modules/dashboard')(this.client)
+        //require('../../modules/dashboard')(this.client)
 
 
         this.client.guilds.cache.map(async guild => {
