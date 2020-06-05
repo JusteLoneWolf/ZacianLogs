@@ -350,7 +350,7 @@ class Configuration extends Command {
             await roles.setPermissions(0);
             for (const channel of message.guild.channels.cache.array()) {
                 if (channel.id !== channels.id) {
-                    if(channel.permissionsFor(capchatRole).has("SEND_MESSAGES") &&channel.permissionsFor(capchatRole).has("VIEW_CHANNEL") ) {
+                    if(channel.permissionsFor(roles).has("SEND_MESSAGES") &&channel.permissionsFor(roles).has("VIEW_CHANNEL") ) {
                         await channel.overwritePermissions([
                             {
                                 id: roles.id,
