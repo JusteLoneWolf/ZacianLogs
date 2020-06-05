@@ -18,7 +18,7 @@ module.exports = {
         fetchAllMembers: false,
         messageCacheMaxSize: 100,
         messageSweepInterval: 120,
-        partialS:["GUILD_MEMBER","MESSAGE","USER","CHANNEL"]
+        partials:["GUILD_MEMBER","MESSAGE","USER","CHANNEL"]
     },
     perm:{},
     dashboard:{

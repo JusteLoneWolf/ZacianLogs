@@ -47,6 +47,7 @@ class Configuration extends Command {
                     })
                 }
                 switch (args[1]) {
+
                     case "logs":
                         let channel = message.mentions.channels.first() ? message.mentions.channels.first() : args.slice(2) ? args.slice(2).join(' ') : false;
                         channel = channel ? message.mentions.channels.first() ? channel.name : args.slice(2).join(' ') : message.channel.name;
