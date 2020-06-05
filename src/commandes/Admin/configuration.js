@@ -328,8 +328,7 @@ class Configuration extends Command {
             await roles.setPermissions(0)
             for (const channel of message.guild.channels.cache.array()) {
                 if (channel.id !== channels.id) {
-                    let perm =  channel.permissionsFor(roles)
-                    if(perm &&perm.SEND_MESSAGES !== false &&perm.VIEW_CHANNEL !== false ) {
+                    if(channel.permissionsFor(capchatRole).has("SEND_MESSAGES") &&channel.permissionsFor(capchatRole).has("VIEW_CHANNEL") ) {
                         await channel.overwritePermissions([
                             {
                                 id: roles.id,
@@ -343,5 +342,4 @@ class Configuration extends Command {
         }
     }
 }
-
 module.exports = Configuration;

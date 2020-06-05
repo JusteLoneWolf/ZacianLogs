@@ -45,10 +45,9 @@ module.exports = class {
                             this.client.logger.error(e);
                             channels.send(`Entre le code \`${code}\` dans ${channels}`)
                         }
-
-                         let collector = newMember.guild.channels.cache.get(channels.id).createMessageCollector(newMember.id,{time : 60000})
+                        const filter = m => m.author.id === newMember.id;
+                         let collector = newMember.guild.channels.cache.get(channels.id).createMessageCollector(filter,{time : 60000})
                         collector.on("collect", message =>{
-                            console.log(message)
                             if (message.content === code) {
                                 newMember.roles.remove(capchatRole).then(() => {
                                     message.delete()
@@ -57,9 +56,6 @@ module.exports = class {
                             }
                         })
                         /*i*/
-
-
-
                     })
                 } else {
                     newMember.roles.add(roles)
