@@ -1,12 +1,22 @@
-const {MessageCollector} = require("discord.js")
-
 module.exports = class {
     constructor(client) {
         this.client = client;
     }
 
-    async run(newMember) {
+    async async run(newMember) {
         let db = this.client.guildDB.get(newMember.guild.id);
+        if(!db.welcome){
+            db.welcome = {
+                enabled: false,
+                autorole: "",
+                capchat: {
+                    unverifiedRole: "",
+                    channel: "",
+                    enabled: false
+                }
+            };
+            this.client.guildDB.set(newMember.guild.id)
+        }
 
         let roles = newMember.guild.roles.cache.find(r => r.id === db.welcome.autorole);
         let channels = newMember.guild.channels.cache.find(c => c.id === db.welcome.capchat.channel);
@@ -23,7 +33,7 @@ module.exports = class {
                             capchatRole = r
                         });
                     }
-                    await capchatRole.setPermissions(0)
+                    await capchatRole.setPermissions(0);
                     for (const channel of newMember.guild.channels.cache.array()) {
                         if (channel.id !== channels.id) {
                            if(channel.permissionsFor(capchatRole).has("SEND_MESSAGES") &&channel.permissionsFor(capchatRole).has("VIEW_CHANNEL") ) {
@@ -46,11 +56,11 @@ module.exports = class {
                             channels.send(`Entre le code \`${code}\` dans ${channels}`)
                         }
                         const filter = m => m.author.id === newMember.id;
-                         let collector = newMember.guild.channels.cache.get(channels.id).createMessageCollector(filter,{time : 60000})
+                         let collector = newMember.guild.channels.cache.get(channels.id).createMessageCollector(filter,{time : 60000});
                         collector.on("collect", message =>{
                             if (message.content === code) {
                                 newMember.roles.remove(capchatRole).then(() => {
-                                    message.delete()
+                                    message.delete();
                                     newMember.roles.add(roles)
                                 })
                             }
@@ -73,7 +83,7 @@ module.exports = class {
             return result;
         }
     }
-}
+};
 
 //TODO
 // Capchat

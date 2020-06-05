@@ -99,7 +99,7 @@ class Configuration extends Command {
                                 this.client.guildDB.set(message.guild.id,db);
                                 text += `Le role pour les personne non verifier est mis a jour ${roles.name}\n`;
                                 message.channel.send(messageSend(text,db));
-                                await setCapchat()
+                                await setCapchat();
                                 break;
                             case "channel":
                                 console.log(args.slice(2));
@@ -125,7 +125,7 @@ class Configuration extends Command {
                                 text += `Le channel pour les personne non verifier est mis a jour sur ${channel.name}\n`;
 
                                 message.channel.send(messageSend(text,db));
-                                await setCapchat()
+                                await setCapchat();
                                 break
                         }
                         break;
@@ -325,7 +325,7 @@ class Configuration extends Command {
             let channels = message.guild.channels.cache.find(c => c.id === db.welcome.capchat.channel );
             if(!channels) return;
             let roles = message.guild.roles.cache.find(c => c.id === db.welcome.capchat.unverifiedRole);
-            await roles.setPermissions(0)
+            await roles.setPermissions(0);
             for (const channel of message.guild.channels.cache.array()) {
                 if (channel.id !== channels.id) {
                     if(channel.permissionsFor(capchatRole).has("SEND_MESSAGES") &&channel.permissionsFor(capchatRole).has("VIEW_CHANNEL") ) {

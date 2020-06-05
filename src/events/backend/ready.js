@@ -16,25 +16,34 @@ module.exports = class {
 
 
         this.client.guilds.cache.map(async guild => {
-            try {
-                let guildData = this.client.guilds.cache.get(guild.id);
-                if (this.client.guildDB.get(guild.id)) {
-                    await this.client.utils.fetchInvite(guildData, this.client.guildDB).then(() => {
-                        console.log(`Toutes les invitation get ${guild.id}`);
-                    }).catch((err) => {
-                        this.client.emit("error",err);
 
-                        console.log(`Aucune invitation get ${guild.id} (manque de permission)`);
-                    });
-                }
+            try {
+               if( this.client.guilds.cache.get(guild.id).members.cache.get(this.client.user.id).hasPermission('MANAGE_GUILD')) {
+                   let guildData = this.client.guilds.cache.get(guild.id);
+                   if (this.client.guildDB.get(guild.id)) {
+                       await this.client.utils.fetchInvite(guildData, this.client.guildDB).then(() => {
+                           console.log(`Toutes les invitation get ${guild.id}`);
+                       }).catch((err) => {
+                           this.client.emit("error", err);
+
+                           console.log(`Aucune invitation get ${guild.id} (manque de permission)`);
+                       });
+                   }else{
+                       console.log(`Aucune invitation get ${guild.id} (pas de base de donnée)`);
+
+                   }
+               }else{
+                   console.log(`Aucune invitation get ${guild.id} (manque de permission)`);
+               }
             } catch (err) {
-                this.client.emit("error",err);
+                this.client.emit("error", err);
+
                 console.log(`Aucune invitation get ${guild.id} (manque de permission)`);
             }
         });
 
-
         this.client.logger.info(`${this.client.user.username} pret`)
+
 
 
     }
