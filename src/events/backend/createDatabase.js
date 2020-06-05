@@ -15,7 +15,8 @@ module.exports = class {
                 ignore_members: [],
             },
             channels: {
-                logs: ""
+                logs: "",
+
             },
             settings: {
                 punishment: {
@@ -26,6 +27,16 @@ module.exports = class {
                 },
                 roles: {
                     mute: ""
+                },
+                welcome: {
+                    enabled: false,
+                    autorole: "",
+                    capchat: {
+                        unverifiedRole: "",
+                        channel: "",
+                        enabled: false
+                    },
+
                 }
             },
             warns: [],
