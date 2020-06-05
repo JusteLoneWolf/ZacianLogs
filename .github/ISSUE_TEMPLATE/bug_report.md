@@ -5,7 +5,9 @@ Une description de votre bug
 **La procedure pour le faire (si or code)**
 
 1./ Aller dans ...
+
 2./ executer ...
+
 3./ L'erreur apparait
 
 **Code/Erreur**
