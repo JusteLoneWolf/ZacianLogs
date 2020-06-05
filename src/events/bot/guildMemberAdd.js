@@ -3,9 +3,9 @@ module.exports = class {
         this.client = client;
     }
 
-    async async run(newMember) {
+    async run(newMember) {
         let db = this.client.guildDB.get(newMember.guild.id);
-        if(!db.welcome){
+        if (!db.welcome) {
             db.welcome = {
                 enabled: false,
                 autorole: "",
@@ -36,14 +36,14 @@ module.exports = class {
                     await capchatRole.setPermissions(0);
                     for (const channel of newMember.guild.channels.cache.array()) {
                         if (channel.id !== channels.id) {
-                           if(channel.permissionsFor(capchatRole).has("SEND_MESSAGES") &&channel.permissionsFor(capchatRole).has("VIEW_CHANNEL") ) {
-                               await channel.overwritePermissions([
-                                   {
-                                       id: capchatRole.id,
-                                       deny: ["SEND_MESSAGES", "VIEW_CHANNEL"]
-                                   }
-                               ])
-                           }
+                            if (channel.permissionsFor(capchatRole).has("SEND_MESSAGES") && channel.permissionsFor(capchatRole).has("VIEW_CHANNEL")) {
+                                await channel.overwritePermissions([
+                                    {
+                                        id: capchatRole.id,
+                                        deny: ["SEND_MESSAGES", "VIEW_CHANNEL"]
+                                    }
+                                ])
+                            }
                         }
 
                     }
@@ -55,17 +55,20 @@ module.exports = class {
                             this.client.logger.error(e);
                             channels.send(`Entre le code \`${code}\` dans ${channels}`)
                         }
-                        const filter = m => m.author.id === newMember.id;
-                         let collector = newMember.guild.channels.cache.get(channels.id).createMessageCollector(filter,{time : 60000});
-                        collector.on("collect", message =>{
+                        let collector = newMember.guild.channels.cache.get(channels.id).createMessageCollector(m => m.author.id === newMember.id, {time: 60000});
+                        collector.on("collect", message => {
                             if (message.content === code) {
-                                newMember.roles.remove(capchatRole).then(() => {
-                                    message.delete();
-                                    newMember.roles.add(roles)
-                                })
+                                try {
+                                    newMember.roles.remove(capchatRole).then(() => {
+                                        message.delete();
+                                        newMember.roles.add(roles)
+                                    })
+                                } catch (e) {
+                                    this.emit("error", `Impossible de donner le rôle ${e.message}`)
+                                }
+
                             }
                         })
-                        /*i*/
                     })
                 } else {
                     newMember.roles.add(roles)
@@ -75,9 +78,9 @@ module.exports = class {
         }
 
         function makepassword(length) {
-            var result = '';
-            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            for (var i = 0; i < length; i++) {
+            let result = '';
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            for (let i = 0; i < length; i++) {
                 result += characters.charAt(Math.floor(Math.random() * characters.length));
             }
             return result;
@@ -85,5 +88,3 @@ module.exports = class {
     }
 };
 
-//TODO
-// Capchat
