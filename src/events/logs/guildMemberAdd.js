@@ -44,9 +44,10 @@ module.exports = class {
         member.guild.fetchInvites().then(guildInvites => {
             const ei = db.invites[member.guild.id];
             const invite = guildInvites.find(i =>
+                ei ?
                 ei.get(i.code) ?
                 ei.get(i.code).uses < i.uses
-                : 0 < i.uses
+                : 0 < i.uses : false
             );
 
             const inviter = invite? member.guild.members.cache.get(invite.inviter.id): false;
