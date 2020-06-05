@@ -73,7 +73,7 @@ class StructureBot extends Client {
                             this.logger.info(`${evt} chargé`);
                             super.on(evt.split(".")[0], (...args) => event.run(...args));
                         } catch (e) {
-                            this.emit("error", e)
+                            this.emit("error", `${evt} n"a pas chargé ${e.stack}`)
                         }
                     }
                 })

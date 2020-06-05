@@ -285,6 +285,18 @@ class Configuration extends Command {
                 }
                 break;
             case"view":
+                if (!db.welcome) {
+                    db.welcome = {
+                        enabled: true,
+                        autorole: "",
+                        capchat: {
+                            unverifiedRole: "",
+                            channel: "",
+                            enabled: false
+                        }
+                    };
+                    this.client.guildDB.set(message.guild.id,db);
+                }
                 let eventlist = ["Ajout/Mise a jour/Suppression de Channel","Ajout de channel AFK","Ajout de la bannierre du serveur","Ajout/Suprression de boost","Augmentation/Diminution du niveau du serveur","Ajout/Mise a jours/Suppression de membres","Changement de pseudo","Ajout/Suppression de role","Mise a jours de la region","Ajout/Suppression des invitations","Edition de message","Ajout/Suppression de message épinglé"];
                 return message.channel.send({
                     embed: {
@@ -305,6 +317,14 @@ class Configuration extends Command {
                             {
                                 name: "❱ Liste des mauvais mot",
                                 value: this.client.guildDB.get(message.guild.id).badwords.list.map(badword => badword).join(", ") || "Pas de roles"
+                            },
+                            {
+                                name: "❱ Capchat",
+                                value: `Channel: ${message.guild.channels.cache.get(this.client.guildDB.get(message.guild.id).welcome.capchat.channel)? message.guild.channels.cache.get(this.client.guildDB.get(message.guild.id).welcome.capchat.channel).name : "Pas de channel"}\nRole: ${message.guild.roles.cache.get(this.client.guildDB.get(message.guild.id).welcome.capchat.unverifiedRole) ? message.guild.roles.cache.get(this.client.guildDB.get(message.guild.id).welcome.capchat.unverifiedRole).name : "Pas de role"}`
+                            },
+                            {
+                                name: "❱ Autorole",
+                                value: `${message.guild.roles.cache.get(this.client.guildDB.get(message.guild.id).welcome.autorole) ? message.guild.roles.cache.get(this.client.guildDB.get(message.guild.id).welcome.autorole).name : "Pas de role"}`
                             },
                             {
                                 name:"❱ Liste des logs",

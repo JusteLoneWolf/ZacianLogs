@@ -121,8 +121,8 @@ const HELPER = {
             CONFIGURATION:{
                 name:"configuration",
                 description:"Configure le bot",
-                usage:"configuration <set/remove/view> <logs/ignorerole/blacklistwords/prefix> [channel/mention channel/role/mot]",
-                exemple: "zac!configuration set logs #ChannelMention/nom du channel \nzac!configuration set ignorerole @roleMemtion/role name\nzac!configuration set prefix ! ",
+                usage:"configuration <set/remove/view> <logs/ignorerole/blacklistwords/prefix/capchat/welcome> [channel/mention channel/role/mot/unverifiedrole/autorole/enabled] [role/channel]",
+                exemple: "zac!configuration set logs #ChannelMention/nom du channel \nzac!configuration set ignorerole @roleMemtion/role name\nzac!configuration set prefix !\nzac!configuration set capchat unverifiedrole role\nzac!configuration set capchat enabled ",
                 oolDown:2000,
                 aliases:["conf","config"],
                 permission: "MANAGE_GUILD",
