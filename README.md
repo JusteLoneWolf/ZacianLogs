@@ -28,6 +28,9 @@ SSECRET=
 WHLOG=
 ```
 
+Renomer `option.js.exemple` en `option.js`
+
+et remplissé les fonctionnalité que vous voulez le reste doit etre commenté 
 
  ## Lancement
  
