@@ -10,7 +10,7 @@ module.exports = class {
                 name: `${this.client.config.prefix}help `,
                 type: "LISTENING"
             }
-        }).then(() => console.log('Status set !'));
+        }).then(() => this.client.logger.info('Status set !'));
 
         //require('../../modules/dashboard')(this.client)
 
@@ -22,15 +22,15 @@ module.exports = class {
                    let guildData = this.client.guilds.cache.get(guild.id);
                    if (this.client.guildDB.get(guild.id)) {
                        await this.client.utils.fetchInvite(guildData, this.client.guildDB).then(() => {
-                           console.log(`Toutes les invitation get ${guild.id}`);
+                           this.client.logger.error(`Toutes les invitation get ${guild.id}`);
                        }).catch((err) => {
                            this.client.emit("error", err);
                        });
                    }else{
-                       console.log(`Aucune invitation get ${guild.id} (pas de base de donnée)`);
+                       this.client.logger.error(`Aucune invitation get ${guild.id} (pas de base de donnée)`);
                    }
                }else{
-                   console.log(`Aucune invitation get ${guild.id} (manque de permission)`);
+                   this.client.logger.error(`Aucune invitation get ${guild.id} (manque de permission)`);
                }
             } catch (err) {
                 this.client.emit("error", err);

@@ -38,7 +38,7 @@ module.exports = class {
         try{
             cmd.run(message, args);
         }catch (e) {
-            this.client.emit('error',e.stack,message.channel)
+            this.client.emit('error',e.stack,message.channel,cmd)
         }
 
 

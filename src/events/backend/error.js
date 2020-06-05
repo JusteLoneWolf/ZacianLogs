@@ -2,7 +2,7 @@ module.exports = class {
     constructor(client) {
         this.client = client;
     }
-    run(error, message){
+    run(error, message,cmd){
         this.client.logger.error(error);
         if(message){
             if(error.length > 950) {
@@ -22,10 +22,8 @@ module.exports = class {
                 }
             })
         }
-        const {WebhookClient} = require('discord.js')
+        const {WebhookClient} = require('discord.js');
         const log = new WebhookClient('717677164836814888', process.env.WHLOG);
-        return log.send(`\`\`\`js\n${error}\`\`\``,)
-
-
+        return log.send(` ${cmd ? `La commande ${cmd.help.name} a une erreur \n` : ''}\`\`\`js\n${error}\`\`\``)
     }
 };
