@@ -22,7 +22,7 @@ module.exports = class {
                    let guildData = this.client.guilds.cache.get(guild.id);
                    if (this.client.guildDB.get(guild.id)) {
                        await this.client.utils.fetchInvite(guildData, this.client.guildDB).then(() => {
-                           this.client.logger.error(`Toutes les invitation get ${guild.id}`);
+                           this.client.logger.info(`Toutes les invitation get ${guild.id}`);
                        }).catch((err) => {
                            this.client.emit("error", err);
                        });
