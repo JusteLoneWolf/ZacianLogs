@@ -6,20 +6,19 @@ class ListWarn extends Command {
     }
 
     async run(message) {
-       /* let i
+       let i
 
         const mention = message.mentions.members.first();
         if (!mention) return message.channel.send("Vous devez mentionné un utilisateur");
         const db = this.client.guildDB.get(message.guild.id);
         if (!db.warns[mention.id]) message.channel.send("Cette utilisateur n'as pas de warn");
         let warn = [];
-        let remember = 0
 
         let mapwarn = db.warns[mention.id].map(g => g)
 
         for (i = 0; i < 10; i++) {
             let nombre = i + 1;
-            warn.push(`Warn n°${nombre}: raison: ${mapwarn[i].raison} date: ${mapwarn[i].time}`)
+            warn.push(`Warn n°${nombre}:\n╚>Raison: ${mapwarn[i].raison}\n╚>Date: ${mapwarn[i].time}\n`)
         }
         message.channel.send({
             embed: {
@@ -32,14 +31,14 @@ class ListWarn extends Command {
                     msg.react('▶').then(() => {
                         const backF = (reaction, user) => reaction.emoji.name === '◀' && user.id === message.author.id;
                         const ForF = (reaction, user) => reaction.emoji.name === '▶' && user.id === message.author.id;
+                        const Del = (reaction, user) => reaction.emoji.name === '❌' && user.id === message.author.id;
+                        const del = msg.createReactionCollector(Del, {time: 180000});
                         const back = msg.createReactionCollector(backF, {time: 180000});
                         const For = msg.createReactionCollector(ForF, {time: 180000});
 
                         back.on('collect', async r => {
                             let x = i - 10;
-                            if (x <= 0) {
-                                return r.remove(message.author.id)
-                            }
+                            if (x <= 0) return
                             i -= 20;
                             let warn = [];
 
@@ -47,7 +46,7 @@ class ListWarn extends Command {
                                 let nombre = i + 1;
 
                                 if (i >= 0 - 1) {
-                                    warn.push(`Warn n°${nombre}: raison: ${mapwarn[i].raison} date: ${mapwarn[i].time}`)
+                                    warn.push(`Warn n°${nombre}:\n╚>Raison: ${mapwarn[i].raison}\n╚>Date: ${mapwarn[i].time}\n`)
                                 }
                             }
                             await msg.edit({
@@ -58,9 +57,7 @@ class ListWarn extends Command {
                             })
                         })
                         For.on('collect', async r => {
-                            if (i <= mapwarn.length - 1) {
-                                return r.remove(message.author.id)
-                            }
+                            if (i >= mapwarn.length - 1) return
 
                             let t = i + 10;
                             let warn = [];
@@ -68,7 +65,7 @@ class ListWarn extends Command {
 
                                 let nombre = i + 1;
                                 if (i <= mapwarn.length - 1) {
-                                    warn.push(`Warn n°${nombre}: raison: ${mapwarn[i].raison} date: ${mapwarn[i].time}`)
+                                    warn.push(`Warn n°${nombre}:\n╚>Raison: ${mapwarn[i].raison}\n╚>Date: ${mapwarn[i].time}\n`)
                                 }
                             }
                             await msg.edit({
@@ -80,11 +77,21 @@ class ListWarn extends Command {
 
 
                         })
-
+                        del.on('collect', async r => {
+                            await msg.edit({
+                                embed: {
+                                    description: "La liste de warn a etait supprimé"
+                                }
+                            }).then(()=>{
+                                For.stop();
+                                back.stop();
+                                msg.reactions.removeAll()
+                            })
+                        })
                     })
                 })
             });
-        })*/
+        })
 
     }
 }
