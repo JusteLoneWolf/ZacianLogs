@@ -22,6 +22,18 @@ class StructureBot extends Client {
     }
 
     init() {
+        process.on('unhandledRejection',err =>{
+            this.emit('error',err)
+        })
+
+        process.on('unhandledRejection',err =>{
+            this.emit('error',err)
+        })
+
+        process.on('rejectionHandled',err =>{
+            this.emit('error',err)
+        })
+
         this.initDatabase();
         this.commandLoader();
         this.eventLoader();
