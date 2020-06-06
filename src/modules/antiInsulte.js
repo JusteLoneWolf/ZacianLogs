@@ -7,6 +7,7 @@ class AntiInsulte {
 
         if (message.author.bot) return;
         const db = this.client.guildDB.get(message.guild.id);
+        if(!db) return
         if (!db.badwords.active) return;
 
         if (db.badwords.ignore_members.includes(message.author.id) || db.badwords.ignore_channel.includes(message.channel.id)) return;

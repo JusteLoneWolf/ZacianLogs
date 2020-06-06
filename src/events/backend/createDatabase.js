@@ -39,7 +39,7 @@ module.exports = class {
 
                 }
             },
-            warns: [],
+            warns: {},
             members: []
         });
     }

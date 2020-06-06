@@ -81,6 +81,24 @@ const HELPER = {
               permission: "BAN_MEMBERS",
               category:"Modération"
           },
+            UNWARN:{
+                name:"unwarn",
+                description:"Enleve un avertissement a un utilisateur",
+                usage:"unwarn [user] <warn>",
+                coolDown:2000,
+                aliases:["uw"],
+                permission: "BAN_MEMBERS",
+                category:"Modération"
+            },
+            LISTWARN:{
+                name:"warnlist",
+                description:"Liste les avertissement d'un utilisateur",
+                usage:"unwarn [user]",
+                coolDown:2000,
+                aliases:["lw"],
+                permission: "BAN_MEMBERS",
+                category:"Modération"
+            },
             KICK:{
                 name:"kick",
                 description:"Kick un utilisateur",

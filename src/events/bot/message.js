@@ -9,7 +9,7 @@ module.exports = class {
         if (message.author.bot) return;
         if (message.channel.type === "dm") return this.client.emit("DirectMessage", message);
 
-       /* if(!this.client.guildDB.get(message.guild.id)){
+       if(!this.client.guildDB.get(message.guild.id)){
             this.client.emit('createDatabase',message.guild);
         }
 
