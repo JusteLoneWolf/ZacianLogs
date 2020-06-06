@@ -11,6 +11,7 @@ class StructureBot extends Client {
         this.commands = new Collection();
         this.aliases = new Collection();
         this.option = require("../../option");
+        require("../Utils/errorHandler")(this.client)
         this.config = this.option.config;
         this.web = this.option.dashboard;
         this.logger = new Logger(this);
@@ -22,17 +23,6 @@ class StructureBot extends Client {
     }
 
     init() {
-        process.on('unhandledRejection',err =>{
-            this.emit('error',err)
-        })
-
-        process.on('unhandledRejection',err =>{
-            this.emit('error',err)
-        })
-
-        process.on('rejectionHandled',err =>{
-            this.emit('error',err)
-        })
 
         this.initDatabase();
         this.commandLoader();
