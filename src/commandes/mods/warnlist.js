@@ -6,7 +6,7 @@ class ListWarn extends Command {
     }
 
     async run(message) {
-       let i
+       let i;
 
         const mention = message.mentions.members.first();
         if (!mention) return message.channel.send("Vous devez mentionné un utilisateur");
@@ -14,7 +14,7 @@ class ListWarn extends Command {
         if (!db.warns[mention.id]) message.channel.send("Cette utilisateur n'as pas de warn");
         let warn = [];
 
-        let mapwarn = db.warns[mention.id].map(g => g)
+        let mapwarn = db.warns[mention.id].map(g => g);
 
         for (i = 0; i < 10; i++) {
             let nombre = i + 1;
@@ -38,7 +38,7 @@ class ListWarn extends Command {
 
                         back.on('collect', async r => {
                             let x = i - 10;
-                            if (x <= 0) return
+                            if (x <= 0) return;
                             i -= 20;
                             let warn = [];
 
@@ -55,9 +55,9 @@ class ListWarn extends Command {
                                     description: warn.join('\n')
                                 }
                             })
-                        })
+                        });
                         For.on('collect', async r => {
-                            if (i >= mapwarn.length - 1) return
+                            if (i >= mapwarn.length - 1) return;
 
                             let t = i + 10;
                             let warn = [];
@@ -76,7 +76,7 @@ class ListWarn extends Command {
                             });
 
 
-                        })
+                        });
                         del.on('collect', async r => {
                             await msg.edit({
                                 embed: {
