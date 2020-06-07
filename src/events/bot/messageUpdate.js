@@ -20,7 +20,7 @@ module.exports = class {
         const command = newMessage.content.split(' ')[0].slice(this.client.guildDB.get(newMessage.guild.id, "prefix").length);
         const cmd = this.client.commands.get(command) || this.client.commands.get(this.client.aliases.get(command));
         if (!cmd) return;
-        if (cmd.cooldown.has(newMessage.author.id)) return newMessage.delete();
+       // if (cmd.cooldown.has(newMessage.author.id)) return newMessage.delete();
 
         cmd.setMessage(newMessage);
         try{

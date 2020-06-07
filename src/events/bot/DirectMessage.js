@@ -13,7 +13,7 @@ module.exports = class {
         const cmd = this.client.commands.get(command) || this.client.commands.get(this.client.aliases.get(command));
         if (!cmd) return;
         if(!cmd.conf.allowDMs) return message.channel.send('Cette commande n\'est pas activer en message priver');
-        if (cmd.cooldown.has(message.author.id)) return message.delete();
+      //  if (cmd.cooldown.has(message.author.id)) return message.delete();
 
         cmd.setMessage(message);
         cmd.run(message, args);

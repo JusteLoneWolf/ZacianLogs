@@ -11,15 +11,18 @@ class Eval extends Command{
         try {
             let code = args.join(' ');
             let evaled = eval(code);
-            if(evaled.length > 900) {
-                evaled  = evaled.substr(0, 900);
-                evaled += "\nTrop long..";
+            if(evaled){
+                if(evaled.length > 900) {
+                    evaled  = evaled.substr(0, 900);
+                    evaled += "\nTrop long..";
+                }
+                if (typeof evaled !== 'string')
+                    evaled = require('util').inspect(evaled);
+                if(evaled.includes(this.client.config.token)){
+                    evaled = evaled.replace(this.client.config.token,'TOKEN')
+                }
             }
-            if (typeof evaled !== 'string')
-                evaled = require('util').inspect(evaled);
-            if(evaled.includes(this.client.config.token)){
-                evaled = evaled.replace(this.client.config.token,'TOKEN')
-            }
+
 
 
             const evalDiff = process.hrtime(initialTime);
