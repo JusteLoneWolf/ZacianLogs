@@ -7,8 +7,6 @@ const express = require("express"),
     MemoryStore = require("memorystore")(session);
 
 module.exports= client=> {
-    console.log(client.ws.shards.array()[0].id)
-    if(client.ws.shards.id === 0) return;
     const dashboardDir = path.resolve(`${process.cwd()}${path.sep}src${path.sep}web`);
     const templateDir = path.resolve(`${dashboardDir}${path.sep}template`);
 
@@ -62,5 +60,5 @@ module.exports= client=> {
         renderTemplate(res,req,"stats.ejs")
     });
 
-    client.site = dashboard.listen(client.web.port)
+    dashboard.listen(client.web.port)
 };
