@@ -23,7 +23,8 @@ module.exports = class {
             });
             logChannel.send({
                 embed: {
-                    title: "Une invitation a etait créer",
+                    title:"Invitation Logs",
+                    description: "Une invitation a etait créer",
                     fields: [
                         {
                             name: "❱ Code",
