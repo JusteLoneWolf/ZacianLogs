@@ -5,6 +5,7 @@ module.exports = class {
 
     async run(newMember) {
         let db = this.client.guildDB.get(newMember.guild.id);
+        if(!db) return
         if (!db.welcome) {
             db.welcome = {
                 enabled: false,
