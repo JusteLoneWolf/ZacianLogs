@@ -24,7 +24,8 @@ module.exports = class {
 
         const insulte = new AntiInsulte(this.client);
         insulte.run(message);
-        this.client.emit('invitationLogger' ,this.client,message)
+        this.client.emit('invitationLogger' ,this.client,message);
+        this.client.emit('messageCitation' ,this.client,message);
         if (message.author.bot || !message.content.startsWith(this.client.guildDB.get(message.guild.id, "prefix"))) return;
 
         const args = message.content.split(' ').slice(1);
