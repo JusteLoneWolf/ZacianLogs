@@ -1,22 +1,23 @@
 <%- include('./helpers/header.ejs') %>
-
-<% let i = 0
-while(i<1){ %>
-    <div class="card">
-        <header class="card-header">
-            <p class="card-header-title"> Shard
-                <a href="#" class="card-header-icon" aria-label="more options">
-                </a>
-        </header>
-        <div class="card-content">
-            <div class="content">
-                <strong>Utilisateur:</strong> <br />
-                <strong>Serveurs:</strong> <br />
-                <strong>Uptime:</strong> <br />
-                <strong>RAM:</strong> <br />
+    <% let data = bot.dataShard
+    let shardID = 0
+    for(const shard of data){
+    %>
+        <div class="card-shard">
+            <header class="card-header">
+                <p class="card-header-title">Shard <%= shardID%>
+                    <a href="#" class="card-header-icon" aria-label="more options">
+                    </a>
+            </header>
+            <div class="card-content">
+                <div class="content">
+                    <strong>Utilisateur:</strong> <%= shard.user %><br />
+                    <strong>Serveur:</strong> <%= shard.guild%><br />
+                    <strong>Uptime:</strong> <%= moment.duration(shard.uptime).format(`y [année,] M [mois,] w [semaine,] d [jours ,] h [heures,] m [minutes ,] s [secondes]`).replace("secondses","secondes") %><br />
+                    <strong>Ram:</strong> <%= shard.ram %><br />
+                </div>
             </div>
         </div>
-    </div>
-<% i++
-    }%>
+<%
+        shardID++}%>
 <%- include('./helpers/footers.ejs') %>

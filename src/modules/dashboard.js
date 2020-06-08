@@ -34,13 +34,13 @@ module.exports= client=> {
 
     dashboard.engine("html", require("ejs").renderFile);
     dashboard.set("view engine","html");
-    dashboard.locals.moment = require('moment');
 
     const renderTemplate = (res,req,template,data ={}) =>{
         const baseData ={
             bot: client,
             path: req.path,
-            user: req.isAuthenticated() ? req.user : null
+            user: req.isAuthenticated() ? req.user : null,
+            moment : require('moment')
         };
         res.render(
             path.resolve(`${templateDir}${path.sep}${template}`),
@@ -60,5 +60,5 @@ module.exports= client=> {
         renderTemplate(res,req,"stats.ejs")
     });
 
-    dashboard.listen(client.web.port)
+    client.dash = dashboard.listen(client.web.port)
 };

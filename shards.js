@@ -11,9 +11,4 @@ manager.on("shardCreate",()=>{
     console.log('shard lancé')
 });
 
-
-manager.spawn().then(r => {
-    r.on("ready", ()=>{
-        console.log(1)
-    })
-});
+manager.spawn()

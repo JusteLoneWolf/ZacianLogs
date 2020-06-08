@@ -67,16 +67,16 @@ footer strong {
 }
 
 .card{
-    width: 15%;
+    width: 45%;
     margin: 1rem;
     display: inline-block;
     color: white;
     background: #5b5a5a;
 }
 .card-shard {
-    margin-bottom: 10px;
-    width: 32%;
-    margin-left: 10px;
+    margin: 10px;
+    width: 20%;
+    margin: 10px;
     display: inline-block;
     color: white;
     background: #5b5a5a;
@@ -91,11 +91,12 @@ footer strong {
 .card-content {
     padding: 1rem;
 }
-.card-content{
-    padding: 1rem;
-}
 
 .counter {
     animation-duration: 1s;
     animation-delay: 0s;
+}
+
+.cardShard {
+    width: 15%;
 }

@@ -12,9 +12,6 @@ module.exports = class {
             }
         }).then(() => this.client.logger.info('Status set !'));
 
-        //require('../../modules/dashboard')(this.client)
-
-
         this.client.guilds.cache.map(async guild => {
 
             try {
@@ -36,6 +33,29 @@ module.exports = class {
                 this.client.emit("error", err);
             }
         });
+        if(this.client.ws.shards.find(shard => shard.id ===this.client.shard.count-1)){
+            require('../../modules/dashboard')(this.client)
+            await getShardData(this.client);
+            setInterval(async()=>{
+                await getShardData(this.client)
+            },60000)
+
+
+        }
+        async function getShardData(client) {
+            const shardsInfo = await client.shard.broadcastEval(`let shardInfoArr = []; shardInfoArr.push(this.users.cache.size); shardInfoArr.push(this.guilds.cache.size); shardInfoArr.push(this.uptime); shardInfoArr.push(Math.trunc((process.memoryUsage().heapUsed) / 1024 / 1000)); shardInfoArr;`);
+            client.dataShard = []
+
+            for(let e = 0; e<shardsInfo.length;e++){
+                client.dataShard.push({
+                    user: shardsInfo[e][0],
+                    guild: shardsInfo[e][1],
+                    uptime: shardsInfo[e][2],
+                    ram: shardsInfo[e][3],
+                })
+            }
+            return client.dataShard
+        }
 
         this.client.logger.info(`${this.client.user.username} pret`)
 
