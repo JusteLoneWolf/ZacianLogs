@@ -7,10 +7,11 @@ const express = require("express"),
     MemoryStore = require("memorystore")(session);
 
 module.exports= client=> {
+
     const dashboardDir = path.resolve(`${process.cwd()}${path.sep}src${path.sep}web`);
     const templateDir = path.resolve(`${dashboardDir}${path.sep}template`);
-
     dashboard.use("/public", express.static(path.resolve(`${dashboardDir}${path.sep}public`)));
+
     passport.use(new Strategy({
             clientID: client.fetchApplication().then((data) => data.id),
             clientSecret: client.web.oauthSecret,
@@ -31,7 +32,6 @@ module.exports= client=> {
 
     dashboard.use(passport.initialize());
     dashboard.use(passport.session());
-
     dashboard.engine("html", require("ejs").renderFile);
     dashboard.set("view engine","html");
 
@@ -51,13 +51,26 @@ module.exports= client=> {
     dashboard.get("/", (req,res)=>{
         renderTemplate(res,req,"home.ejs")
     });
-
     dashboard.get("/commands", (req,res)=>{
         renderTemplate(res,req,"command.ejs")
     });
-
     dashboard.get("/stats", (req,res)=>{
         renderTemplate(res,req,"stats.ejs")
+    });
+    dashboard.get("/login", (req, res, next) => {
+            req.session.backURL = "/";
+            next();
+        },
+        passport.authenticate("discord")
+    );
+    dashboard.get("/callback", passport.authenticate("discord"), (req, res) => {
+        res.redirect("/");
+    });
+    dashboard.get("/logout", (req, res) => {
+        req.session.destroy(() => {
+            req.logout();
+            res.redirect("/");
+        });
     });
 
     client.dash = dashboard.listen(client.web.port)

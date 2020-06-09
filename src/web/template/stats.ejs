@@ -1,8 +1,7 @@
 <%- include('./helpers/header.ejs') %>
     <% let data = bot.dataShard
     let shardID = 0
-    for(const shard of data){
-    %>
+    for(const shard of data){%>
         <div class="card-shard">
             <header class="card-header">
                 <p class="card-header-title">Shard <%= shardID%>
@@ -18,6 +17,5 @@
                 </div>
             </div>
         </div>
-<%
-        shardID++}%>
+<%shardID++}%>
 <%- include('./helpers/footers.ejs') %>

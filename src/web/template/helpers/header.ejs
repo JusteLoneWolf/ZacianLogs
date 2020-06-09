@@ -61,11 +61,19 @@
         </div>
         <div class="navbar-end">
             <div class="navbar-item">
+                <% if(user){%>
                 <div class="buttons">
-                    <a class="button is-warning">
-                        Connexion
+                    <a class="button is-warning" href="/logout">
+                        Déconnexion
                     </a>
                 </div>
+                <%}else{ %>
+                    <div class="buttons">
+                        <a class="button is-warning" href="/login">
+                            Connection
+                        </a>
+                    </div>
+                <%}%>
             </div>
         </div>
     </div>
