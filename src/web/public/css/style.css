@@ -100,3 +100,9 @@ footer strong {
 .cardShard {
     width: 15%;
 }
+
+.image{
+    width: 50rem;
+    margin: 5rem;
+    margin-left: 20rem ;
+}

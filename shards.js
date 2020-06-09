@@ -2,7 +2,7 @@ const {ShardingManager} = require('discord.js');
 
 const manager = new ShardingManager("./main.js",{
    token: require('./option').config.token,
-   totalShards: 1,
+   totalShards: 2,
    respawn: true
 });
 

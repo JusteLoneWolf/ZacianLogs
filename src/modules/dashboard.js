@@ -6,7 +6,7 @@ const express = require("express"),
     session = require("express-session"),
     MemoryStore = require("memorystore")(session);
 
-module.exports= client=> {
+module.exports= async client=> {
 
     const dashboardDir = path.resolve(`${process.cwd()}${path.sep}src${path.sep}web`);
     const templateDir = path.resolve(`${dashboardDir}${path.sep}template`);
@@ -16,6 +16,7 @@ module.exports= client=> {
             clientID: client.fetchApplication().then((data) => data.id),
             clientSecret: client.web.oauthSecret,
             callbackURL: client.web.callbackURL,
+            application : await client.fetchApplication().then((data) =>data),
             scope: ["identity", "guilds"]
         },
         (accesToken, refreshToken, profile, done) => {
@@ -55,6 +56,9 @@ module.exports= client=> {
         renderTemplate(res,req,"command.ejs")
     });
     dashboard.get("/stats", (req,res)=>{
+        renderTemplate(res,req,"stats.ejs")
+    });
+    dashboard.get("/", (req,res)=>{
         renderTemplate(res,req,"stats.ejs")
     });
     dashboard.get("/login", (req, res, next) => {

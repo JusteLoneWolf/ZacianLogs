@@ -50,31 +50,16 @@
                 <div class="one"></div>
 
                 <div class="two">
-                    <p class="bold"><%= bot.guilds.cache.size %> serveurs</p>
+                    <p class="bold"><%=
+                        bot.guilds.cache.size%> serveurs
+                        </p>
                 </div>
 
             </a>
 
-            <a class="navbar-item" href="https://discord.gg/xEnw3rx">
+            <a class="navbar-item" href="https://discord.gg/YbeR962">
                 Support
             </a>
-        </div>
-        <div class="navbar-end">
-            <div class="navbar-item">
-                <% if(user){%>
-                <div class="buttons">
-                    <a class="button is-warning" href="/logout">
-                        Déconnexion
-                    </a>
-                </div>
-                <%}else{ %>
-                    <div class="buttons">
-                        <a class="button is-warning" href="/login">
-                            Connection
-                        </a>
-                    </div>
-                <%}%>
-            </div>
         </div>
     </div>
 </nav>
