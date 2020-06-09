@@ -13,11 +13,14 @@ module.exports = class {
 
         const insulte = new AntiInsulte(this.client);
         insulte.run(newMessage);
-        if (newMessage.author.bot || !newMessage.content.startsWith(this.client.guildDB.get(newMessage.guild.id, "prefix"))) return;
 
-        const args = newMessage.content.split(' ').slice(1);
+        if (newMessage.author.bot) return;
+        let prefix = this.client.guildDB.get(newMessage.guild.id, "prefix") || "zac!"
+        if(!newMessage.content.startsWith(prefix)) return
 
         const command = newMessage.content.split(' ')[0].slice(this.client.guildDB.get(newMessage.guild.id, "prefix").length);
+        const args = newMessage.content.split(' ').slice(1);
+
         const cmd = this.client.commands.get(command) || this.client.commands.get(this.client.aliases.get(command));
         if (!cmd) return;
        // if (cmd.cooldown.has(newMessage.author.id)) return newMessage.delete();

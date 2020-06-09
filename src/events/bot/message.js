@@ -26,11 +26,13 @@ module.exports = class {
         insulte.run(message);
         this.client.emit('invitationLogger' ,this.client,message);
         this.client.emit('messageCitation' ,this.client,message);
-        if (message.author.bot || !message.content.startsWith(this.client.guildDB.get(message.guild.id, "prefix"))) return;
+        if (message.author.bot) return;
+        let prefix = this.client.guildDB.get(message.guild.id, "prefix") || "zac!"
+        if(!message.content.startsWith(prefix)) return
 
         const args = message.content.split(' ').slice(1);
 
-        const command = message.content.split(' ')[0].slice(this.client.guildDB.get(message.guild.id, "prefix").length);
+        const command = message.content.split(' ')[0].slice(prefix.length);
         const cmd = this.client.commands.get(command) || this.client.commands.get(this.client.aliases.get(command));
         if (!cmd) return;
        // if (cmd.cooldown.has(message.author.id)) return message.delete();
