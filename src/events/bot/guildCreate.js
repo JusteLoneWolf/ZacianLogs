@@ -5,10 +5,10 @@ module.exports = class {
     }
 
    async run(guild) {
-        const NewGuild= {
-            GuildId : guild.id
-        }
-        await this.client.dbmanager.createGuild(NewGuild)
+        const newGuild= {
+            id : guild.id
+        };
+        await this.client.dbmanager.createGuild(newGuild);
        this.client.logger.info(`Nouveau serveur -> ${guild.name}`)
     }
 };
