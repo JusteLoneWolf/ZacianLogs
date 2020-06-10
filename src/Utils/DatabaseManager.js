@@ -11,8 +11,15 @@ class DatabaseManager{
         createGuild.save()
     };
 
+    getGuild = async guild => {
+        const data = await Guild.findOne({ GuildId: guild.id });
+        if (data) return data;
+        return this.client.option.config
+
+    };
+
     updateGuild = async (guild, settings) => {
-        let data = await this.client.getGuild(guild);
+        let data = await this.getGuild(guild);
         if (typeof data !== "object") data = {};
         for (const key in settings) {
             if (data[key] !== settings[key]) data[key] = settings[key];

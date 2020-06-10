@@ -8,11 +8,7 @@ module.exports = class {
     async run(message) {
         if (message.author.bot) return;
         if (message.channel.type === "dm") return this.client.emit("DirectMessage", message);
-
-       if(!this.client.guildDB.get(message.guild.id)){
-            this.client.emit('guildCreate',message.guild);
-        }
-
+        const guildData = await this.client.dbmanager.getGuild(message.guild)
         /*await this.client.utils.fetchInvite(message.guild,this.client.guildDB).then(()=>{
             console.log(`Toutes les invitation get ${message.guild.id}`);
         }).catch((err)=>{
@@ -27,7 +23,7 @@ module.exports = class {
         this.client.emit('invitationLogger' ,this.client,message);
         this.client.emit('messageCitation' ,this.client,message);
         if (message.author.bot) return;
-        let prefix = this.client.guildDB.get(message.guild.id, "prefix") || "zac!"
+        let prefix = guildData.prefix || "zac!"
         if(!message.content.startsWith(prefix)) return
 
         const args = message.content.split(' ').slice(1);
@@ -40,7 +36,7 @@ module.exports = class {
 
         cmd.setMessage(message);
         try{
-            cmd.run(message, args);
+            cmd.run(message, args,guildData);
         }catch (e) {
             this.client.emit('error',e.stack,message.channel,cmd)
         }

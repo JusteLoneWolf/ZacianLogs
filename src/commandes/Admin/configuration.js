@@ -6,7 +6,7 @@ class Configuration extends Command {
         super(client, HELPER.COMMANDS.ADMIN.CONFIGURATION);
     }
 
-   async run(message, args) {
+   async run(message, args,guildData) {
        if (!message.member.permissions.has("MANAGE_GUILD",true)) return message.channel.send("Tu n\'as pas la permission `GERER LE SERVER` ou `ADMINISTRATOR`");
         let db = this.client.guildDB.get(message.guild.id);
         let text ='';
@@ -224,9 +224,8 @@ class Configuration extends Command {
                         if (!args.slice(2).toString()) return super.respond('Merci de definir un prefix');
                         if (args.slice(2).join(' ').length <= 3) return super.respond(`Le prefix doit avoir plus de  **3** characters`);
                         if (args.slice(2).join(' ').includes('*') || args.slice(2).join(' ').includes('_') || args.slice(2).join(' ').includes('~') || args.slice(2).join(' ').includes('`')) return super.respond(`Les caracterres \`*\`, \`_\`, \`~\`, \`~\`, \`\`\` ne sont pas accepté`);
-                        db.prefix = args.slice(2).join('');
-                        this.client.guildDB.set(message.guild.id, db);
-                        super.respond(`Le prefix est maintenant **${db.prefix}**`);
+                        await this.client.dbmanager.updateGuild(message.guild, {prefix: args.slice(2).join('')})
+                        super.respond(`Le prefix est maintenant **${args.slice(2).join('')}**`);
                         break
                 }
                 break;
