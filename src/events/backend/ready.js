@@ -33,7 +33,7 @@ module.exports = class {
                 this.client.emit("error", err);
             }
         });
-        if(this.client.ws.shards.find(shard => shard.id ===this.client.shard.count-1)){
+        /*if(this.client.ws.shards.find(shard => shard.id ===this.client.shard.count-1)){
             require('../../modules/dashboard')(this.client)
             await getShardData(this.client);
             setInterval(async()=>{
@@ -56,7 +56,7 @@ module.exports = class {
             }
             return client.dataShard
         }
-
+*/
         this.client.logger.info(`${this.client.user.username} pret`)
 
 

@@ -10,7 +10,7 @@ module.exports = class {
         if (message.channel.type === "dm") return this.client.emit("DirectMessage", message);
 
        if(!this.client.guildDB.get(message.guild.id)){
-            this.client.emit('createDatabase',message.guild);
+            this.client.emit('guildCreate',message.guild);
         }
 
         /*await this.client.utils.fetchInvite(message.guild,this.client.guildDB).then(()=>{
