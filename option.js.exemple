@@ -21,4 +21,5 @@ module.exports = {
         domain:"",
         port:3030
     }
+    DBconnection: process.env.Dbconnect
 };
