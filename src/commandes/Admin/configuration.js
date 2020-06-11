@@ -7,13 +7,15 @@ class Configuration extends Command {
     }
 
    async run(message, args,guildData) {
-
-       let badword = {
+       let badwords = {
            active: false,
-           list: guildData.badwords.list,
-           ignore_role: guildData.badwords.ignore_role,
-           ignore_channel: guildData.badwords.ignore_channel,
-           ignore_members: guildData.badwords.ignore_members,
+           list: guildData.badword.list,
+           ignore_role: guildData.badword.ignore_role,
+           ignore_channel: guildData.badword.ignore_channel,
+           ignore_members: guildData.badword.ignore_members,
+       }
+       let channels = {
+            log:guildData.channels.log
        }
        let settings = {
            punishment: {
@@ -80,32 +82,20 @@ class Configuration extends Command {
                         let channel = message.mentions.channels.first() ? message.mentions.channels.first() : args.slice(2) ? args.slice(2).join(' ').toLowerCase() : false;
                         channel = channel ? message.mentions.channels.first() ? channel.name : args.slice(2).join(' ').toLowerCase() : message.channel.name;
                         channel = message.guild.channels.cache.find(c => c.name === channel || c.id === channel);
-                        if (db.channels.logs === channel.id) return super.respond(`Le channel de logs est deja mis sur ${channel.name}`);
+                        if (guildData.channels.logs === channel.id) return super.respond(`Le channel de logs est deja mis sur ${channel.name}`);
+                        channels.log = channel.id;
+                        await this.client.dbmanager.updateGuild(message.guild, {channels:channels });
 
                         db.channels.logs = channel.id;
-                        this.client.guildDB.set(message.guild.id, db);
                         super.respond(`Les logs sont mis sur ${channel.name}`);
                         break;
                     case "capchat":
                         switch (args[2]) {
                             case "enabled":
-                                if (!db.welcome) {
-                                    db.welcome = {
-                                        enabled: false,
-                                        autorole: "",
-                                        capchat: {
-                                            unverifiedRole: "",
-                                            channel: "",
-                                            enabled: true
-                                        }
-                                    }
-                                }else{
-                                    db.welcome.capchat.enabled = true
-                                }
-                                this.client.guildDB.set(message.guild.id,db);
+                                settings.welcome.capchat.enabled = true
+                                await this.client.dbmanager.updateGuild(message.guild, {settings:settings});
                                 text += 'Le capchat est activé\n';
-
-                                message.channel.send(messageSend(text,db));
+                                message.channel.send(messageSend(text,guildData));
                                 break;
                             case "unverifiedrole":
                                 let roles = message.mentions.roles.first() ? message.mentions.roles.first() : args.slice(3) ? args.slice(3).join(' ').toLowerCase() : false;
@@ -113,22 +103,10 @@ class Configuration extends Command {
                                 roles = message.guild.roles.cache.find(r => r.name.toLowerCase() === roles || r.id === roles);
                                 if (!roles) return message.channel.send("Le role est introuvable");
 
-                                if (!db.welcome) {
-                                    db.welcome = {
-                                        enabled: false,
-                                        autorole: "",
-                                        capchat: {
-                                            unverifiedRole: roles.id,
-                                            channel: "",
-                                            enabled: false
-                                        }
-                                    }
-                                }else{
-                                    db.welcome.capchat.unverifiedRole = roles.id
-                                }
-                                this.client.guildDB.set(message.guild.id,db);
+                                settings.welcome.capchat.unverifiedRole = roles.id;
+                                await this.client.dbmanager.updateGuild(message.guild, {settings:settings});
                                 text += `Le role pour les personne non verifier est mis a jour ${roles.name}\n`;
-                                message.channel.send(messageSend(text,db));
+                                message.channel.send(messageSend(text,guildData));
                                 await setCapchat();
                                 break;
                             case "channel":
@@ -138,23 +116,10 @@ class Configuration extends Command {
                                 channel = message.guild.channels.cache.find(c => c.name.toLowerCase() === channel || c.id === channel);
                                 if (!channel) return message.channel.send("Le channel est introuvable");
 
-                                if (!db.welcome) {
-                                    db.welcome = {
-                                        enabled: false,
-                                        autorole: "",
-                                        capchat: {
-                                            unverifiedRole: "",
-                                            channel: channel.id,
-                                            enabled: false
-                                        }
-                                    }
-                                }else{
-                                    db.welcome.capchat.channel = channel.id
-                                }
-                                this.client.guildDB.set(message.guild.id,db);
+                                settings.welcome.capchat.unverifiedRole = channel.id;
+                                await this.client.dbmanager.updateGuild(message.guild, {settings:settings});
                                 text += `Le channel pour les personne non verifier est mis a jour sur ${channel.name}\n`;
-
-                                message.channel.send(messageSend(text,db));
+                                message.channel.send(messageSend(text,guildData));
                                 await setCapchat();
                                 break
                         }
@@ -162,47 +127,22 @@ class Configuration extends Command {
                     case "welcome":
                         switch (args[2]) {
                             case "enabled":
-                                if (!db.welcome) {
-                                    db.welcome = {
-                                        enabled: true,
-                                        autorole: "",
-                                        capchat: {
-                                            unverifiedRole: "",
-                                            channel: "",
-                                            enabled: false
-                                        }
-                                    }
-                                }else{
-                                    db.welcome.enabled = true
-                                }
-                                this.client.guildDB.set(message.guild.id,db);
                                 text += 'Le system de bienvenue est activé\n';
 
-
-                                message.channel.send(messageSend(text,db));
+                                settings.welcome.enabled = true;
+                                await this.client.dbmanager.updateGuild(message.guild, {settings:settings});
+                                message.channel.send(messageSend(text,guildData));
                                 break;
                             case "autorole":
                                 let roles = message.mentions.roles.first() ? message.mentions.roles.first() : args.slice(3) ? args.slice(3).join(' ').toLowerCase() : false;
                                 roles = message.mentions.roles.first() ? roles.name : args.slice(3).join(' ').toLowerCase();
                                 roles = message.guild.roles.cache.find(r => r.name.toLowerCase() === roles || r.id === roles);
                                 if (!roles) return message.channel.send("Le role est introuvable");
-                                if (!db.welcome) {
-                                    db.welcome = {
-                                        enabled: false,
-                                        autorole: roles.id,
-                                        capchat: {
-                                            unverifiedRole: "",
-                                            channel: "",
-                                            enabled: false
-                                        }
-                                    }
-                                }else{
-                                    db.welcome.autorole = roles.id
-                                }
-                                this.client.guildDB.set(message.guild.id,db);
+                                settings.welcome.autorole = roles.id;
+                                await this.client.dbmanager.updateGuild(message.guild, {settings:settings});
                                 text +=`L'autorole est sur ${roles.name}\n`;
 
-                                message.channel.send(messageSend(text,db));
+                                message.channel.send(messageSend(text,guildData));
                                 break;
                         }
                         break;
@@ -212,18 +152,17 @@ class Configuration extends Command {
                         roles = message.mentions.roles.first() ? roles.name : args.slice(2).join(' ').toLowerCase();
                         roles = message.guild.roles.cache.find(r => r.name === roles || r.id === roles);
                         if (!roles) return message.channel.send("Le roles est introuvable");
-                        if (db.badwords.ignore_role.includes(roles.id)) return super.respond(`Le role ${roles.name} est deja dans la liste`);
-                        db.badwords.ignore_role.push(roles.id);
-
-                        this.client.guildDB.set(message.guild.id, db);
+                        if (guildData.badword.ignore_role.includes(roles.id)) return super.respond(`Le role ${roles.name} est deja dans la liste`);
+                        badwords.ignore_role.push(roles.id);
+                        await this.client.dbmanager.updateGuild(message.guild, {badword: badwords})
                         super.respond(`Le role ${roles.name} est maintenant ignoré`);
                         break;
+
                     case "blacklistwords":
                         switch (args[2]) {
                             case "on":
                                 badword.active = true;
-                                guildData.badword=badword;
-                                guildData.save()
+                                await this.client.dbmanager.updateGuild(message.guild, {badword: badwords});
                                 return super.respond(`La blacklist word est activé`);
                         }
                         if (!args[2]) {
@@ -244,8 +183,9 @@ class Configuration extends Command {
                             })
                         }
                         let words = args.slice(2).join(' ');
-                        if (db.badwords.list.includes(words)) return super.respond(`Le mot ${words} est déja listé`);
-                        db.badwords.list.push(words);
+                        if (guildData.badword.list.includes(words)) return super.respond(`Le mot ${words} est déja listé`);
+                        badwords.badword.push(words);
+                        await this.client.dbmanager.updateGuild(message.guild, {badword: badwords})
                         this.client.guildDB.set(message.guild.id, db);
                         super.respond(`Le mot ${words} est blacklist`);
                         break;
@@ -283,49 +223,37 @@ class Configuration extends Command {
                         roles = message.mentions.roles.first() ? roles.name : args.slice(2).join(' ').toLowerCase();
                         roles = message.guild.roles.cache.find(r => r.name === roles || r.id === roles);
                         if (!roles) return message.channel.send("Le roles est introuvable");
-                        if (!db.badwords.ignore_role.includes(roles.id)) return super.respond(`Le role ${roles.name} n'est pas dans la liste`);
-                        let ignoredRole = db.badwords.ignore_role;
+                        if (!guildData.badword.ignore_role.includes(roles.id)) return super.respond(`Le role ${roles.name} n'est pas listé`);
+                        let ignoredRole = guildData.badword.ignore_role;
                         let newIgnoredRole = [];
                         ignoredRole.forEach(role => {
                             if (role !== roles.id) {
                                 newIgnoredRole.push(role)
                             }
-                            db.badwords.ignore_role = newIgnoredRole;
-                            this.client.guildDB.set(message.guild.id, db)
+                            badwords.ignore_role = newIgnoredRole;
                         });
+                        await this.client.dbmanager.updateGuild(message.guild, {badword: badwords})
                         super.respond(`Le role ${roles.name} a etait supprimé`);
                         break;
                     case "blacklistwords":
                         let words = args.slice(2).join(' ');
-                        if (!db.badwords.list.includes(words)) return super.respond(`Le mot ${words} n'est déja listé`);
-                        let badWord = db.badwords.list;
+                        if (!guildData.badword.list.includes(words)) return super.respond(`Le mot ${words} n'est pas listé`);
+                        let badWord =guildData.badword.list;
                         let newBadWord = [];
                         badWord.forEach(role => {
                             if (role !== words) {
                                 newBadWord.push(role)
                             }
-                            db.badwords.list = newBadWord;
-                            this.client.guildDB.set(message.guild.id, db)
+                            guildData.badword.list = newBadWord;
                         });
 
-                        this.client.guildDB.set(message.guild.id, db);
+                        await this.client.dbmanager.updateGuild(message.guild, {badword: badwords})
+
                         super.respond(`Le mot ${words} n'est plus blacklist`);
                         break;
                 }
                 break;
             case"view":
-                if (!db.welcome) {
-                    db.welcome = {
-                        enabled: true,
-                        autorole: "",
-                        capchat: {
-                            unverifiedRole: "",
-                            channel: "",
-                            enabled: false
-                        }
-                    };
-                    this.client.guildDB.set(message.guild.id,db);
-                }
                 let eventlist = ["Ajout/Mise a jour/Suppression de Channel","Ajout de channel AFK","Ajout de la bannierre du serveur","Ajout/Suprression de boost","Augmentation/Diminution du niveau du serveur","Ajout/Mise a jours/Suppression de membres","Changement de pseudo","Ajout/Suppression de role","Mise a jours de la region","Ajout/Suppression des invitations","Edition de message","Ajout/Suppression de message épinglé","Logs des invitation posté"];
                 return message.channel.send({
                     embed: {
@@ -333,27 +261,27 @@ class Configuration extends Command {
                         fields: [
                             {
                                 name: '❱ Channel de logs',
-                                value: message.guild.channels.cache.get(this.client.guildDB.get(message.guild.id, "channels.logs")) ? message.guild.channels.cache.get(this.client.guildDB.get(message.guild.id, "channels.logs")) : "Pas de channel"
+                                value: message.guild.channels.cache.get(guildData.channels.log) ? message.guild.channels.cache.get(guildData.channels.log) : "Pas de channel"
                             },
                             {
                                 name: "❱ Systeme mauvais mot",
-                                value: this.client.guildDB.get(message.guild.id).badwords.active ? "Activé" : "Désactivé"
+                                value: this.client.guildDB.get(message.guild.id).badword.active ? "Activé" : "Désactivé"
                             },
                             {
                                 name: "❱ Role ignoré",
-                                value: this.client.guildDB.get(message.guild.id).badwords.ignore_role.map(id => message.guild.roles.cache.get(id) ? message.guild.roles.cache.get(id) : "Role introuvable").join(" ") || "Pas de roles"
+                                value: guildData.badword.ignore_role.map(id => message.guild.roles.cache.get(id) ? message.guild.roles.cache.get(id) : "Role introuvable").join(" ") || "Pas de roles"
                             },
                             {
                                 name: "❱ Liste des mauvais mot",
-                                value: this.client.guildDB.get(message.guild.id).badwords.list.map(badword => badword).join(", ") || "Pas de roles"
+                                value: guildData.badword.list.map(badword => badword).join(", ") || "Pas de roles"
                             },
                             {
                                 name: "❱ Capchat",
-                                value: `Channel: ${message.guild.channels.cache.get(this.client.guildDB.get(message.guild.id).welcome.capchat.channel)? message.guild.channels.cache.get(this.client.guildDB.get(message.guild.id).welcome.capchat.channel).name : "Pas de channel"}\nRole: ${message.guild.roles.cache.get(this.client.guildDB.get(message.guild.id).welcome.capchat.unverifiedRole) ? message.guild.roles.cache.get(this.client.guildDB.get(message.guild.id).welcome.capchat.unverifiedRole).name : "Pas de role"}`
+                                value: `Channel: ${message.guild.channels.cache.get(guildData.settings.welcome.capchat.channel)? message.guild.channels.cache.get(guildData.settings.welcome.capchat.channel).name : "Pas de channel"}\nRole: ${message.guild.roles.cache.get(guildData.settings.welcome.capchat.unverifiedRole) ? message.guild.roles.cache.get(guildData.settings.welcome.capchat.unverifiedRole).name : "Pas de role"}`
                             },
                             {
                                 name: "❱ Autorole",
-                                value: `${message.guild.roles.cache.get(this.client.guildDB.get(message.guild.id).welcome.autorole) ? message.guild.roles.cache.get(this.client.guildDB.get(message.guild.id).welcome.autorole).name : "Pas de role"}`
+                                value: `${message.guild.roles.cache.get(guildData.settings.welcome.autorole) ? message.guild.roles.cache.get(guildData.settings.welcome.autorole).name : "Pas de role"}`
                             },
                             {
                                 name:"❱ Liste des logs",

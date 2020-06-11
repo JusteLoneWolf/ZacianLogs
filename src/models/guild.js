@@ -8,7 +8,6 @@ const guildSchema = mongoose.Schema({
         type :String,
         default : config.prefix
     },
-    log: String,
     badword: {
         type:Object,
         default: {
@@ -49,6 +48,12 @@ const guildSchema = mongoose.Schema({
     members:{
         type: Array,
         default :[]
+    },
+    channels:{
+        type:Object,
+        default:{
+            log: null
+        }
     }
 });
 
