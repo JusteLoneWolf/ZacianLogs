@@ -7,6 +7,34 @@ class Configuration extends Command {
     }
 
    async run(message, args,guildData) {
+
+       let badword = {
+           active: false,
+           list: guildData.badwords.list,
+           ignore_role: guildData.badwords.ignore_role,
+           ignore_channel: guildData.badwords.ignore_channel,
+           ignore_members: guildData.badwords.ignore_members,
+       }
+       let settings = {
+           punishment: {
+               enabled: false,
+               mute: 3,
+               kick: 5,
+               ban: 8,
+           },
+           roles: {
+               mute: null
+           },
+           welcome: {
+               enabled: false,
+               autorole: null,
+               capchat: {
+                   unverifiedRole: null,
+                   channel: null,
+                   enabled: false
+               },
+           }
+       }
        if (!message.member.permissions.has("MANAGE_GUILD",true)) return message.channel.send("Tu n\'as pas la permission `GERER LE SERVER` ou `ADMINISTRATOR`");
         let db = this.client.guildDB.get(message.guild.id);
         let text ='';
@@ -49,8 +77,8 @@ class Configuration extends Command {
                 switch (args[1]) {
 
                     case "logs":
-                        let channel = message.mentions.channels.first() ? message.mentions.channels.first() : args.slice(2) ? args.slice(2).join(' ') : false;
-                        channel = channel ? message.mentions.channels.first() ? channel.name : args.slice(2).join(' ') : message.channel.name;
+                        let channel = message.mentions.channels.first() ? message.mentions.channels.first() : args.slice(2) ? args.slice(2).join(' ').toLowerCase() : false;
+                        channel = channel ? message.mentions.channels.first() ? channel.name : args.slice(2).join(' ').toLowerCase() : message.channel.name;
                         channel = message.guild.channels.cache.find(c => c.name === channel || c.id === channel);
                         if (db.channels.logs === channel.id) return super.respond(`Le channel de logs est deja mis sur ${channel.name}`);
 
@@ -105,8 +133,8 @@ class Configuration extends Command {
                                 break;
                             case "channel":
                                 console.log(args.slice(2));
-                                let channel = message.mentions.channels.first() ? message.mentions.channels.first() : args.slice(3) ? args.slice(3).join(' ') : false;
-                                channel = channel ? message.mentions.channels.first() ? channel.name : args.slice(3).join(' ') : message.channel.name;
+                                let channel = message.mentions.channels.first() ? message.mentions.channels.first() : args.slice(3) ? args.slice(3).join(' ').toLowerCase() : false;
+                                channel = channel ? message.mentions.channels.first() ? channel.name : args.slice(3).join(' ').toLowerCase() : message.channel.name;
                                 channel = message.guild.channels.cache.find(c => c.name.toLowerCase() === channel || c.id === channel);
                                 if (!channel) return message.channel.send("Le channel est introuvable");
 
@@ -179,9 +207,9 @@ class Configuration extends Command {
                         }
                         break;
                     case "ignorerole":
-                        let roles = message.mentions.roles.first() ? message.mentions.roles.first() : args.slice(2) ? args.slice(2).join(' ') : false;
+                        let roles = message.mentions.roles.first() ? message.mentions.roles.first() : args.slice(2) ? args.slice(2).join(' ').toLowerCase() : false;
                         if (!roles) return message.channel.send("Le roles est introuvable");
-                        roles = message.mentions.roles.first() ? roles.name : args.slice(2).join(' ');
+                        roles = message.mentions.roles.first() ? roles.name : args.slice(2).join(' ').toLowerCase();
                         roles = message.guild.roles.cache.find(r => r.name === roles || r.id === roles);
                         if (!roles) return message.channel.send("Le roles est introuvable");
                         if (db.badwords.ignore_role.includes(roles.id)) return super.respond(`Le role ${roles.name} est deja dans la liste`);
@@ -193,8 +221,9 @@ class Configuration extends Command {
                     case "blacklistwords":
                         switch (args[2]) {
                             case "on":
-                                db.badwords.active = true;
-                                this.client.guildDB.set(message.guild.id, db);
+                                badword.active = true;
+                                guildData.badword=badword;
+                                guildData.save()
                                 return super.respond(`La blacklist word est activé`);
                         }
                         if (!args[2]) {
@@ -249,9 +278,9 @@ class Configuration extends Command {
                 }
                 switch (args[1]) {
                     case "ignorerole":
-                        let roles = message.mentions.roles.first() ? message.mentions.roles.first() : args.slice(2) ? args.slice(2).join(' ') : false;
+                        let roles = message.mentions.roles.first() ? message.mentions.roles.first() : args.slice(2) ? args.slice(2).join(' ').toLowerCase() : false;
                         if (!roles) return message.channel.send("Le roles est introuvable");
-                        roles = message.mentions.roles.first() ? roles.name : args.slice(2).join(' ');
+                        roles = message.mentions.roles.first() ? roles.name : args.slice(2).join(' ').toLowerCase();
                         roles = message.guild.roles.cache.find(r => r.name === roles || r.id === roles);
                         if (!roles) return message.channel.send("Le roles est introuvable");
                         if (!db.badwords.ignore_role.includes(roles.id)) return super.respond(`Le role ${roles.name} n'est pas dans la liste`);
