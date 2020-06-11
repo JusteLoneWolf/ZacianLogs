@@ -4,16 +4,16 @@ module.exports = class {
     }
 
     async run(invite) {
-        if (!this.client.guildDB.get(invite.guild.id)) return;
-
+        let db = this.client.dbmanager.getGuild(newMember.guild)
+        if(!db) return;
+        let logChannel = newMember.guild.channels.cache.get(db.channels.log)
+        if (!logChannel) return;
         const moment = require("moment");
         require("moment-duration-format");
         moment.locale("fr");
-        let db = this.client.guildDB.get(invite.guild.id, "channels.logs");
 
         this.client.utils.fetchInvite(invite.guild, this.client.guildDB).then(async ()=>{
-            const logChannel = invite.guild.channels.cache.find(channel => channel.id === db);
-            if (!logChannel) return;
+
 
             const aLogFound = await invite.guild.fetchAuditLogs({
                 type: "INVITE_CREATE",

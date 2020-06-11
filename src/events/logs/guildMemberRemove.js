@@ -3,12 +3,11 @@ module.exports = class {
         this.client = client;
     }
     async run(member){
-        if (!this.client.guildDB.get(member.guild.id)) return;
-
-        let db = this.client.guildDB.get(member.guild.id,"channels.logs");
+        let db = this.client.dbmanager.getGuild(member)
+        if(!db) return
             const botPerms = member.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS"], true);
            if (botPerms) {
-                const logChannel = member.guild.channels.cache.find(channel => channel.id === db);
+                const logChannel = member.guild.channels.cache.get(db.channels.log)
                 if(!logChannel) return;
                 const tempTimestamp = Date.now();
 

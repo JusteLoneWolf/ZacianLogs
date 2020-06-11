@@ -5,12 +5,10 @@ module.exports = class {
         this.client = client;
     }
     run(oldChannel,newChannel){
-        if (!this.client.guildDB.get(newChannel.guild.id)) return;
-
-        let channel = newChannel.guild.channels.cache.get(this.client.guildDB.get(newChannel.guild.id,"channels.logs"));
+        let db = this.client.dbmanager.getGuild(newChannel)
+        if(!db) return
+        let channel = newGuild.channels.cache.get(db.channels.log)
         if(!channel )return;
-
-       // return console.log(oldChannel.permissionOverwrites)
 
         channel.send({
             embed:{

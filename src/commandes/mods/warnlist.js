@@ -10,7 +10,8 @@ class ListWarn extends Command {
 
         const mention = message.mentions.members.first();
         if (!mention) return message.channel.send("Vous devez mentionné un utilisateur");
-        const db = this.client.guildDB.get(message.guild.id);
+        const db = this.client.dbmanager.getGuild(message.guild)
+
         if (!db.warns[mention.id]) message.channel.send("Cette utilisateur n'as pas de warn");
         let warn = [];
 

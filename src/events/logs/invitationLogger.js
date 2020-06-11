@@ -4,8 +4,9 @@ module.exports = class {
     }
     run(client,message){
 
-        if (!this.client.guildDB.get(message.guild.id)) return;
-        let channel = message.guild.channels.cache.get(this.client.guildDB.get(message.guild.id,"channels.logs"));
+        let db = this.client.dbmanager.getGuild(message.guild)
+        if(!db) return;
+        let channel =message.guild.channels.cache.get(db.channels.log)
         if(!channel )return;
 
         if(message.content.match(/(discord\.gg|discord\.com\/invite)\/.+/)){

@@ -5,11 +5,9 @@ module.exports = class {
     }
     async run(oldMessage,newMessage) {
         if (newMessage.author.bot) return;
-        if (!this.client.guildDB.get(newMessage.guild.id)) return;
-
-        let channel = newMessage.guild.channels.cache.get(this.client.guildDB.get(newMessage.guild.id,"channels.logs"));
-
-        if(!channel )return;
+        let db = this.client.dbmanager.getGuild(newMessage.guild)
+        if(!db) return;
+        let channel= newMember.guild.channels.cache.get(db.channels.log)
 
         channel.send({
             embed:{

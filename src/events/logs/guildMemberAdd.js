@@ -5,10 +5,10 @@ module.exports = class {
     }
 
     async run(member) {
-        if (!this.client.guildDB.get(member.guild.id)) return;
 
-        let db = this.client.guildDB.get(member.guild.id);
 
+        let db = this.client.dbmanager.getGuild(channel.guild)
+        if(!db) return
         if(db.members[member.id]){
             if(db.members[member.id].mute){
                 let role = member.guild.roles.cache.find(r=> r.name === 'Mute' || r.id === db.settings.roles.mute);
@@ -38,7 +38,7 @@ module.exports = class {
                 })
             }
         }
-        const logChannel = member.guild.channels.cache.find(channel => channel.id === db.channels.logs);
+        const logChannel = member.guild.channels.cache(db.channels.log)
         if (!logChannel) return;
 
         member.guild.fetchInvites().then(guildInvites => {

@@ -5,9 +5,9 @@ module.exports = class {
         this.client = client;
     }
     run(oldGuild,newGuild){
-        if (!this.client.guildDB.get(newGuild.id)) return;
-
-        let channel = newGuild.channels.cache.get(this.client.guildDB.get(newGuild.id,"channels.logs"));
+        let db = this.client.dbmanager.getGuild(newMember.guild)
+        if(!db) return;
+        let channel = newMember.guild.channels.cache.get(db.channels.log)
         if(!channel )return;
 
         channel.send({

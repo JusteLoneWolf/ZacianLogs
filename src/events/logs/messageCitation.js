@@ -5,9 +5,6 @@ module.exports = class {
     }
 
     async run(client,message) {
-        if (!this.client.guildDB.get(message.guild.id)) return;
-        let channel = message.guild.channels.cache.get(this.client.guildDB.get(message.guild.id,"channels.logs"));
-        if(!channel )return;
         const urlRegex = require('url-regex');
         let url = message.content.match(urlRegex());
         if(!url) return;

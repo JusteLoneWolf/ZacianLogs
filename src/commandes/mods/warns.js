@@ -12,7 +12,7 @@ class Warn extends Command{
 
         if (!mention) return message.channel.send("Vous devez mentionné un utilisateur");
         const reason = args.slice(1).join(" ") || "Pas de raison";
-        const db = this.client.guildDB.get(message.guild.id);
+        const db = this.client.dbmanager.getGuild(message.guild)
            if (!db.warns[mention.id]) {
                 db.warns[mention.id] = [];
                  this.client.guildDB.set(message.guild.id,db)

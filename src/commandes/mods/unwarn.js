@@ -9,10 +9,10 @@ class UnWarn extends Command{
 
         const mention = message.mentions.members.first();
         if (!mention) return message.channel.send("Vous devez mentionné un utilisateur");
-        console.log(this.client.guildDB.get(message.guild.id).warns[mention.user.id])
         if(!args[1] || isNaN(args[1])) return message.channel.send("Merci de choisir le warn")
 
-        const db = this.client.guildDB.get(message.guild.id);
+        const db = this.client.dbmanager.getGuild(message.guild)
+
 
         if (!db.warns[mention.id]) message.channel.send("Cette utilisateur n'as pas de warn");
 

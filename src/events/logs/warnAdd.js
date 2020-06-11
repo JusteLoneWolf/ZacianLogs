@@ -5,10 +5,8 @@ module.exports = class {
     }
 
     async run(message,mention,db) {
-
-        let channel = message.guild.channels.cache.get(db.channels.logs);
-
-        if(!channel )return;
+        if(!db) return;
+        let channel= message.guild.channels.cache.get(db.channels.log)
 
         channel.send({
             embed:{

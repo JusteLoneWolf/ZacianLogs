@@ -6,9 +6,9 @@ module.exports = class {
 
     async run(channel) {
         if(channel.type ==="dm") return;
-        if (!this.client.guildDB.get(channel.guild.id)) return;
-
-        let channeldb = channel.guild.channels.cache.get(this.client.guildDB.get(channel.guild.id,"channels.logs"));
+        let db = this.client.dbmanager.getGuild(channel.guild)
+        if(!db) return
+        let channeldb = channel.guild.channels.cache.get(db.channels.log)
         if(!channeldb )return;
         const aLogFound = await channel.guild.fetchAuditLogs({
             type: "CHANNEL_DELETE",
