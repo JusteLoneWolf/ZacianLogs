@@ -33,6 +33,13 @@ module.exports = class {
                 this.client.emit("error", err);
             }
         });
+
+        this.client.guilds.cache.map(async guild =>{
+            let data =await this.client.dbmanager.getGuild(guild)
+            if(!data){
+                this.client.emit("guildCreate",guild)
+            }
+        })
         /*if(this.client.ws.shards.find(shard => shard.id ===this.client.shard.count-1)){
             require('../../modules/dashboard')(this.client)
             await getShardData(this.client);

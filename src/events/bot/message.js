@@ -8,15 +8,12 @@ module.exports = class {
     async run(message) {
         if (message.author.bot) return;
         if (message.channel.type === "dm") return this.client.emit("DirectMessage", message);
-        const guildData = await this.client.dbmanager.getGuild(message.guild)
+        let guildData = await this.client.dbmanager.getGuild(message.guild)
         /*await this.client.utils.fetchInvite(message.guild,this.client.guildDB).then(()=>{
             console.log(`Toutes les invitation get ${message.guild.id}`);
         }).catch((err)=>{
             console.error(err)
         });*/
-
-
-
 
         const insulte = new AntiInsulte(this.client);
         insulte.run(message);
