@@ -8,7 +8,7 @@ class Unmute extends Command {
 
     async run(message, args) {
 
-        let db = this.client.guildDB.get(message.guild.id);
+        let db = await this.client.guildDB.get(message.guild.id);
         let member = message.mentions.members.first();
         if (!this.client.utils.resolveUser(message, member, HELPER.COMMANDS.MOD.UNMUTE.permission)) return;
         let role = message.guild.roles.cache.find(r=> r.name === 'Mute' || r.id === db.settings.roles.mute);

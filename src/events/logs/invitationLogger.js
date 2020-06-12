@@ -6,7 +6,6 @@ module.exports = class {
 
         let db = await this.client.dbmanager.getGuild(message.guild)
         if(!db) return;
-        console.log(db)
         let channel =message.guild.channels.cache.get(db.channels.log)
         if(!channel )return;
 

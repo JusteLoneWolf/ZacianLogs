@@ -4,9 +4,9 @@ module.exports = class {
         this.client = client;
     }
 
-    async run(message,mention,db) {
+    async run(message,mention,db,args) {
         if(!db) return;
-        let channel= await message.guild.channels.cache.get(db.channels.log)
+        let channel= await message.guild.channels.cache.get(db.channels.log);
 
         channel.send({
             embed:{
@@ -24,7 +24,7 @@ module.exports = class {
                     },
                     {
                         name:"❱ Raison",
-                        value: db.warns[mention.user.id][args[1]-1].raison
+                        value: db.warns[mention.user.id][args[1]-1].raison ? db.warns[mention.user.id][args[1]-1].raison: "Raison non trouvé"
                     }
                 ]
             }

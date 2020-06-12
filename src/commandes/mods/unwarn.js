@@ -11,7 +11,7 @@ class UnWarn extends Command{
         if (!mention) return message.channel.send("Vous devez mentionné un utilisateur");
         if(!args[1] || isNaN(args[1])) return message.channel.send("Merci de choisir le warn")
 
-        const db = this.client.dbmanager.getGuild(message.guild)
+        const db = await this.client.dbmanager.getGuild(message.guild)
 
 
         if (!db.warns[mention.id]) message.channel.send("Cette utilisateur n'as pas de warn");
@@ -29,9 +29,11 @@ class UnWarn extends Command{
             }
         }
         message.channel.send(`Le warn ${args[1]} a etait supprime\nRaison du warn: ${db.warns[mention.user.id][args[1]-1].raison}`)
-        this.client.emit('warnDelete', message,mention,db);
+        this.client.emit('warnDelete', message,mention,db,args);
+        console.log(newWarn)
         db.warns[mention.user.id] = newWarn;
-        this.client.guildDB.set(message.guild.id, db);
+
+        await this.client.dbmanager.updateGuild(message.guild, {warns:db.warns});
 
 
     }

@@ -6,27 +6,26 @@ class ListWarn extends Command {
     }
 
     async run(message) {
-       let i;
-
         const mention = message.mentions.members.first();
         if (!mention) return message.channel.send("Vous devez mentionné un utilisateur");
-        const db = this.client.dbmanager.getGuild(message.guild)
+        const db = await this.client.dbmanager.getGuild(message.guild)
 
-        if (!db.warns[mention.id]) message.channel.send("Cette utilisateur n'as pas de warn");
-        let warn = [];
+        if (!db.warns[mention.id]) return message.channel.send("Cette utilisateur n'as pas de warn");
+        let warnlist = [];
 
         let mapwarn = db.warns[mention.id].map(g => g);
+        let nombre = 0;
 
-        for (i = 0; i < 10; i++) {
-            let nombre = i + 1;
-            warn.push(`Warn n°${nombre}:\n╚>Raison: ${mapwarn[i].raison}\n╚>Date: ${mapwarn[i].time}\n`)
+        for (const warn of mapwarn) {
+            nombre++;
+            warnlist.push(`Warn n°${nombre}:\n╚>Raison: ${warn.raison}\n╚>Date: ${warn.time}\n`)
         }
         message.channel.send({
             embed: {
                 title: `Warns de ${mention.user.username}`,
-                description: warn.join('\n')
+                description: warnlist.join('\n')
             }
-        }).then(msg => {
+        })/*.then(msg => {
             msg.react('◀').then(() => {
                 msg.react('❌').then(() => {
                     msg.react('▶').then(() => {
@@ -41,19 +40,19 @@ class ListWarn extends Command {
                             let x = i - 10;
                             if (x <= 0) return;
                             i -= 20;
-                            let warn = [];
+                            let warnlist = [];
 
                             for (i; i < x; i++) {
                                 let nombre = i + 1;
 
                                 if (i >= 0 - 1) {
-                                    warn.push(`Warn n°${nombre}:\n╚>Raison: ${mapwarn[i].raison}\n╚>Date: ${mapwarn[i].time}\n`)
+                                    warnlist.push(`Warn n°${nombre}:\n╚>Raison: ${mapwarn[i].raison}\n╚>Date: ${mapwarn[i].time}\n`)
                                 }
                             }
                             await msg.edit({
                                 embed: {
                                     title: `Warns de ${mention.user.username}`,
-                                    description: warn.join('\n')
+                                    description: warnlist.join('\n')
                                 }
                             })
                         });
@@ -92,7 +91,7 @@ class ListWarn extends Command {
                     })
                 })
             });
-        })
+        })*/
 
     }
 }
