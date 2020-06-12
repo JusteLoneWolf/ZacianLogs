@@ -9,10 +9,10 @@ class Configuration extends Command {
    async run(message, args,guildData) {
        let badwords = {
            active: false,
-           list: guildData.badword.list,
-           ignore_role: guildData.badword.ignore_role,
-           ignore_channel: guildData.badword.ignore_channel,
-           ignore_members: guildData.badword.ignore_members,
+           list: guildData.badwordss.list,
+           ignore_role: guildData.badwordss.ignore_role,
+           ignore_channel: guildData.badwordss.ignore_channel,
+           ignore_members: guildData.badwordss.ignore_members,
        }
        let channels = {
             log:guildData.channels.log
@@ -152,9 +152,9 @@ class Configuration extends Command {
                         roles = message.mentions.roles.first() ? roles.name : args.slice(2).join(' ').toLowerCase();
                         roles = message.guild.roles.cache.find(r => r.name === roles || r.id === roles);
                         if (!roles) return message.channel.send("Le roles est introuvable");
-                        if (guildData.badword.ignore_role.includes(roles.id)) return super.respond(`Le role ${roles.name} est deja dans la liste`);
+                        if (guildData.badwords.ignore_role.includes(roles.id)) return super.respond(`Le role ${roles.name} est deja dans la liste`);
                         badwords.ignore_role.push(roles.id);
-                        await this.client.dbmanager.updateGuild(message.guild, {badword: badwords})
+                        await this.client.dbmanager.updateGuild(message.guild, {badwords: badwords})
                         super.respond(`Le role ${roles.name} est maintenant ignoré`);
                         break;
 
@@ -162,7 +162,7 @@ class Configuration extends Command {
                         switch (args[2]) {
                             case "on":
                                 badword.active = true;
-                                await this.client.dbmanager.updateGuild(message.guild, {badword: badwords});
+                                await this.client.dbmanager.updateGuild(message.guild, {badwords: badwords});
                                 return super.respond(`La blacklist word est activé`);
                         }
                         if (!args[2]) {
@@ -183,9 +183,9 @@ class Configuration extends Command {
                             })
                         }
                         let words = args.slice(2).join(' ');
-                        if (guildData.badword.list.includes(words)) return super.respond(`Le mot ${words} est déja listé`);
+                        if (guildData.badwords.list.includes(words)) return super.respond(`Le mot ${words} est déja listé`);
                         badwords.badword.push(words);
-                        await this.client.dbmanager.updateGuild(message.guild, {badword: badwords})
+                        await this.client.dbmanager.updateGuild(message.guild, {badwords: badwords})
                         this.client.guildDB.set(message.guild.id, db);
                         super.respond(`Le mot ${words} est blacklist`);
                         break;
@@ -223,8 +223,8 @@ class Configuration extends Command {
                         roles = message.mentions.roles.first() ? roles.name : args.slice(2).join(' ').toLowerCase();
                         roles = message.guild.roles.cache.find(r => r.name === roles || r.id === roles);
                         if (!roles) return message.channel.send("Le roles est introuvable");
-                        if (!guildData.badword.ignore_role.includes(roles.id)) return super.respond(`Le role ${roles.name} n'est pas listé`);
-                        let ignoredRole = guildData.badword.ignore_role;
+                        if (!guildData.badwords.ignore_role.includes(roles.id)) return super.respond(`Le role ${roles.name} n'est pas listé`);
+                        let ignoredRole = guildData.badwordss.ignore_role;
                         let newIgnoredRole = [];
                         ignoredRole.forEach(role => {
                             if (role !== roles.id) {
@@ -232,22 +232,22 @@ class Configuration extends Command {
                             }
                             badwords.ignore_role = newIgnoredRole;
                         });
-                        await this.client.dbmanager.updateGuild(message.guild, {badword: badwords})
+                        await this.client.dbmanager.updateGuild(message.guild, {badwords: badwords})
                         super.respond(`Le role ${roles.name} a etait supprimé`);
                         break;
                     case "blacklistwords":
                         let words = args.slice(2).join(' ');
-                        if (!guildData.badword.list.includes(words)) return super.respond(`Le mot ${words} n'est pas listé`);
-                        let badWord =guildData.badword.list;
+                        if (!guildData.badwords.list.includes(words)) return super.respond(`Le mot ${words} n'est pas listé`);
+                        let badWord = guildData.badwords.list;
                         let newBadWord = [];
                         badWord.forEach(role => {
                             if (role !== words) {
                                 newBadWord.push(role)
                             }
-                            guildData.badword.list = newBadWord;
+                            guildData.badwords.list = newBadWord;
                         });
 
-                        await this.client.dbmanager.updateGuild(message.guild, {badword: badwords})
+                        await this.client.dbmanager.updateGuild(message.guild, {badwords: badwords})
 
                         super.respond(`Le mot ${words} n'est plus blacklist`);
                         break;
@@ -269,11 +269,11 @@ class Configuration extends Command {
                             },
                             {
                                 name: "❱ Role ignoré",
-                                value: guildData.badword.ignore_role.map(id => message.guild.roles.cache.get(id) ? message.guild.roles.cache.get(id) : "Role introuvable").join(" ") || "Pas de roles"
+                                value: guildData.badwords.ignore_role.map(id => message.guild.roles.cache.get(id) ? message.guild.roles.cache.get(id) : "Role introuvable").join(" ") || "Pas de roles"
                             },
                             {
                                 name: "❱ Liste des mauvais mot",
-                                value: guildData.badword.list.map(badword => badword).join(", ") || "Pas de roles"
+                                value: guildData.badwords.list.map(badword => badword).join(", ") || "Pas de roles"
                             },
                             {
                                 name: "❱ Capchat",
