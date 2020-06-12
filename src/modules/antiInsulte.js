@@ -3,10 +3,10 @@ class AntiInsulte {
         this.client = client
     }
 
-    run(message) {
+   async run(message) {
 
         if (message.author.bot) return;
-        const db = this.client.guildDB.get(message.guild.id);
+        const db = await this.client.dbmanager.getGuild(message.guild.id)
         if(!db) return
         if (!db.badwords.active) return;
 

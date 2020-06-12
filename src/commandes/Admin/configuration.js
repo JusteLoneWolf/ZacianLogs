@@ -9,10 +9,10 @@ class Configuration extends Command {
    async run(message, args,guildData) {
        let badwords = {
            active: false,
-           list: guildData.badwordss.list,
-           ignore_role: guildData.badwordss.ignore_role,
-           ignore_channel: guildData.badwordss.ignore_channel,
-           ignore_members: guildData.badwordss.ignore_members,
+           list: guildData.badwords.list,
+           ignore_role: guildData.badwords.ignore_role,
+           ignore_channel: guildData.badwords.ignore_channel,
+           ignore_members: guildData.badwords.ignore_members,
        }
        let channels = {
             log:guildData.channels.log
@@ -161,7 +161,7 @@ class Configuration extends Command {
                     case "blacklistwords":
                         switch (args[2]) {
                             case "on":
-                                badword.active = true;
+                                badwords.active = true;
                                 await this.client.dbmanager.updateGuild(message.guild, {badwords: badwords});
                                 return super.respond(`La blacklist word est activé`);
                         }
@@ -184,7 +184,7 @@ class Configuration extends Command {
                         }
                         let words = args.slice(2).join(' ');
                         if (guildData.badwords.list.includes(words)) return super.respond(`Le mot ${words} est déja listé`);
-                        badwords.badword.push(words);
+                        badwords.list.push(words);
                         await this.client.dbmanager.updateGuild(message.guild, {badwords: badwords})
                         this.client.guildDB.set(message.guild.id, db);
                         super.respond(`Le mot ${words} est blacklist`);

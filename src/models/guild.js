@@ -8,7 +8,7 @@ const guildSchema = mongoose.Schema({
         type :String,
         default : config.prefix
     },
-    badword: {
+    badwords: {
         type:Object,
         default: {
             active: false,

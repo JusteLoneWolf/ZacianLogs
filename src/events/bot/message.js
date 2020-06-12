@@ -8,19 +8,14 @@ module.exports = class {
     async run(message) {
         if (message.author.bot) return;
         if (message.channel.type === "dm") return this.client.emit("DirectMessage", message);
-        let guildData = await this.client.dbmanager.getGuild(message.guild)
-        /*await this.client.utils.fetchInvite(message.guild,this.client.guildDB).then(()=>{
-            console.log(`Toutes les invitation get ${message.guild.id}`);
-        }).catch((err)=>{
-            console.error(err)
-        });*/
+        let guildData = await this.getDataOrCreate(message.guild)
 
         const insulte = new AntiInsulte(this.client);
-        insulte.run(message);
+        await insulte.run(message);
         this.client.emit('invitationLogger' ,this.client,message);
         this.client.emit('messageCitation' ,this.client,message);
         if (message.author.bot) return;
-        let prefix = guildData.prefix || "zac!"
+        let prefix = guildData ? guildData.prefix : "zac!"
         if(!message.content.startsWith(prefix)) return
 
         const args = message.content.split(' ').slice(1);
@@ -40,6 +35,20 @@ module.exports = class {
 
 
         if (cmd.conf.cooldown > 0) cmd.startCooldown(message.author.id);
+    }
+
+    async getDataOrCreate(guild){
+        return new Promise(async (resolve)=>{
+            const {Guild} = require('../../models/index')
+            let data = await this.client.dbmanager.getGuild(guild)
+            if(data){
+                resolve(data)
+            }else{
+                data = new Guild({GuildId: guild.id})
+                data.save()
+                resolve(data)
+            }
+        })
     }
 };
 //TODO

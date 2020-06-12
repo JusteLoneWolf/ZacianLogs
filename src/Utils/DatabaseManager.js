@@ -14,6 +14,8 @@ class DatabaseManager{
     getGuild = async guild => {
         const data = await Guild.findOne({ GuildId: guild.id });
         if (data) return data;
+        return false
+
     };
 
     updateGuild = async (guild, settings) => {

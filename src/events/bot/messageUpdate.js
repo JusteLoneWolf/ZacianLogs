@@ -7,7 +7,7 @@ module.exports = class {
 
     run(oldMessage,newMessage) {
 
-        if (newMessage.author.bot) return;
+        if (!newMessage.author || newMessage.author.bot) return;
 
         if (newMessage.channel.type === "dm") return this.client.emit("DirectMessage", newMessage);
 
