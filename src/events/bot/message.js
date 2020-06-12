@@ -8,15 +8,15 @@ module.exports = class {
     async run(message) {
         if (message.author.bot) return;
         if (message.channel.type === "dm") return this.client.emit("DirectMessage", message);
-        let guildData = await this.getDataOrCreate(message.guild)
+        let guildData = await this.getDataOrCreate(message.guild);
 
         const insulte = new AntiInsulte(this.client);
         await insulte.run(message);
         this.client.emit('invitationLogger' ,this.client,message);
         this.client.emit('messageCitation' ,this.client,message);
         if (message.author.bot) return;
-        let prefix = guildData ? guildData.prefix : "zac!"
-        if(!message.content.startsWith(prefix)) return
+        let prefix = guildData ? guildData.prefix : "zac!";
+        if(!message.content.startsWith(prefix)) return;
 
         const args = message.content.split(' ').slice(1);
 
@@ -39,13 +39,13 @@ module.exports = class {
 
     async getDataOrCreate(guild){
         return new Promise(async (resolve)=>{
-            const {Guild} = require('../../models/index')
-            let data = await this.client.dbmanager.getGuild(guild)
+            const {Guild} = require('../../models/index');
+            let data = await this.client.dbmanager.getGuild(guild);
             if(data){
                 resolve(data)
             }else{
-                data = new Guild({GuildId: guild.id})
-                data.save()
+                data = new Guild({GuildId: guild.id});
+                data.save();
                 resolve(data)
             }
         })
