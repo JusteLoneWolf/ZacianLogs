@@ -4,8 +4,8 @@ module.exports = class {
     constructor(client) {
         this.client = client;
     }
-    run(oldGuild,newGuild){
-        let db = this.client.dbmanager.getGuild(newGuild)
+   async run(oldGuild,newGuild){
+        let db = await this.client.dbmanager.getGuild(newGuild)
         if(!db) return
         let channel = newGuild.channels.cache.get(db.channels.log)
         if(!channel )return;

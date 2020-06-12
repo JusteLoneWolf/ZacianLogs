@@ -2,8 +2,8 @@ module.exports = class {
     constructor(client) {
         this.client = client;
     }
-    run(message,data){
-        let db = this.client.dbmanager.getGuild(message.guild)
+    async run(message,data){
+        let db = await this.client.dbmanager.getGuild(message.guild)
         if(!db) return;
         let channel = message.guild.channels.cache.get(db.channels.log)
 

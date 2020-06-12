@@ -5,9 +5,9 @@ module.exports = class {
         this.client = client;
     }
 
-    run(newMember, role) {
-        let db = this.client.dbmanager.getGuild(newMember.guild)
-        if(!db) return;
+    async run(newMember, role) {
+        let db = await this.client.dbmanager.getGuild(newMember.guild)
+        if (!db) return;
         let channel = newMember.guild.channels.cache.get(db.channels.log)
         if (!channel) return;
 

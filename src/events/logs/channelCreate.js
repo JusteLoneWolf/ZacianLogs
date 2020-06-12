@@ -6,7 +6,7 @@ module.exports = class {
 
     async run(channel) {
         if(channel.type ==="dm") return;
-        let db = this.client.dbmanager.getGuild(channel.guild)
+        let db =await this.client.dbmanager.getGuild(channel.guild)
         if(!db) return
         let channeldb = channel.guild.channels.cache.get(db.channels.log)
         if(!channeldb )return;

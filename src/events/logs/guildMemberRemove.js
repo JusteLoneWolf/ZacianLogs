@@ -3,7 +3,7 @@ module.exports = class {
         this.client = client;
     }
     async run(member){
-        let db = this.client.dbmanager.getGuild(member)
+        let db = await this.client.dbmanager.getGuild(member)
         if(!db) return
             const botPerms = member.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS"], true);
            if (botPerms) {
