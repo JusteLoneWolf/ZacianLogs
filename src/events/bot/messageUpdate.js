@@ -5,12 +5,12 @@ module.exports = class {
         this.client = client;
     }
 
-    run(oldMessage,newMessage) {
+    async run(oldMessage,newMessage) {
 
         if (!newMessage.author || newMessage.author.bot) return;
 
         if (newMessage.channel.type === "dm") return this.client.emit("DirectMessage", newMessage);
-
+        let guildData = await this.getDataOrCreate(newMessage.guild);
         const insulte = new AntiInsulte(this.client);
         insulte.run(newMessage);
 
@@ -27,11 +27,24 @@ module.exports = class {
 
         cmd.setMessage(newMessage);
         try{
-            cmd.run(newMessage, args);
+            cmd.run(newMessage, args,guildData);
         }catch (e) {
             this.client.emit('error',e.stack,newMessage.channel)
         }
 
         if (cmd.conf.cooldown > 0) cmd.startCooldown(newMessage.author.id);
+    }
+    async getDataOrCreate(guild){
+        return new Promise(async (resolve)=>{
+            const {Guild} = require('../../models/index');
+            let data = await this.client.dbmanager.getGuild(guild);
+            if(data){
+                resolve(data)
+            }else{
+                data = new Guild({GuildId: guild.id});
+                data.save();
+                resolve(data)
+            }
+        })
     }
 };

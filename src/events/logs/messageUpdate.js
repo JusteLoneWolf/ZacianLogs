@@ -6,7 +6,7 @@ module.exports = class {
 
     async run(oldMessage,newMessage) {
         if (newMessage.author.bot) return;
-        let db = await this.client.dbmanager.getGuild(newChannel.guild)
+        let db = await this.client.dbmanager.getGuild(newMessage.guild)
         if (!db) return;
 
         if(newMessage.channel.type ==="dm" || newMessage.author.bot) return;
