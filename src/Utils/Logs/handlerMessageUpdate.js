@@ -2,7 +2,7 @@ module.exports = (client, oldMessage,newMessage) =>{
 
 
     if (oldMessage.content !== newMessage.content) {
-        client.emit('messageEdited', newMessage, oldMessage, newMessage);
+        client.emit('messageEdited',oldMessage, newMessage);
     }
     if (newMessage.pinned !== oldMessage.pinned && newMessage.pinned === false) {
         client.emit('messageUnPinned', newMessage);

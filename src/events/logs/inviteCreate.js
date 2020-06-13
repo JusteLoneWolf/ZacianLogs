@@ -4,9 +4,9 @@ module.exports = class {
     }
 
     async run(invite) {
-        let db = await this.client.dbmanager.getGuild(newMember.guild)
+        let db = await this.client.dbmanager.getGuild(invite.guild)
         if(!db) return;
-        let logChannel = newMember.guild.channels.cache.get(db.channels.log)
+        let logChannel = invite.guild.channels.cache.get(db.channels.log)
         if (!logChannel) return;
         const moment = require("moment");
         require("moment-duration-format");

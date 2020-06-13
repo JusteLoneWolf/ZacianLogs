@@ -12,8 +12,8 @@ module.exports = class {
 
         const insulte = new AntiInsulte(this.client);
         await insulte.run(message);
-        this.client.emit('invitationLogger' ,this.client,message);
-        this.client.emit('messageCitation' ,this.client,message);
+        this.client.emit('invitationLogger' ,message);
+        this.client.emit('messageCitation' ,message);
         if (message.author.bot) return;
         let prefix = guildData ? guildData.prefix : "zac!";
         if(!message.content.startsWith(prefix)) return;

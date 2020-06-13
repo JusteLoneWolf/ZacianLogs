@@ -4,8 +4,9 @@ module.exports = class {
     constructor(client) {
         this.client = client;
     }
-    run(oldGuild,newGuild){
-        if (!this.client.guildDB.get(newGuild.id)) return;
+    async run(oldGuild,newGuild){
+        let db = await this.client.dbmanager.getGuild(newChannel.guild)
+        if (!db) return;
 
         require('../../Utils/Logs/handlerGuildUpdate')(this.client,oldGuild,newGuild)
     }

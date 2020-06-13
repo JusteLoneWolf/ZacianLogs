@@ -7,7 +7,7 @@ module.exports = class {
     async run(member) {
 
 
-        let db = await this.client.dbmanager.getGuild(channel.guild)
+        let db = await this.client.dbmanager.getGuild(member.guild)
         if(!db) return
         if(db.members[member.id]){
             if(db.members[member.id].mute){

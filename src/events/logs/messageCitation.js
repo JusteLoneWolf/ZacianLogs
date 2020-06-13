@@ -4,7 +4,7 @@ module.exports = class {
         this.client = client;
     }
 
-    async run(client,message) {
+    async run(message) {
         const urlRegex = require('url-regex');
         let url = message.content.match(urlRegex());
         if(!url) return;
@@ -12,7 +12,7 @@ module.exports = class {
 
 
 
-        client.guilds.cache.get(message.guild.id).channels.cache.get(scrapedURL[5]).messages.fetch(scrapedURL[6]).then((msg)=>{
+        this.client.guilds.cache.get(message.guild.id).channels.cache.get(scrapedURL[5]).messages.fetch(scrapedURL[6]).then((msg)=>{
             if(msg) return;
             let data = [];
             if(msg.embeds[0] && msg.embeds[0].fields){
