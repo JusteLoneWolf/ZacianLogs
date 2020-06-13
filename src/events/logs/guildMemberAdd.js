@@ -38,7 +38,7 @@ module.exports = class {
                 })
             }
         }
-        const logChannel = member.guild.channels.cache(db.channels.log)
+        const logChannel = member.guild.channels.cache.get(db.channels.log)
         if (!logChannel) return;
 
         member.guild.fetchInvites().then(guildInvites => {

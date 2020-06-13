@@ -10,8 +10,6 @@ module.exports = class {
         let channel = member.guild.channels.cache.get(db.channels.log)
         if(!channel )return;
 
-        if(!channel )return;
-
         channel.send({
             embed:{
                 title:"Boost Logs",

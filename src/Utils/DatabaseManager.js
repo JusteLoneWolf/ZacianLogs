@@ -24,7 +24,7 @@ class DatabaseManager{
         for (const key in settings) {
             if (data[key] !== settings[key]) data[key] = settings[key];
         }
-        return data.updateOne(settings);
+        return data.updateOne(Object.assign(data,settings));
     };
 }
 

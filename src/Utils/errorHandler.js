@@ -6,6 +6,7 @@ module.exports = async (client) => {
                 if (err.stack.includes('An invalid token was provided.')) {
                     console.log('Bad token see config.js for set the token');
                 } else if (err.stack.includes('Missing Permissions')) {
+                    console.log(err)
                     console.log('Permission Error')
                 } else if(err.stack.includes(' getaddrinfo ENOTFOUND discordapp.com')) {
                     console.log('Impossible to get information from discord');

@@ -4,28 +4,20 @@ module.exports = class {
     }
 
     async run(newMember) {
-        let db = this.client.guildDB.get(newMember.guild.id);
+        let db = await this.client.dbmanager.getGuild(newMember.guild);
         if(!db) return
-        if (!db.welcome) {
-            db.welcome = {
-                enabled: false,
-                autorole: "",
-                capchat: {
-                    unverifiedRole: "",
-                    channel: "",
-                    enabled: false
-                }
-            };
-            this.client.guildDB.set(newMember.guild.id)
-        }
 
-        let roles = newMember.guild.roles.cache.find(r => r.id === db.welcome.autorole);
-        let channels = newMember.guild.channels.cache.find(c => c.id === db.welcome.capchat.channel);
-        if (db.welcome.enabled) {
+        let roles = newMember.guild.roles.cache.find(r => r.id === db.settings.welcome.autorole);
+        let channels = newMember.guild.channels.cache.find(c => c.id === db.settings.welcome.capchat.channel);
+        if (db.settings.welcome.enabled) {
+            console.log(1)
             if (roles) {
-                if (channels && db.welcome.capchat.enabled) {
-                    let capchatRole = newMember.guild.roles.cache.find(r => r.id === db.welcome.capchat.unverifiedRole);
+                console.log(2)
+                if (channels && db.settings.welcome.capchat.enabled) {
+                    console.log(3)
+                    let capchatRole = newMember.guild.roles.cache.find(r => r.id === db.settings.welcome.capchat.unverifiedRole);
                     if (!capchatRole) {
+                        console.log(4)
                         newMember.guild.roles.create({
                             data: {
                                 name: "Non verifié",
@@ -60,18 +52,30 @@ module.exports = class {
                         collector.on("collect", message => {
                             if (message.content === code) {
                                 try {
-                                    newMember.roles.remove(capchatRole).then(() => {
-                                        message.delete();
-                                        newMember.roles.add(roles)
-                                    })
-                                } catch (e) {
-                                    this.emit("error", `Impossible de donner le rôle ${e.message}`)
-                                }
+                                    if (channels.permissionsFor(this.client.user).has("MANAGE_MEMBERS",true)){
+                                        newMember.roles.remove(capchatRole).then(() => {
+                                            console.log('delrole')
+                                            message.delete();
+                                            console.log('role')
+                                            newMember.roles.add(roles).catch(()=> {
+                                                channels.send(`Je ne peux pas lui donné le role ${roles.name}`)
+                                            })
+                                        }).catch(()=>{
+                                            channels.send(`Je ne peux pas suprrimé le role ${capchatRole.name}`)
+                                            newMember.roles.add(roles).catch(()=> {
+                                                channels.send(`Je ne peux pas lui donné le role ${roles.name}`)
+                                            })
+                                        })
+                                    }
 
+                                } catch (e) {
+                                    this.client.emit("error", `Impossible de donner le rôle ${e.message}`)
+                                }
                             }
                         })
                     })
                 } else {
+                    console.log('role')
                     newMember.roles.add(roles)
                 }
             }

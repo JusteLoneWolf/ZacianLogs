@@ -6,7 +6,7 @@ class Help extends Command{
         super(client,HELPER.COMMANDS.INFO.HELP);
     }
 
-   async run(message,args){
+   async run(message,args,guildData){
         if(!args[0]){
             const categorie = [];
 
@@ -22,7 +22,7 @@ class Help extends Command{
                         name: `${this.client.user.username} | Commandes`,
                         icon_url: this.client.user.avatarURL()
                     },
-                    description: `${message.guild?this.client.guildDB.get(message.guild.id,'prefix'): "zac!"}help [nom de la commande] pour plus d'aide `,
+                    description: `${message.guild?guildData.prefix: "zac!"}help [nom de la commande] pour plus d'aide `,
                     fields: categorie.sort().map(c => {
                         return {
                             name: `❱ ${c}`,

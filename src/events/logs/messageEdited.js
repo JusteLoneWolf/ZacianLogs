@@ -8,6 +8,7 @@ module.exports = class {
         let db = await this.client.dbmanager.getGuild(newMessage.guild);
         if(!db) return;
         let channel= newMessage.guild.channels.cache.get(db.channels.log);
+        if(!channel) return
 
         channel.send({
             embed:{

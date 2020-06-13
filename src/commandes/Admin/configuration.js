@@ -19,45 +19,78 @@ class Configuration extends Command {
        }
        let settings = {
            punishment: {
-               enabled: false,
-               mute: 3,
-               kick: 5,
-               ban: 8,
+               enabled: guildData.settings.punishment.enabled,
+               mute: guildData.settings.punishment.mute,
+               kick: guildData.settings.punishment.kick,
+               ban: guildData.settings.punishment.ban,
            },
            roles: {
-               mute: null
+               mute: guildData.settings.roles.mute
            },
            welcome: {
-               enabled: false,
-               autorole: null,
+               enabled: guildData.settings.welcome.enabled,
+               autorole: guildData.settings.welcome.autorole,
                capchat: {
-                   unverifiedRole: null,
-                   channel: null,
-                   enabled: false
+                   unverifiedRole: guildData.settings.welcome.capchat.unverifiedRole,
+                   channel: guildData.settings.welcome.capchat.channel,
+                   enabled: guildData.settings.welcome.capchat.enabled
                },
            }
        }
        if (!message.member.permissions.has("MANAGE_GUILD",true)) return message.channel.send("Tu n\'as pas la permission `GERER LE SERVER` ou `ADMINISTRATOR`");
-        let db = this.client.guildDB.get(message.guild.id);
         let text ='';
-        if (!args[0]) {
-            return message.channel.send({
-                embed: {
-                    title: "Mauvais Argument",
-                    fields: [
-                        {
-                            name: "❱ Utilisation",
-                            value: this.help.usage
-                        },
-                        {
-                            name: "❱ Exemple",
-                            value: this.help.exemple
-                        }
-                    ]
-                }
-            })
+        async function makeMessage(text,client) {
+            let db =  await client.dbmanager.getGuild(message.guild)
+            console.log(db)
+
+            text += !db.settings.welcome.capchat.enabled ?`\n:warning: Le system de capchat n'est pas activé \`${db.prefix}configuration set capchat enabled\`` :'';
+            text += !db.settings.welcome.enabled ?`\n:warning: Le system de bienvenue n'est pas activé \`${db.prefix}configuration set welcome enabled\`` :'';
+            text += !db.settings.welcome.capchat.unverifiedRole ?`\n:warning: Il manque un role pour les personne non verifier \`${db.prefix}configuration set capchat unverifiedrole <nom du role>\`` :'';
+            text += !db.settings.welcome.capchat.channel ?`\n:warning: Il manque un channel de pour les personne non verifier \`${db.prefix}configuration set capchat channel <nom du channel>\`` :'';
+            text += !db.settings.welcome.autorole ?`\n:warning: Il manque un role pour les personne verifier \`${db.prefix}configuration set welcome autorole <nom du role>\`` :'';
+            message.channel.send(text)
         }
-        switch (args[0]) {
+       async function setCapchat(client) {
+           let db =  await client.dbmanager.getGuild(message.guild)
+           let channels = message.guild.channels.cache.find(c => c.id === db.settings.welcome.capchat.channel );
+           if(!channels) return;
+           let roles = message.guild.roles.cache.find(c => c.id === db.settings.welcome.capchat.unverifiedRole);
+           if(!roles) return
+           await roles.setPermissions(0);
+           for (const channel of message.guild.channels.cache.array()) {
+               if (channel.id !== channels.id) {
+                   if(channel.permissionsFor(roles).has("SEND_MESSAGES") &&channel.permissionsFor(roles).has("VIEW_CHANNEL") ) {
+                       await channel.overwritePermissions([
+                           {
+                               id: roles.id,
+                               deny: ["SEND_MESSAGES", "VIEW_CHANNEL"]
+                           }
+                       ])
+                   }
+               }
+
+           }
+       }
+       let db = this.client.guildDB.get(message.guild.id);
+
+
+       switch (args[0]) {
+            case undefined:
+                return message.channel.send({
+                    embed: {
+                        title: "Mauvais Argument",
+                        fields: [
+                            {
+                                name: "❱ Utilisation",
+                                value: this.help.usage
+                            },
+                            {
+                                name: "❱ Exemple",
+                                value: this.help.exemple
+                            }
+                        ]
+                    }
+                })
             case "set":
                 if (!args[1] || args[1] !== "logs" && args[1] !== "ignorerole"&& args[1] !== "blacklistwords"&& args[1] !== "prefix" && args[1] !== "capchat"&& args[1] !== "welcome") {
                     return message.channel.send({
@@ -95,7 +128,8 @@ class Configuration extends Command {
                                 settings.welcome.capchat.enabled = true
                                 await this.client.dbmanager.updateGuild(message.guild, {settings:settings});
                                 text += 'Le capchat est activé\n';
-                                message.channel.send(messageSend(text,this.client));
+                                await makeMessage(text, this.client)
+                                await setCapchat(this.client);
                                 break;
                             case "unverifiedrole":
                                 let roles = message.mentions.roles.first() ? message.mentions.roles.first() : args.slice(3) ? args.slice(3).join(' ').toLowerCase() : false;
@@ -106,8 +140,8 @@ class Configuration extends Command {
                                 settings.welcome.capchat.unverifiedRole = roles.id;
                                 await this.client.dbmanager.updateGuild(message.guild, {settings:settings});
                                 text += `Le role pour les personne non verifier est mis a jour ${roles.name}\n`;
-                                message.channel.send(messageSend(text,this.client));
-                                await setCapchat();
+                                await makeMessage(text, this.client)
+                                await setCapchat(this.client);
                                 break;
                             case "channel":
                                 let channel = message.mentions.channels.first() ? message.mentions.channels.first() : args.slice(3) ? args.slice(3).join(' ').toLowerCase() : false;
@@ -115,11 +149,12 @@ class Configuration extends Command {
                                 channel = message.guild.channels.cache.find(c => c.name.toLowerCase() === channel || c.id === channel);
                                 if (!channel) return message.channel.send("Le channel est introuvable");
 
-                                settings.welcome.capchat.unverifiedRole = channel.id;
+                                settings.welcome.capchat.channel = channel.id;
+                                console.log(settings)
                                 await this.client.dbmanager.updateGuild(message.guild, {settings:settings});
                                 text += `Le channel pour les personne non verifier est mis a jour sur ${channel.name}\n`;
-                                message.channel.send(messageSend(text,this.client));
-                                await setCapchat();
+                                await makeMessage(text, this.client)
+                                await setCapchat(this.client);
                                 break
                             case undefined:
                                 return message.channel.send({
@@ -140,7 +175,7 @@ class Configuration extends Command {
                                     }
                                 })
                         }
-                        break;//TODO Fix capchat
+                        break;
                     case "welcome":
                         switch (args[2]) {
                             case "enabled":
@@ -148,7 +183,7 @@ class Configuration extends Command {
 
                                 settings.welcome.enabled = true;
                                 await this.client.dbmanager.updateGuild(message.guild, {settings:settings});
-                                message.channel.send(messageSend(text,this.client));
+                                await makeMessage(text, this.client)
                                 break;
                             case "autorole":
                                 let roles = message.mentions.roles.first() ? message.mentions.roles.first() : args.slice(3) ? args.slice(3).join(' ').toLowerCase() : false;
@@ -158,8 +193,7 @@ class Configuration extends Command {
                                 settings.welcome.autorole = roles.id;
                                 await this.client.dbmanager.updateGuild(message.guild, {settings:settings});
                                 text +=`L'autorole est sur ${roles.name}\n`;
-
-                                message.channel.send(messageSend(text,this.client));
+                                await makeMessage(text, this.client)
                                 break;
                             case undefined:
                                 return message.channel.send({
@@ -179,7 +213,7 @@ class Configuration extends Command {
                                     }
                                 })
                         }
-                        break;//TODO Fix welcome
+                        break;
                     case "ignorerole":
                         let roles = message.mentions.roles.first() ? message.mentions.roles.first() : args.slice(2) ? args.slice(2).join(' ').toLowerCase() : false;
                         if (!roles) return message.channel.send("Le roles est introuvable");
@@ -285,9 +319,6 @@ class Configuration extends Command {
 
                         super.respond(`Le mot ${words} n'est plus blacklist`);
                         break;
-                    //TODO disbled capchat
-                    //TODO disabled welcome
-
                 }
                 break;
             case"view":
@@ -327,34 +358,6 @@ class Configuration extends Command {
                         ]
                     }
                 })
-        }
-       async function messageSend(text,client) {
-            let db =  await client.dbmanager.getGuild(message.guild)
-            text += !db.settings.welcome.capchat.enabled ?`\n:warning: Le system de capchat n'est pas activé \`${db.prefix}configuration set capchat enabled\`` :'';
-            text += !db.settings.welcome.enabled ?`\n:warning: Le system de bienvenue n'est pas activé \`${db.prefix}configuration set welcome enabled\`` :'';
-            text += !db.settings.welcome.capchat.unverifiedRole ?`\n:warning: Il manque un role pour les personne non verifier \`${db.prefix}configuration set capchat unverifiedrole <nom du role>\`` :'';
-            text += !db.settings.welcome.capchat.channel ?`\n:warning: Il manque un channel de pour les personne non verifier \`${db.prefix}configuration set capchat channel <nom du channel>\`` :'';
-            text += !db.settings.welcome.autorole ?`\n:warning: Il manque un role pour les personne verifier \`${db.prefix}configuration set capchat autorole <nom du role>\`` :'';
-            return text
-        }
-        async function setCapchat() {
-            let channels = message.guild.channels.cache.find(c => c.id === db.settings.welcome.capchat.channel );
-            if(!channels) return;
-            let roles = message.guild.roles.cache.find(c => c.id === db.settings.welcome.capchat.unverifiedRole);
-            await roles.setPermissions(0);
-            for (const channel of message.guild.channels.cache.array()) {
-                if (channel.id !== channels.id) {
-                    if(channel.permissionsFor(roles).has("SEND_MESSAGES") &&channel.permissionsFor(roles).has("VIEW_CHANNEL") ) {
-                        await channel.overwritePermissions([
-                            {
-                                id: roles.id,
-                                deny: ["SEND_MESSAGES", "VIEW_CHANNEL"]
-                            }
-                        ])
-                    }
-                }
-
-            }
         }
     }
 }
