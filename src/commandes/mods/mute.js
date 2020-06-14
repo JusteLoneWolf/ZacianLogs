@@ -9,7 +9,6 @@ class Mute extends Command {
     async run(message, args,guildData) {
         let member = message.mentions.members.first();
         if (!this.client.utils.resolveUser(message, member, HELPER.COMMANDS.MOD.MUTE.permission)) return;
-        console.log(guildData)
         let role = message.guild.roles.cache.find(r => r.name === 'Mute' || r.id === guildData.settings.roles? guildData.settings.roles.mute : false);
         let reason = args.slice(1).join(" ") || "Aucune raison donnée";
 
@@ -21,7 +20,7 @@ class Mute extends Command {
                 }
 
             }).then((roleCreate) => {
-                role = roleCreate
+                role = roleCreate;
                 console.log(role)
             })
         }
@@ -40,38 +39,21 @@ class Mute extends Command {
         member = message.guild.member(member);
         member.roles.add(role).then(async () => {
             message.channel.send(`${member.user.username} a était mute par ${message.author.username}`);
-            let settings = {
-                punishment: {
-                    enabled: guildData.settings.punishment.enabled,
-                    mute: guildData.settings.punishment.mute,
-                    kick: guildData.settings.punishment.kick,
-                    ban: guildData.settings.punishment.ban,
-                },
-                roles: {
-                    mute: guildData.settings.roles.mute
-                },
-                welcome: {
-                    enabled: guildData.settings.welcome.enabled,
-                    autorole: guildData.settings.welcome.autorole,
-                    capchat: {
-                        unverifiedRole: guildData.settings.welcome.capchat.unverifiedRole,
-                        channel: guildData.settings.welcome.capchat.channel,
-                        enabled: guildData.settings.welcome.capchat.enabled
-                    },
+            if(!guildData.members[member.id]){
+                guildData.warns[member.id] = {
+                    mute : true
                 }
             }
-            let members = [];
-            settings.roles.mute = role.id;
-            members[member.id]= {
+            guildData.warns[member.id] = {
                 mute : true
-            }
-            await this.client.dbmanager.updateGuild(message.guild, {settings:settings});
-            await this.client.dbmanager.updateGuild(message.guild, {members:members });
+            };
+            guildData.settings.roles.mute = role.id;
+
+            await this.client.dbmanager.updateGuild(message.guild, {settings:guildData.settings});
+            await this.client.dbmanager.updateGuild(message.guild, {members:guildData.members});
 
         })
 
     }
 }
-//TODO Fix mute
-
 module.exports = Mute;
