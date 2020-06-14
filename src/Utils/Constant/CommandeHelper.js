@@ -145,6 +145,15 @@ const HELPER = {
                 aliases:["conf","config"],
                 permission: "MANAGE_GUILD",
                 category:"Admin"
+            },
+            CHECKPERMISSION:{
+                name:"checkpermission",
+                description:"Regarde les permission du bot dans chaque channel",
+                usage:"checkpermission",
+                coolDown:2000,
+                aliases:["cp"],
+                permission: "MANAGE_MEMBERS",
+                category:"Admin"
             }
         }
 
