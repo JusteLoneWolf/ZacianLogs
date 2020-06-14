@@ -40,17 +40,18 @@ class Mute extends Command {
         member.roles.add(role).then(async () => {
             message.channel.send(`${member.user.username} a était mute par ${message.author.username}`);
             if(!guildData.members[member.id]){
-                guildData.warns[member.id] = {
+                guildData.members[member.id] = {
                     mute : true
                 }
             }
-            guildData.warns[member.id] = {
+            guildData.members[member.id] = {
                 mute : true
             };
             guildData.settings.roles.mute = role.id;
 
             await this.client.dbmanager.updateGuild(message.guild, {settings:guildData.settings});
             await this.client.dbmanager.updateGuild(message.guild, {members:guildData.members});
+            console.log(guildData)
 
         })
 

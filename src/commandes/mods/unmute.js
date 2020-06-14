@@ -6,23 +6,27 @@ class Unmute extends Command {
         super(client, HELPER.COMMANDS.MOD.UNMUTE)
     }
 
-    async run(message, args) {
+    async run(message, args,guildData) {
 
         let db = await this.client.guildDB.get(message.guild.id);
         let member = message.mentions.members.first();
         if (!this.client.utils.resolveUser(message, member, HELPER.COMMANDS.MOD.UNMUTE.permission)) return;
-        let role = message.guild.roles.cache.find(r=> r.name === 'Mute' || r.id === db.settings.roles.mute);
+        let role = message.guild.roles.cache.find(r=> r.name === 'Mute' || r.id === guildData.settings.roles.mute);
         let reason = args.slice(1).join(" ") || "Aucune raison donnée";
 
         member = message.guild.member(member);
-        member.roles.remove(role,reason).then(()=>{
+        console.log(guildData)
+        member.roles.remove(role,reason).then(async ()=>{
             message.channel.send(`${member.user.username} a était unmute par ${message.author.username}`);
-            for (let data = 0; data < db.members; data++){
-                if(db.members[data] === member.id ){
-                    db.members.splice(data,1)
+            for (let data = 0; data < guildData.members; data++){
+                if(guildData.members[data] === member.id ){
+                    guildData.members.splice(data,1)
                 }
             }
-            this.client.guildDB.set(message.guild.id,db)
+
+            await this.client.dbmanager.updateGuild(message.guild, {members:guildData.members});
+
+
         })
 
     }
