@@ -20,8 +20,8 @@ class StructureBot extends Client {
         this.createFolder();
         this.guildDB = new Enmap({name: "guildDB", dataDir: "./database"});
         this.userDB = new Enmap({name: "userDB", dataDir: "./database"});
-        this.config = option.config || {}
-        this.mongoose = require('../Utils/mongoose').init()
+        this.config = option.config || {};
+        require('../Utils/mongoose').init();
         this.dbmanager = new DatabaseManager(this)
     }
 
