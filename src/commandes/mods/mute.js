@@ -35,7 +35,7 @@ class Mute extends Command {
                 ],reason)
             }
         }
-        if(member.roles.cache.find(muterole => muterole === role)) return message.channel.send(`${member.user.username} est deja mute`)
+        if(member.roles.cache.find(muterole => muterole === role)) return message.channel.send(`${member.user.username} est deja mute`);
 
         member = message.guild.member(member);
 
@@ -43,17 +43,22 @@ class Mute extends Command {
             message.channel.send(`${member.user.username} a était mute par ${message.author.username}`);
 
             if(!guildData.members[member.id]){
-                guildData.members[member.id] = {}
+                guildData.members[member.id] = {};
                 await this.client.dbmanager.updateGuild(message.guild, {members:guildData.members});
             }
             let data = {
                 mute :{
                     isMute:true,
-                    StartTime:Date.now(),
-                    EndTime:null
+                    muteList:guildData.members[member.id].mute.muteList
                 }
             };
-            Object.assign(guildData.members[member.id],data)
+            let muteData = {
+                startAt: Date.now(),
+                endAt: null,
+                reason : reason
+            };
+            data.mute.muteList.push(muteData);
+            Object.assign(guildData.members[member.id],data);
 
             await this.client.dbmanager.updateGuild(message.guild, {members:guildData.members});
             guildData.settings.roles.mute = role.id;
