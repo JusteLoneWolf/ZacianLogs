@@ -42,12 +42,12 @@ const guildSchema = mongoose.Schema({
         }
     },
     warns: {
-        type:Object,
-        default :{}
+        type: Object,
+        default : {}
     },
     members:{
-        type: Array,
-        default :[]
+        type:Object,
+        default : {}
     },
     channels:{
         type:Object,

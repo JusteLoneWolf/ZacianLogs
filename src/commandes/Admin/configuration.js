@@ -7,41 +7,11 @@ class Configuration extends Command {
     }
 
    async run(message, args,guildData) {
-       let badwords = {
-           active: false,
-           list: guildData.badwords.list,
-           ignore_role: guildData.badwords.ignore_role,
-           ignore_channel: guildData.badwords.ignore_channel,
-           ignore_members: guildData.badwords.ignore_members,
-       }
-       let channels = {
-            log:guildData.channels.log
-       }
-       let settings = {
-           punishment: {
-               enabled: guildData.settings.punishment.enabled,
-               mute: guildData.settings.punishment.mute,
-               kick: guildData.settings.punishment.kick,
-               ban: guildData.settings.punishment.ban,
-           },
-           roles: {
-               mute: guildData.settings.roles.mute
-           },
-           welcome: {
-               enabled: guildData.settings.welcome.enabled,
-               autorole: guildData.settings.welcome.autorole,
-               capchat: {
-                   unverifiedRole: guildData.settings.welcome.capchat.unverifiedRole,
-                   channel: guildData.settings.welcome.capchat.channel,
-                   enabled: guildData.settings.welcome.capchat.enabled
-               },
-           }
-       }
        if (!message.member.permissions.has("MANAGE_GUILD",true)) return message.channel.send("Tu n\'as pas la permission `GERER LE SERVER` ou `ADMINISTRATOR`");
         let text ='';
         async function makeMessage(text,client) {
-            let db =  await client.dbmanager.getGuild(message.guild)
-            console.log(db)
+            let db =  await client.dbmanager.getGuild(message.guild);
+            console.log(db);
 
             text += !db.settings.welcome.capchat.enabled ?`\n:warning: Le system de capchat n'est pas activé \`${db.prefix}configuration set capchat enabled\`` :'';
             text += !db.settings.welcome.enabled ?`\n:warning: Le system de bienvenue n'est pas activé \`${db.prefix}configuration set welcome enabled\`` :'';
@@ -51,11 +21,11 @@ class Configuration extends Command {
             message.channel.send(text)
         }
        async function setCapchat(client) {
-           let db =  await client.dbmanager.getGuild(message.guild)
+           let db =  await client.dbmanager.getGuild(message.guild);
            let channels = message.guild.channels.cache.find(c => c.id === db.settings.welcome.capchat.channel );
            if(!channels) return;
            let roles = message.guild.roles.cache.find(c => c.id === db.settings.welcome.capchat.unverifiedRole);
-           if(!roles) return
+           if(!roles) return;
            await roles.setPermissions(0);
            for (const channel of message.guild.channels.cache.array()) {
                if (channel.id !== channels.id) {
@@ -90,7 +60,7 @@ class Configuration extends Command {
                             }
                         ]
                     }
-                })
+                });
             case "set":
                 if (!args[1] || args[1] !== "logs" && args[1] !== "ignorerole"&& args[1] !== "blacklistwords"&& args[1] !== "prefix" && args[1] !== "capchat"&& args[1] !== "welcome") {
                     return message.channel.send({
@@ -116,19 +86,17 @@ class Configuration extends Command {
                         channel = channel ? message.mentions.channels.first() ? channel.name : args.slice(2).join(' ').toLowerCase() : message.channel.name;
                         channel = message.guild.channels.cache.find(c => c.name === channel || c.id === channel);
                         if (guildData.channels.logs === channel.id) return super.respond(`Le channel de logs est deja mis sur ${channel.name}`);
-                        channels.log = channel.id;
-                        await this.client.dbmanager.updateGuild(message.guild, {channels:channels });
-
-                        db.channels.logs = channel.id;
+                        guildData.channels.log = channel.id;
+                        await this.client.dbmanager.updateGuild(message.guild, {channels:guildData.channels });
                         super.respond(`Les logs sont mis sur ${channel.name}`);
                         break;
                     case "capchat":
                         switch (args[2]) {
                             case "enabled":
-                                settings.welcome.capchat.enabled = true
-                                await this.client.dbmanager.updateGuild(message.guild, {settings:settings});
+                                guildData.settings.welcome.capchat.enabled = true;
+                                await this.client.dbmanager.updateGuild(message.guild, {settings:guildData.settings});
                                 text += 'Le capchat est activé\n';
-                                await makeMessage(text, this.client)
+                                await makeMessage(text, this.client);
                                 await setCapchat(this.client);
                                 break;
                             case "unverifiedrole":
@@ -137,10 +105,10 @@ class Configuration extends Command {
                                 roles = message.guild.roles.cache.find(r => r.name.toLowerCase() === roles || r.id === roles);
                                 if (!roles) return message.channel.send("Le role est introuvable");
 
-                                settings.welcome.capchat.unverifiedRole = roles.id;
-                                await this.client.dbmanager.updateGuild(message.guild, {settings:settings});
+                                guildData.settings.welcome.capchat.unverifiedRole = roles.id;
+                                await this.client.dbmanager.updateGuild(message.guild, {settings:guildData.settings});
                                 text += `Le role pour les personne non verifier est mis a jour ${roles.name}\n`;
-                                await makeMessage(text, this.client)
+                                await makeMessage(text, this.client);
                                 await setCapchat(this.client);
                                 break;
                             case "channel":
@@ -149,13 +117,12 @@ class Configuration extends Command {
                                 channel = message.guild.channels.cache.find(c => c.name.toLowerCase() === channel || c.id === channel);
                                 if (!channel) return message.channel.send("Le channel est introuvable");
 
-                                settings.welcome.capchat.channel = channel.id;
-                                console.log(settings)
-                                await this.client.dbmanager.updateGuild(message.guild, {settings:settings});
+                                guildData.settings.welcome.capchat.channel = channel.id;
+                                await this.client.dbmanager.updateGuild(message.guild, {settings:guildData.settings});
                                 text += `Le channel pour les personne non verifier est mis a jour sur ${channel.name}\n`;
-                                await makeMessage(text, this.client)
+                                await makeMessage(text, this.client);
                                 await setCapchat(this.client);
-                                break
+                                break;
                             case undefined:
                                 return message.channel.send({
                                     embed:{
@@ -181,19 +148,19 @@ class Configuration extends Command {
                             case "enabled":
                                 text += 'Le system de bienvenue est activé\n';
 
-                                settings.welcome.enabled = true;
-                                await this.client.dbmanager.updateGuild(message.guild, {settings:settings});
-                                await makeMessage(text, this.client)
+                                guildData.settings.welcome.enabled = true;
+                                await this.client.dbmanager.updateGuild(message.guild, {settings:guildData.settings});
+                                await makeMessage(text, this.client);
                                 break;
                             case "autorole":
                                 let roles = message.mentions.roles.first() ? message.mentions.roles.first() : args.slice(3) ? args.slice(3).join(' ').toLowerCase() : false;
                                 roles = message.mentions.roles.first() ? roles.name : args.slice(3).join(' ').toLowerCase();
                                 roles = message.guild.roles.cache.find(r => r.name.toLowerCase() === roles || r.id === roles);
                                 if (!roles) return message.channel.send("Le role est introuvable");
-                                settings.welcome.autorole = roles.id;
-                                await this.client.dbmanager.updateGuild(message.guild, {settings:settings});
+                                guildData.settings.welcome.autorole = roles.id;
+                                await this.client.dbmanager.updateGuild(message.guild, {settings:guildData.settings});
                                 text +=`L'autorole est sur ${roles.name}\n`;
-                                await makeMessage(text, this.client)
+                                await makeMessage(text, this.client);
                                 break;
                             case undefined:
                                 return message.channel.send({
@@ -221,16 +188,16 @@ class Configuration extends Command {
                         roles = message.guild.roles.cache.find(r => r.name === roles || r.id === roles);
                         if (!roles) return message.channel.send("Le roles est introuvable");
                         if (guildData.badwords.ignore_role.includes(roles.id)) return super.respond(`Le role ${roles.name} est deja dans la liste`);
-                        badwords.ignore_role.push(roles.id);
-                        await this.client.dbmanager.updateGuild(message.guild, {badwords: badwords})
+                        guildData.badwords.ignore_role.push(roles.id);
+                        await this.client.dbmanager.updateGuild(message.guild, {badwords: guildData.badwords});
                         super.respond(`Le role ${roles.name} est maintenant ignoré`);
                         break;
 
                     case "blacklistwords":
                         switch (args[2]) {
                             case "on":
-                                badwords.active = true;
-                                await this.client.dbmanager.updateGuild(message.guild, {badwords: badwords});
+                                guildData.badwords.active = true;
+                                await this.client.dbmanager.updateGuild(message.guild, {badwords: guildData.badwords});
                                 return super.respond(`La blacklist word est activé`);
                         }
                         if (!args[2]) {
@@ -252,8 +219,8 @@ class Configuration extends Command {
                         }
                         let words = args.slice(2).join(' ');
                         if (guildData.badwords.list.includes(words)) return super.respond(`Le mot ${words} est déja listé`);
-                        badwords.list.push(words);
-                        await this.client.dbmanager.updateGuild(message.guild, {badwords: badwords})
+                        guildData.badwords.list.push(words);
+                        await this.client.dbmanager.updateGuild(message.guild, {badwords: guildData.badwords});
                         this.client.guildDB.set(message.guild.id, db);
                         super.respond(`Le mot ${words} est blacklist`);
                         break;
@@ -261,7 +228,7 @@ class Configuration extends Command {
                         if (!args.slice(2).toString()) return super.respond('Merci de definir un prefix');
                         if (args.slice(2).join(' ').length <= 3) return super.respond(`Le prefix doit avoir plus de  **3** characters`);
                         if (args.slice(2).join(' ').includes('*') || args.slice(2).join(' ').includes('_') || args.slice(2).join(' ').includes('~') || args.slice(2).join(' ').includes('`')) return super.respond(`Les caracterres \`*\`, \`_\`, \`~\`, \`~\`, \`\`\` ne sont pas accepté`);
-                        await this.client.dbmanager.updateGuild(message.guild, {prefix: args.slice(2).join('')})
+                        await this.client.dbmanager.updateGuild(message.guild, {prefix: args.slice(2).join('')});
                         super.respond(`Le prefix est maintenant **${args.slice(2).join('')}**`);
                         break
                 }
@@ -298,9 +265,9 @@ class Configuration extends Command {
                             if (role !== roles.id) {
                                 newIgnoredRole.push(role)
                             }
-                            badwords.ignore_role = newIgnoredRole;
+                            guildData.badwords.ignore_role = newIgnoredRole;
                         });
-                        await this.client.dbmanager.updateGuild(message.guild, {badwords: badwords})
+                        await this.client.dbmanager.updateGuild(message.guild, {badwords: guildData.badwords});
                         super.respond(`Le role ${roles.name} a etait supprimé`);
                         break;
                     case "blacklistwords":
@@ -315,7 +282,7 @@ class Configuration extends Command {
                             guildData.badwords.list = newBadWord;
                         });
 
-                        await this.client.dbmanager.updateGuild(message.guild, {badwords: badwords})
+                        await this.client.dbmanager.updateGuild(message.guild, {badwords: guildData.badwords});
 
                         super.respond(`Le mot ${words} n'est plus blacklist`);
                         break;

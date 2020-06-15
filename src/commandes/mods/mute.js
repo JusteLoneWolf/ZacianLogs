@@ -21,7 +21,6 @@ class Mute extends Command {
 
             }).then((roleCreate) => {
                 role = roleCreate;
-                console.log(role)
             })
         }
         await role.setPermissions(0);
@@ -40,38 +39,23 @@ class Mute extends Command {
         member.roles.add(role).then(async () => {
             message.channel.send(`${member.user.username} a était mute par ${message.author.username}`);
 
-           /* if(!guildData.members[member.id]){
+            if(!guildData.members[member.id]){
                 guildData.members[member.id] = {}
                 await this.client.dbmanager.updateGuild(message.guild, {members:guildData.members});
             }
-
             let data = {
-                mute :true
-            };
-            console.log(guildData.members[member.id]);
-            const test = Object.assign(guildData.members[member.id],data)
-
-            guildData.members[member.id] = test
-
-            await this.client.dbmanager.updateGuild(message.guild, {members:guildData.members});*/
-
-
-            let test = [];
-            if(!guildData.members[member.id]){
-                test[member.id] = {
-                    mute: true
+                mute :{
+                    isMute:true,
+                    StartTime:Date.now(),
+                    EndTime:null
                 }
-            }
-            guildData.members.push(test)
-            console.log(guildData.members)
+            };
+            Object.assign(guildData.members[member.id],data)
 
             await this.client.dbmanager.updateGuild(message.guild, {members:guildData.members});
-            console.log(guildData.members)
             guildData.settings.roles.mute = role.id;
             await this.client.dbmanager.updateGuild(message.guild, {settings:guildData.settings});
         })
     }
 }
 module.exports = Mute;
-
-//TODO fix database addings

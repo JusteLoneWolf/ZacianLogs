@@ -45,11 +45,10 @@ module.exports = class {
                 resolve(data)
             }else{
                 data = new Guild({GuildId: guild.id});
+                console.log(data)
                 data.save();
                 resolve(data)
             }
         })
     }
 };
-//TODO
-// Fix intation issue
