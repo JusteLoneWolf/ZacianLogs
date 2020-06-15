@@ -6,6 +6,7 @@ class ListWarn extends Command {
     }
 
     async run(message) {
+        let i
         const mention = message.mentions.members.first();
         if (!mention) return message.channel.send("Vous devez mentionné un utilisateur");
         const db = await this.client.dbmanager.getGuild(message.guild)
@@ -14,18 +15,17 @@ class ListWarn extends Command {
         let warnlist = [];
 
         let mapwarn = db.warns[mention.id].map(g => g);
-        let nombre = 0;
 
-        for (const warn of mapwarn) {
-            nombre++;
-            warnlist.push(`Warn n°${nombre}:\n╚>Raison: ${warn.raison}\n╚>Date: ${warn.time}\n`)
+        for ( i = 0; i < 5; i++) {
+            let nombre = i + 1;
+            warnlist.push(`Warn n°${nombre}:\n╚>Raison: ${mapwarn[i].raison}\n╚>Date: ${mapwarn[i].time}\n`)
         }
         message.channel.send({
             embed: {
                 title: `Warns de ${mention.user.username}`,
                 description: warnlist.join('\n')
             }
-        })/*.then(msg => {
+        }).then(msg => {
             msg.react('◀').then(() => {
                 msg.react('❌').then(() => {
                     msg.react('▶').then(() => {
@@ -37,9 +37,9 @@ class ListWarn extends Command {
                         const For = msg.createReactionCollector(ForF, {time: 180000});
 
                         back.on('collect', async r => {
-                            let x = i - 10;
+                            let x = i - 5;
                             if (x <= 0) return;
-                            i -= 20;
+                            i -= 10;
                             let warnlist = [];
 
                             for (i; i < x; i++) {
@@ -55,11 +55,12 @@ class ListWarn extends Command {
                                     description: warnlist.join('\n')
                                 }
                             })
+                            await r.users.remove(message.author.id)
                         });
                         For.on('collect', async r => {
                             if (i >= mapwarn.length - 1) return;
 
-                            let t = i + 10;
+                            let t = i + 5;
                             let warn = [];
                             for (i; i < t; i++) {
 
@@ -74,6 +75,8 @@ class ListWarn extends Command {
                                     description: warn.join('\n')
                                 }
                             });
+
+                            await r.users.remove(message.author.id)
 
 
                         });
@@ -91,11 +94,9 @@ class ListWarn extends Command {
                     })
                 })
             });
-        })*/
+        })
 
     }
 }
 
 module.exports = ListWarn;
-
-//TODO made paginator for warnlist
