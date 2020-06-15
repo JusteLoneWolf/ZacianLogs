@@ -23,6 +23,7 @@ class Mute extends Command {
                 role = roleCreate;
             })
         }
+
         await role.setPermissions(0);
         for (const channel of message.guild.channels.cache.array()) {
             if (channel.permissionsFor(role).has("SEND_MESSAGES") && channel.permissionsFor(role).has("ADD_REACTIONS")) {
@@ -34,8 +35,10 @@ class Mute extends Command {
                 ],reason)
             }
         }
+        if(member.roles.cache.find(muterole => muterole === role)) return message.channel.send(`${member.user.username} est deja mute`)
 
         member = message.guild.member(member);
+
         member.roles.add(role).then(async () => {
             message.channel.send(`${member.user.username} a était mute par ${message.author.username}`);
 
