@@ -93,7 +93,7 @@ const HELPER = {
             LISTWARN:{
                 name:"warnlist",
                 description:"Liste les avertissement d'un utilisateur",
-                usage:"unwarn [user]",
+                usage:"warnlist [user]",
                 coolDown:2000,
                 aliases:["lw"],
                 permission: "BAN_MEMBERS",
@@ -132,6 +132,15 @@ const HELPER = {
                 coolDown:2000,
                 aliases:["um"],
                 permission: "MANAGE_MEMBERS",
+                category:"Modération"
+            },
+            LISTMUTE:{
+                name:"mutelist",
+                description:"Liste les mute d'un utilisateur",
+                usage:"mutelist [user]",
+                coolDown:2000,
+                aliases:["lm"],
+                permission: "BAN_MEMBERS",
                 category:"Modération"
             }
         },

@@ -17,6 +17,7 @@ class ListWarn extends Command {
         let mapwarn = db.warns[mention.id].map(g => g);
 
         for ( i = 0; i < 5; i++) {
+            console.log(mapwarn[i])
             let nombre = i + 1;
             warnlist.push(`Warn n°${nombre}:\n╚>Raison: ${mapwarn[i].raison}\n╚>Date: ${mapwarn[i].time}\n`)
         }

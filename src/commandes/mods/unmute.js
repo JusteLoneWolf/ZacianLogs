@@ -1,5 +1,6 @@
 const Command = require("../../Base/Command");
 const {HELPER } = require("../../Utils/Constant/CommandeHelper");
+const moment = require('moment');
 
 class Unmute extends Command {
     constructor(client) {
@@ -15,15 +16,9 @@ class Unmute extends Command {
         member = message.guild.member(member);
         member.roles.remove(role,reason).then(async ()=>{
             message.channel.send(`${member.user.username} a était unmute par ${message.author.username}`);
-            let data = {
-                mute :{
-                    isMute:false,
-                    StartTime:Date.now(),
-                    muteList:guildData.members[member.id].mute.muteList
-                }
-            };
-            guildData.members[member.id].mute.muteList[guildData.members[member.id].mute.muteList.length-1].endAt = Date.now();
-            Object.assign(guildData.members[member.id],data);
+
+            guildData.members[member.id].mute.muteList[guildData.members[member.id].mute.muteList.length-1].endAt = moment.utc(Date.now()).format('DD/MM/YYYY HH:mm:ss');
+            guildData.members[member.id].isMute = false
             await this.client.dbmanager.updateGuild(message.guild, {members:guildData.members});
         })
 

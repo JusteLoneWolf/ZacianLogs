@@ -1,5 +1,6 @@
 const Command = require("../../Base/Command");
 const {HELPER } = require("../../Utils/Constant/CommandeHelper");
+const moment = require('moment');
 
 class Mute extends Command {
     constructor(client) {
@@ -49,11 +50,11 @@ class Mute extends Command {
             let data = {
                 mute :{
                     isMute:true,
-                    muteList:guildData.members[member.id].mute.muteList
+                    muteList:guildData.members[member.id].mute ? guildData.members[member.id].mute.muteList : []
                 }
             };
             let muteData = {
-                startAt: Date.now(),
+                startAt: moment.utc(Date.now()).format('DD/MM/YYYY HH:mm:ss'),
                 endAt: null,
                 reason : reason
             };
