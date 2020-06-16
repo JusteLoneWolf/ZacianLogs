@@ -64,7 +64,8 @@ module.exports = class {
             return client.dataShard
         }
 */
-        this.client.logger.info(`${this.client.user.username} pret`)
+        this.client.logger.info(`${this.client.user.username} pret`);
+        require('../../Utils/statsChannels').init(this.client)
 
 
 
