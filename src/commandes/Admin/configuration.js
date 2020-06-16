@@ -88,7 +88,11 @@ class Configuration extends Command {
                         if (guildData.channels.logs === channel.id) return super.respond(`Le channel de logs est deja mis sur ${channel.name}`);
                         guildData.channels.log = channel.id;
                         await this.client.dbmanager.updateGuild(message.guild, {channels:guildData.channels });
-                        super.respond(`Les logs sont mis sur ${channel.name}`);
+                        let text = ''
+                        if(!channel.permissionsFor(message.guild.member(this.client.user)).has("SEND_MESSAGES")){
+                            text = `\n:warning: je n'est pas la permission d'écrire dans ${channel}`
+                        }
+                        super.respond(`Les logs sont mis sur ${channel.name}${text}`);
                         break;
                     case "capchat":
                         switch (args[2]) {
