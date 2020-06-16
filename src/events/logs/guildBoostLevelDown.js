@@ -6,12 +6,12 @@ module.exports = class {
     }
    async run(oldGuild,newGuild){
 
-        let db =await this.client.dbmanager.getGuild(newGuild)
-        if(!db) return
-        let channel = newGuild.channels.cache.get(db.channels.log)
+        let db =await this.client.dbmanager.getGuild(newGuild);
+        if(!db) return;
+        let channel = newGuild.channels.cache.get(db.channels.log);
         if(!channel )return;
 
-        channel.send({
+       return channel.send({
             embed:{
                 title:"Boost Logs",
                 description:"La guild vient de perdre un niveau",

@@ -12,11 +12,11 @@ module.exports = class {
         if (newMessage.channel.type === "dm") return this.client.emit("DirectMessage", newMessage);
         let guildData = await this.getDataOrCreate(newMessage.guild);
         const insulte = new AntiInsulte(this.client);
-        insulte.run(newMessage);
+        await insulte.run(newMessage);
 
         if (newMessage.author.bot) return;
-        let prefix = guildData.prefix|| "zac!"
-        if(!newMessage.content.startsWith(prefix)) return
+        let prefix = guildData.prefix|| "zac!";
+        if(!newMessage.content.startsWith(prefix)) return;
 
         const command = newMessage.content.split(' ')[0].slice(prefix.length);
         const args = newMessage.content.split(' ').slice(1);
@@ -38,12 +38,12 @@ module.exports = class {
         return new Promise(async (resolve)=>{
             const {Guild} = require('../../models/index');
             let data = await this.client.dbmanager.getGuild(guild);
-            if(data){
-                resolve(data)
-            }else{
+            if (!data) {
                 data = new Guild({GuildId: guild.id});
                 data.save();
                 resolve(data)
+            } else {
+                resolve(data);
             }
         })
     }

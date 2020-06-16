@@ -4,9 +4,9 @@ module.exports = class {
     }
 
     async run(invite) {
-        let db = await this.client.dbmanager.getGuild(invite.guild)
+        let db = await this.client.dbmanager.getGuild(invite.guild);
         if(!db) return;
-        let logChannel = invite.guild.channels.cache.get(db.channels.log)
+        let logChannel = invite.guild.channels.cache.get(db.channels.log);
         if (!logChannel) return;
         const moment = require("moment");
         require("moment-duration-format");
@@ -20,7 +20,7 @@ module.exports = class {
             }).then(aLog => aLog.entries.first()).catch((err) => {
                 this.client.emit("error", err)
             });
-            logChannel.send({
+            return logChannel.send({
                 embed: {
                     title:"Invitation Logs",
                     description: "Une invitation a etait supprimé",

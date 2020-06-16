@@ -19,4 +19,4 @@ module.exports = {
         mongoose.connection.on("connected", () => console.log("Mongoose est connecté!"));
 
     }
-}
+};

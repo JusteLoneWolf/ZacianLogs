@@ -5,14 +5,14 @@ module.exports = class {
     }
 
     async run(newMessage) {
-        let db = await this.client.dbmanager.getGuild(newMessage.guild)
+        let db = await this.client.dbmanager.getGuild(newMessage.guild);
         if(!db) return;
-        let channel= newMember.guild.channels.cache.get(db.channels.log)
+        let channel= newMember.guild.channels.cache.get(db.channels.log);
 
         if(!channel )return;
 
 
-        channel.send({
+        return channel.send({
             embed:{
                 title:"Message Logs",
                 description:"Un message vient d'etre désépinglé",

@@ -1,5 +1,4 @@
 const {Client, Collection} = require("discord.js"),
-    Enmap = require("enmap"),
     {readdir, existsSync, mkdirSync} = require("fs"),
     option = require("../../option"),
     Logger = require("../Utils/Logger"),
@@ -12,14 +11,12 @@ class StructureBot extends Client {
         this.commands = new Collection();
         this.aliases = new Collection();
         this.option = require("../../option");
-        require("../Utils/errorHandler")(this.client)
+        require("../Utils/errorHandler")(this.client);
         this.config = this.option.config;
         this.web = this.option.dashboard;
         this.logger = new Logger(this);
         this.utils = new Utils();
         this.createFolder();
-        this.guildDB = new Enmap({name: "guildDB", dataDir: "./database"});
-        this.userDB = new Enmap({name: "userDB", dataDir: "./database"});
         this.config = option.config || {};
         require('../Utils/mongoose').init();
         this.dbmanager = new DatabaseManager(this)

@@ -6,8 +6,8 @@ class AntiInsulte {
    async run(message) {
 
         if (message.author.bot) return;
-        const db = await this.client.dbmanager.getGuild(message.guild.id)
-        if(!db) return
+        const db = await this.client.dbmanager.getGuild(message.guild.id);
+        if(!db) return;
         if (!db.badwords.active) return;
 
         if (db.badwords.ignore_members.includes(message.author.id) || db.badwords.ignore_channel.includes(message.channel.id)) return;
@@ -16,8 +16,6 @@ class AntiInsulte {
         for (const role of roles) {
             if (db.badwords.ignore_role.includes(role)) return;
         }
-
-
         if (db.badwords.list) {
             let msg = message.content.split(" ");
 

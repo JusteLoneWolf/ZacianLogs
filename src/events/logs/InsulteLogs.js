@@ -3,13 +3,13 @@ module.exports = class {
         this.client = client;
     }
     async run(message,data){
-        let db = await this.client.dbmanager.getGuild(message.guild)
+        let db = await this.client.dbmanager.getGuild(message.guild);
         if(!db) return;
-        let channel = message.guild.channels.cache.get(db.channels.log)
+        let channel = message.guild.channels.cache.get(db.channels.log);
 
         if(!channel )return;
 
-        channel.send({
+        return channel.send({
             embed:{
                 title:"Anti Insulte Logs",
                 description:"Message supprimer",

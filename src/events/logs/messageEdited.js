@@ -8,9 +8,9 @@ module.exports = class {
         let db = await this.client.dbmanager.getGuild(newMessage.guild);
         if(!db) return;
         let channel= newMessage.guild.channels.cache.get(db.channels.log);
-        if(!channel) return
+        if(!channel) return;
 
-        channel.send({
+        return channel.send({
             embed:{
                 title:"Message Logs",
                 description:"Un membre vient de mettre a jours son message",

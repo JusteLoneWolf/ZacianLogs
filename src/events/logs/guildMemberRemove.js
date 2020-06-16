@@ -3,11 +3,11 @@ module.exports = class {
         this.client = client;
     }
     async run(member){
-        let db = await this.client.dbmanager.getGuild(member.guild)
-        if(!db) return
+        let db = await this.client.dbmanager.getGuild(member.guild);
+        if(!db) return;
             const botPerms = member.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS"], true);
            if (botPerms) {
-                const logChannel = member.guild.channels.cache.get(db.channels.log)
+                const logChannel = member.guild.channels.cache.get(db.channels.log);
                 if(!logChannel) return;
                 const tempTimestamp = Date.now();
 

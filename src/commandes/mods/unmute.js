@@ -18,7 +18,7 @@ class Unmute extends Command {
             message.channel.send(`${member.user.username} a était unmute par ${message.author.username}`);
 
             guildData.members[member.id].mute.muteList[guildData.members[member.id].mute.muteList.length-1].endAt = moment.utc(Date.now()).format('DD/MM/YYYY HH:mm:ss');
-            guildData.members[member.id].isMute = false
+            guildData.members[member.id].isMute = false;
             await this.client.dbmanager.updateGuild(message.guild, {members:guildData.members});
         })
 

@@ -7,7 +7,7 @@ module.exports = class {
     async run(message,mention,db,args) {
         if(!db) return;
         let channel= await message.guild.channels.cache.get(db.channels.log);
-        if(!channel) return
+        if(!channel) return;
 
         channel.send({
             embed:{

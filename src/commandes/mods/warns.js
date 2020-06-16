@@ -23,7 +23,7 @@ class Warn extends Command{
         db.warns[mention.id].push(newWarn);
 
         await this.client.dbmanager.updateGuild(message.guild, {warns:db.warns});
-        message.channel.send(`l'utilisateur ${mention.user.username} a etait avertie pour ${reason} par ${message.author.username} il a actuellement ${db.warns[mention.id].length}`)
+        message.channel.send(`l'utilisateur ${mention.user.username} a etait avertie pour ${reason} par ${message.author.username} il a actuellement ${db.warns[mention.id].length}`);
         this.client.emit("warnAdd",message,mention,db)
 
 

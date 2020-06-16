@@ -5,12 +5,12 @@ module.exports = class {
         this.client = client;
     }
     async run(newMember, role) {
-        let db = await this.client.dbmanager.getGuild(newMember.guild)
+        let db = await this.client.dbmanager.getGuild(newMember.guild);
         if (!db) return;
-        let channel = newMember.guild.channels.cache.get(db.channels.log)
+        let channel = newMember.guild.channels.cache.get(db.channels.log);
 
         if (!channel) return;
-        channel.send({
+        return channel.send({
             embed: {
                 title: "Role Logs",
                 description: "Un membre a un role en moins",

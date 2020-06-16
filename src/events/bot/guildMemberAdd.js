@@ -5,19 +5,15 @@ module.exports = class {
 
     async run(newMember) {
         let db = await this.client.dbmanager.getGuild(newMember.guild);
-        if(!db) return
+        if(!db) return;
 
         let roles = newMember.guild.roles.cache.find(r => r.id === db.settings.welcome.autorole);
         let channels = newMember.guild.channels.cache.find(c => c.id === db.settings.welcome.capchat.channel);
         if (db.settings.welcome.enabled) {
-            console.log(1)
             if (roles) {
-                console.log(2)
                 if (channels && db.settings.welcome.capchat.enabled) {
-                    console.log(3)
                     let capchatRole = newMember.guild.roles.cache.find(r => r.id === db.settings.welcome.capchat.unverifiedRole);
                     if (!capchatRole) {
-                        console.log(4)
                         newMember.guild.roles.create({
                             data: {
                                 name: "Non verifié",
@@ -54,14 +50,12 @@ module.exports = class {
                                 try {
                                     if (channels.permissionsFor(this.client.user).has("MANAGE_MEMBERS",true)){
                                         newMember.roles.remove(capchatRole).then(() => {
-                                            console.log('delrole')
                                             message.delete();
-                                            console.log('role')
                                             newMember.roles.add(roles).catch(()=> {
                                                 channels.send(`Je ne peux pas lui donné le role ${roles.name}`)
                                             })
                                         }).catch(()=>{
-                                            channels.send(`Je ne peux pas suprrimé le role ${capchatRole.name}`)
+                                            channels.send(`Je ne peux pas suprrimé le role ${capchatRole.name}`);
                                             newMember.roles.add(roles).catch(()=> {
                                                 channels.send(`Je ne peux pas lui donné le role ${roles.name}`)
                                             })
@@ -75,7 +69,6 @@ module.exports = class {
                         })
                     })
                 } else {
-                    console.log('role')
                     newMember.roles.add(roles)
                 }
             }

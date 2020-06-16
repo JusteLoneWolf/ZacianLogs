@@ -5,12 +5,12 @@ module.exports = class {
         this.client = client;
     }
     async run(oldGuild, newGuild) {
-        let db = await this.client.dbmanager.getGuild(newMember.guild)
+        let db = await this.client.dbmanager.getGuild(newMember.guild);
         if (!db) return;
-        let channel = newMember.guild.channels.cache.get(db.channels.log)
+        let channel = newGuild.guild.channels.cache.get(db.channels.log);
         if (!channel) return;
 
-        channel.send({
+        return channel.send({
             embed: {
                 title: "Serveur Logs",
                 description: "La guild vient de changé de region",

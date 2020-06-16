@@ -5,12 +5,12 @@ module.exports = class {
     }
 
     async run(member) {
-        let db = await this.client.dbmanager.getGuild(member.guild)
-        if(!db) return
-        let channel = member.guild.channels.cache.get(db.channels.log)
+        let db = await this.client.dbmanager.getGuild(member.guild);
+        if(!db) return;
+        let channel = member.guild.channels.cache.get(db.channels.log);
         if(!channel )return;
 
-        channel.send({
+        return channel.send({
             embed:{
                 title:"Boost Logs",
                 description:"Un membre vient de boost",

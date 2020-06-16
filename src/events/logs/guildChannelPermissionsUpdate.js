@@ -1,16 +1,15 @@
-
-
 module.exports = class {
     constructor(client) {
         this.client = client;
     }
    async run(oldChannel,newChannel){
-        let db = await this.client.dbmanager.getGuild(newChannel)
-        if(!db) return
-        let channel = newGuild.channels.cache.get(db.channels.log)
+        let db = await this.client.dbmanager.getGuild(newChannel);
+        if(!db) return;
+
+        let channel = newChannel.channels.cache.get(db.channels.log);
         if(!channel )return;
 
-        channel.send({
+       return channel.send({
             embed:{
                 title:"Channel Logs",
                 description:"Les permission d'un channel ont etait chnage",

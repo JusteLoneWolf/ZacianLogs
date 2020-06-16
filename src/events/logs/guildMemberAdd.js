@@ -7,8 +7,8 @@ module.exports = class {
     async run(member) {
 
 
-        let db = await this.client.dbmanager.getGuild(member.guild)
-        if(!db) return
+        let db = await this.client.dbmanager.getGuild(member.guild);
+        if(!db) return;
         if(db.members[member.id]){
             if(db.members[member.id].mute){
                 let role = member.guild.roles.cache.find(r=> r.name === 'Mute' || r.id === db.settings.roles.mute);
@@ -38,7 +38,7 @@ module.exports = class {
                 })
             }
         }
-        const logChannel = member.guild.channels.cache.get(db.channels.log)
+        const logChannel = member.guild.channels.cache.get(db.channels.log);
         if (!logChannel) return;
 
         member.guild.fetchInvites().then(guildInvites => {
@@ -52,7 +52,7 @@ module.exports = class {
 
             const inviter = invite? member.guild.members.cache.get(invite.inviter.id): false;
 
-            logChannel.send({
+            return logChannel.send({
                 embed: {
                     title:"Bienvenue Logs",
                     description:"Un membre arrive",

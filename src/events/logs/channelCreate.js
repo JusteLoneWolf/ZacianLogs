@@ -6,9 +6,9 @@ module.exports = class {
 
     async run(channel) {
         if(channel.type ==="dm") return;
-        let db =await this.client.dbmanager.getGuild(channel.guild)
-        if(!db) return
-        let channeldb = channel.guild.channels.cache.get(db.channels.log)
+        let db =await this.client.dbmanager.getGuild(channel.guild);
+        if(!db) return;
+        let channeldb = channel.guild.channels.cache.get(db.channels.log);
         if(!channeldb )return;
         const aLogFound = await channel.guild.fetchAuditLogs({
             type: "CHANNEL_CREATE",
@@ -17,7 +17,7 @@ module.exports = class {
             this.client.emit("error", err)
         });
 
-        channeldb.send({
+        return channeldb.send({
             embed:{
                 title:"Channel Logs",
                 description:"Un channel vien d'etre créer",

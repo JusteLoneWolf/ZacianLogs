@@ -5,12 +5,12 @@ module.exports = class {
         this.client = client;
     }
     async run(oldMember, newMember) {
-        let db = await this.client.dbmanager.getGuild(newMember.guild)
-        if (!db) return
-        let channel = newMember.guild.channels.cache.get(db.channels.log)
+        let db = await this.client.dbmanager.getGuild(newMember.guild);
+        if (!db) return;
+        let channel = newMember.guild.channels.cache.get(db.channels.log);
         if (!channel) return;
 
-        channel.send({
+        return channel.send({
             embed: {
                 title: "Membre Logs",
                 description: "Un membre de change de pseudo",

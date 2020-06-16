@@ -7,10 +7,10 @@ class ListMute extends Command {
     }
 
     async run(message) {
-        let i
+        let i;
         const mention = message.mentions.members.first();
         if (!mention) return message.channel.send("Vous devez mentionné un utilisateur");
-        const db = await this.client.dbmanager.getGuild(message.guild)
+        const db = await this.client.dbmanager.getGuild(message.guild);
 
         if (!db.members[mention.id]) return message.channel.send("Cette utilisateur n'as pas de mute");
         let mutelist = [];
@@ -18,14 +18,13 @@ class ListMute extends Command {
         let mapmute = db.members[mention.id].mute.muteList.map(g => g);
 
         for ( i = 0; i < 5; i++) {
-            console.log(mapmute[i])
             let nombre = i + 1;
             if(mapmute[i]){
                 mutelist.push(`Mute n°${nombre}:\n╚>Raison: ${mapmute[i].reason}\n╚>Date: ${mapmute[i].startAt} a ${mapmute[i].endAt ?mapmute[i].endAt : "Actuellement"}\n`)
 
             }
         }
-        console.log(mutelist)
+        console.log(mutelist);
         message.channel.send({
             embed: {
                 title: `Mutes de ${mention.user.username}`,
@@ -36,11 +35,11 @@ class ListMute extends Command {
                 msg.react('❌').then(() => {
                     msg.react('▶').then(() => {
                         const backF = (reaction, user) => reaction.emoji.name === '◀' && user.id === message.author.id;
-                        const ForF = (reaction, user) => reaction.emoji.name === '▶' && user.id === message.author.id;
-                        const Del = (reaction, user) => reaction.emoji.name === '❌' && user.id === message.author.id;
-                        const del = msg.createReactionCollector(Del, {time: 180000});
+                        const forF = (reaction, user) => reaction.emoji.name === '▶' && user.id === message.author.id;
+                        const delF = (reaction, user) => reaction.emoji.name === '❌' && user.id === message.author.id;
+                        const del = msg.createReactionCollector(delF, {time: 180000});
                         const back = msg.createReactionCollector(backF, {time: 180000});
-                        const For = msg.createReactionCollector(ForF, {time: 180000});
+                        const forw = msg.createReactionCollector(forF, {time: 180000});
 
                         back.on('collect', async r => {
                             let x = i - 5;
@@ -62,16 +61,15 @@ class ListMute extends Command {
                                     title: `Mutes de ${mention.user.username}`,
                                     description: mutelist ? mutelist.join('\n') : "Aucun mute"
                                 }
-                            })
+                            });
                             await r.users.remove(message.author.id)
                         });
-                        For.on('collect', async r => {
+                        forw.on('collect', async r => {
                             if (i >= mapmute.length - 1) return;
 
                             let t = i + 5;
-                            let mute = [];
                             for (i; i < t; i++) {
-
+                                mutelist= [];
                                 let nombre = i + 1;
                                 if (i <= mapmute.length - 1) {
                                     if(mapmute[i]){
@@ -83,7 +81,7 @@ class ListMute extends Command {
                             await msg.edit({
                                 embed: {
                                     title: `Mutes de ${mention.user.username}`,
-                                    description: mute ? mute.join('\n') : "Aucun mute"
+                                    description:mutelist ? mutelist.join('\n') : "Aucun mute"
                                 }
                             });
 
@@ -91,13 +89,13 @@ class ListMute extends Command {
 
 
                         });
-                        del.on('collect', async r => {
+                        del.on('collect', async ()=> {
                             await msg.edit({
                                 embed: {
                                     description: "La liste de mutes a etait supprimé"
                                 }
                             }).then(()=>{
-                                For.stop();
+                                forw.stop();
                                 back.stop();
                                 msg.reactions.removeAll()
                             })
