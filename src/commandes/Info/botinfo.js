@@ -23,7 +23,7 @@ class Botinfo extends Command {
                     },
                     {
                         name: "❱ Invitation",
-                        value: "[Invitation du bot](https://discord.com/api/oauth2/authorize?client_id=717658826379231256&permissions=268504246&scope=bot)"
+                        value: "[Invitation du bot](https://discord.com/api/oauth2/authorize?client_id=717658826379231256&permissions=2081287414&scope=bot)"
                     },
                 ]
             }
