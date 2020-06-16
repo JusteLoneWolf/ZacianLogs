@@ -5,8 +5,9 @@ class Ping extends Command{
         super(client,HELPER.COMMANDS.GENERICS.PING);
     }
 
-    run(message){
-        super.respond(`Ping: ${Date.now()-message.createdAt}ms\nPing du bot ${this.client.ws.ping}ms `)
+    async run(message){
+        const ping = await message.channel.send("Calcul du ping en cours...");
+         ping.edit(`Ping: ${ping.createdAt - message.createdAt}ms\nPing du bot ${this.client.ws.ping}ms `)
     }
 }
 
