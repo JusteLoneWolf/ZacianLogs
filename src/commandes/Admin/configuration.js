@@ -226,7 +226,7 @@ class Configuration extends Command {
                         break;
                     case "prefix":
                         if (!args.slice(2).toString()) return super.respond('Merci de definir un prefix');
-                        if (args.slice(2).join(' ').length <= 3) return super.respond(`Le prefix doit avoir plus de  **3** characters`);
+                        if (args.slice(2).join(' ').length >= 3) return super.respond(`Le prefix doit avoir moins de  **3** characters`);
                         if (args.slice(2).join(' ').includes('*') || args.slice(2).join(' ').includes('_') || args.slice(2).join(' ').includes('~') || args.slice(2).join(' ').includes('`')) return super.respond(`Les caracterres \`*\`, \`_\`, \`~\`, \`~\`, \`\`\` ne sont pas accepté`);
                         await this.client.dbmanager.updateGuild(message.guild, {prefix: args.slice(2).join('')});
                         super.respond(`Le prefix est maintenant **${args.slice(2).join('')}**`);
