@@ -16,7 +16,6 @@ class StructureBot extends Client {
         this.web = this.option.dashboard;
         this.logger = new Logger(this);
         this.utils = new Utils();
-        this.createFolder();
         this.config = option.config || {};
         require('../Utils/mongoose').init();
         this.dbmanager = new DatabaseManager(this)
@@ -82,25 +81,6 @@ class StructureBot extends Client {
             }
         });
         return this
-    }
-
-    createFolder() {
-        if (!existsSync("./database")) {
-            mkdirSync("./database");
-            this.logger.info("crée")
-        }
-        return true
-    }
-
-    initDatabase() {
-
-        this.guildDB.defer.then(() => {
-            if (this.guildDB.isReady) {
-                this.logger.info("[Guilddb] Base de donnée pret")
-            } else {
-                this.logger.info("[Guilddb] Base de donnée pas pret")
-            }
-        })
     }
 }
 
