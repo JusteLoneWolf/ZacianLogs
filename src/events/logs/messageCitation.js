@@ -10,7 +10,7 @@ module.exports = class {
         if(!url) return;
         let scrapedURL = url[0].split("/");
 
-
+        if(isNaN(scrapedURL[5]) || isNaN(scrapedURL[6])) return
 
         this.client.guilds.cache.get(message.guild.id).channels.cache.get(scrapedURL[5]).messages.fetch(scrapedURL[6]).then((msg)=>{
             if(msg) return;
