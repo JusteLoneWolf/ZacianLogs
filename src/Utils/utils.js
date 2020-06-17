@@ -38,7 +38,7 @@ class Utils {
         let user = message.guild.member(member);
 
         if(message.author.id !== message.guild.ownerID){
-            if(user.role.highest >= message.guild.member(message.member).role.highest){
+            if(user.role.highest >= message.guild.member(message.member).roles.highest){
                 message.channel.send("Le member mentionné a un role plus haut que toi");
                 return false
             }
