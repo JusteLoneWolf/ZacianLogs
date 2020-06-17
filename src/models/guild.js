@@ -54,6 +54,10 @@ const guildSchema = mongoose.Schema({
         default:{
             log: null
         }
+    },
+    invites:{
+        type:Object,
+        default:{}
     }
 });
 

@@ -12,13 +12,14 @@ module.exports = class {
             }
         }).then(() => this.client.logger.info('Status set !'));
 
-        this.client.guilds.cache.map(async guild => {
+        /*this.client.guilds.cache.map(async guild => {
 
             try {
                if( this.client.guilds.cache.get(guild.id).members.cache.get(this.client.user.id).hasPermission('MANAGE_GUILD')) {
-                   let guildData = this.client.guilds.cache.get(guild.id);
-                   if (this.client.guildDB.get(guild.id)) {
-                       await this.client.utils.fetchInvite(guildData, this.client.guildDB).then(() => {
+                   let guildDataInvite = this.client.guilds.cache.get(guild.id);
+                   let guildData = await this.client.dbmanager.getGuild(guild)
+                   if (guildData) {
+                       await this.client.utils.fetchInvite(this.client,guildDataInvite, guildData).then(() => {
                            this.client.logger.info(`Toutes les invitation get ${guild.id}`);
                        }).catch((err) => {
                            this.client.emit("error", err);
@@ -30,9 +31,10 @@ module.exports = class {
                    this.client.logger.error(`Aucune invitation get ${guild.id} (manque de permission)`);
                }
             } catch (err) {
+                console.log(err)
                 this.client.emit("error", err);
             }
-        });
+        });*/
 
         /*this.client.guilds.cache.map(async guild =>{
             let data =await this.client.dbmanager.getGuild(guild)
