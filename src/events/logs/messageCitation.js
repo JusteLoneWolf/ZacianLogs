@@ -5,6 +5,8 @@ module.exports = class {
     }
 
     async run(message) {
+        if(!message.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS","MANAGE_CHANNELS","MANAGE_GUILD"], true)) return;
+
         const urlRegex = require('url-regex');
         let url = message.content.match(urlRegex());
         if(!url) return;

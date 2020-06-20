@@ -20,10 +20,7 @@ class StructureBot extends Client {
         require('../Utils/mongoose').init();
         this.dbmanager = new DatabaseManager(this)
     }
-
     init() {
-
-        this.initDatabase();
         this.commandLoader();
         this.eventLoader();
         this.login();
@@ -32,6 +29,7 @@ class StructureBot extends Client {
     login() {
         return super.login(this.option.config.token)
     }
+
 
 
     commandLoader() {

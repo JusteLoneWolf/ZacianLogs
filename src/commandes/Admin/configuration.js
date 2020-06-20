@@ -41,7 +41,6 @@ class Configuration extends Command {
 
            }
        }
-       let db = this.client.guildDB.get(message.guild.id);
 
 
        switch (args[0]) {

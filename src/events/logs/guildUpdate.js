@@ -5,6 +5,8 @@ module.exports = class {
         this.client = client;
     }
     async run(oldGuild,newGuild){
+        if(!newGuild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS","MANAGE_CHANNELS","MANAGE_GUILD"], true)) return;
+
         let db = await this.client.dbmanager.getGuild(newGuild.guild);
         if (!db) return;
 
