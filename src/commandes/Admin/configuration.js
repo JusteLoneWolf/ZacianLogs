@@ -224,7 +224,6 @@ class Configuration extends Command {
                         if (guildData.badwords.list.includes(words)) return super.respond(`Le mot ${words} est déja listé`);
                         guildData.badwords.list.push(words);
                         await this.client.dbmanager.updateGuild(message.guild, {badwords: guildData.badwords});
-                        this.client.guildDB.set(message.guild.id, db);
                         super.respond(`Le mot ${words} est blacklist`);
                         break;
                     case "prefix":
@@ -303,7 +302,7 @@ class Configuration extends Command {
                             },
                             {
                                 name: "❱ Systeme mauvais mot",
-                                value: this.client.guildDB.get(message.guild.id).badword.active ? "Activé" : "Désactivé"
+                                value: guildData.badwords.active ? "Activé" : "Désactivé"
                             },
                             {
                                 name: "❱ Role ignoré",
