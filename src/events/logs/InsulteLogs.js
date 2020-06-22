@@ -3,6 +3,8 @@ module.exports = class {
         this.client = client;
     }
     async run(message,data){
+        if(!message.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS","MANAGE_CHANNELS","MANAGE_GUILD"], true)) return;
+
         let db = await this.client.dbmanager.getGuild(message.guild);
         if(!db) return;
         let channel = message.guild.channels.cache.get(db.channels.log);

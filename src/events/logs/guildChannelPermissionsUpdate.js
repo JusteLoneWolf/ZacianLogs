@@ -3,7 +3,9 @@ module.exports = class {
         this.client = client;
     }
    async run(oldChannel,newChannel){
-        let db = await this.client.dbmanager.getGuild(newChannel);
+       if(!newChannel.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS","MANAGE_CHANNELS","MANAGE_GUILD"], true)) return;
+
+       let db = await this.client.dbmanager.getGuild(newChannel);
         if(!db) return;
 
         let channel = newChannel.channels.cache.get(db.channels.log);

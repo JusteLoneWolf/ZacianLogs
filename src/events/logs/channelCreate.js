@@ -5,6 +5,8 @@ module.exports = class {
     }
 
     async run(channel) {
+        if(!channel.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS","MANAGE_CHANNELS","MANAGE_GUILD"], true)) return;
+
         if(channel.type ==="dm") return;
         let db =await this.client.dbmanager.getGuild(channel.guild);
         if(!db) return;
@@ -25,11 +27,11 @@ module.exports = class {
                 fields:[
                     {
                         name:"❱ Créer par",
-                        value : aLogFound.executor.username
+                        value : aLogFound ? aLogFound.executor.username: "Pas d'information recuperé"
                     },
                     {
                         name:"❱ Nom du channel",
-                        value : aLogFound.changes[0].new
+                        value : aLogFound ? aLogFound.changes[0].new: "Pas d'information recuperé"
                     },
                     /*{
                         name:"❱ Permission",
@@ -37,7 +39,7 @@ module.exports = class {
                     },*/
                     {
                         name:"❱ NSFW",
-                        value : aLogFound.changes[3].new ? "Oui" : "Non"
+                        value : aLogFound ? aLogFound.changes[3].new ? "Oui" : "Non" : "Pas d'information recuperé"
                     }
                 ]
             }

@@ -3,7 +3,7 @@ module.exports = {
    init: (client) => {
         client.guilds.cache.map(async guild =>{
            let data = await client.dbmanager.getGuild(guild);
-            if(data){
+            if(data && data.channels.counter) {
                let addedGuild = {
                     id:guild.id,
                     channelsCounter: {
@@ -31,7 +31,7 @@ module.exports = {
         })
     },
 
-    add: () =>{
+    add: (client,db,guild) =>{
 
     },
 
