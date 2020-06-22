@@ -27,11 +27,11 @@ module.exports = class {
                 fields:[
                     {
                         name:"❱ Créer par",
-                        value : aLogFound.executor.username
+                        value : aLogFound ?aLogFound.executor.username:"Pas d'information recuperé"
                     },
                     {
                         name:"❱ Nom du channel",
-                        value : aLogFound.changes[0].old
+                        value : aLogFound ?aLogFound.changes[0].old:"Pas d'information recuperé"
                     },
                     /*{
                         name:"❱ Permission",
@@ -39,7 +39,7 @@ module.exports = class {
                     },*/
                     {
                         name:"❱ NSFW",
-                        value : aLogFound.changes[3].old ? "Oui" : "Non"
+                        value : aLogFound ?aLogFound.changes[3].old ? "Oui" : "Non":"Pas d'information recuperé"
                     }
                 ]
             }
