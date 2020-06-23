@@ -44,7 +44,11 @@ module.exports = class {
             if(data){
                 resolve(data)
             }else{
-                data = new Guild({GuildId: guild.id});
+                const newGuild= {
+                    GuildId : guild.id
+                };
+                const merged = Object.assign({ _id: mongoose.Types.ObjectId()}, newGuild);
+                data = await new Guild(merged);
                 data.save();
                 resolve(data)
             }

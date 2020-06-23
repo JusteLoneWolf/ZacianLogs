@@ -6,7 +6,7 @@ class DatabaseManager{
         this.client = client
     }
     createGuild = async guild => {
-        const merged = Object.assign({ _id: mongoose.Types.ObjectId() }, guild);
+        const merged = Object.assign({ _id: mongoose.Types.ObjectId()}, guild);
         const createGuild = await new Guild(merged);
         createGuild.save()
     };

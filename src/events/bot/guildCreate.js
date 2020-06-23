@@ -6,7 +6,7 @@ module.exports = class {
 
    async run(guild) {
         const newGuild= {
-            id : guild.id
+            GuildId : guild.id
         };
         await this.client.dbmanager.createGuild(newGuild);
        this.client.logger.info(`Nouveau serveur -> ${guild.name}`)
