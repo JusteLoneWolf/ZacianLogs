@@ -25,7 +25,7 @@ class Utils {
             })
             //TODO FIX getInvitation for guildMemberAdd event log
         }catch (e) {
-            console.error(e)
+            return
         }
 
     }
