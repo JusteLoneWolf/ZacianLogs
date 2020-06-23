@@ -26,6 +26,8 @@ module.exports = class {
        // if (cmd.cooldown.has(newMessage.author.id)) return newMessage.delete();
 
         cmd.setMessage(newMessage);
+        //if(cmd.help.category.toLowerCase() === 'owner' && !this.client.config.owner.includes(newMessage.author.id)) return newMessage.channel.send('Vous devez etre dévellopeur du bot');
+
         try{
             cmd.run(newMessage, args,guildData);
         }catch (e) {

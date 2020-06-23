@@ -7,6 +7,7 @@ class Eval extends Command{
     }
 
     async run(message,args){
+        if(!this.client.config.owner.includes(message.author.id)) return message.channel.send('Vous devez etre dévellopeur du bot')
         const initialTime = process.hrtime();
         try {
             let code = args.join(' ');

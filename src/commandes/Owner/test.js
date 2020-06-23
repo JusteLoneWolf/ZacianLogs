@@ -6,6 +6,8 @@ class Test extends Command{
     }
 
     run(message){
+            if(!this.client.config.owner.includes(message.author.id)) return message.channel.send('Vous devez etre dévellopeur du bot')
+
     let test = require('../../../index.js')
 
     test('Crave rave',1).then((res)=>{

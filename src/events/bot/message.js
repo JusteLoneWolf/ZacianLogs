@@ -9,6 +9,10 @@ module.exports = class {
         if (message.author.bot) return;
         if (message.channel.type === "dm") return this.client.emit("DirectMessage", message);
         let guildData = await this.getDataOrCreate(message.guild);
+        if(message.guild.id === '724785991554170931'){
+            console.log(guildData)
+
+        }
 
         const insulte = new AntiInsulte(this.client);
         await insulte.run(message);
@@ -24,7 +28,7 @@ module.exports = class {
         const cmd = this.client.commands.get(command) || this.client.commands.get(this.client.aliases.get(command));
         if (!cmd) return;
        // if (cmd.cooldown.has(message.author.id)) return message.delete();
-        if(cmd.help.category === 'Owner' && !this.client.config.owner.includes(message.author.id)) return message.channel.send('Vous devez etre dévellopeur du bot');
+        //(cmd.help.category.toLowerCase() === 'owner' && !this.client.config.owner.includes(message.author.id)) return message.channel.send('Vous devez etre dévellopeur du bot');
 
         cmd.setMessage(message);
         try{
@@ -39,16 +43,15 @@ module.exports = class {
 
     async getDataOrCreate(guild){
         return new Promise(async (resolve)=>{
-            const {Guild} = require('../../models/index');
             let data = await this.client.dbmanager.getGuild(guild);
             if(data){
                 resolve(data)
             }else{
-                data = new Guild({GuildId: guild.id});
-                console.log(data);
-                data.save();
+                 await this.client.dbmanager.createGuild(guild);
+                data = await this.client.dbmanager.getGuild(guild);
                 resolve(data)
             }
         })
+
     }
 };

@@ -5,24 +5,29 @@ class Utils {
     }
 
     async fetchInvite(client,guild,db){
-        await guild.fetchInvites().then(async invite=>{
+        try{
+            await guild.fetchInvites().then(async invite=>{
 
 
-            if(!db.invites[invite.code]){
-                db.invites[invite.code] ={}
+                if(!db.invites[invite.code]){
+                    db.invites[invite.code] ={}
+                    await client.dbmanager.updateGuild(guild, {invites:db.invites});
+
+                }
+
+                let inviteData = {}
+                inviteData[guild.id] = invite;
+
+                Object.assign(db.invites,inviteData)
                 await client.dbmanager.updateGuild(guild, {invites:db.invites});
+            }).catch((err)=>{
+                console.error(err)
+            })
+            //TODO FIX getInvitation for guildMemberAdd event log
+        }catch (e) {
+            console.error(e)
+        }
 
-            }
-
-            let inviteData = {}
-            inviteData[guild.id] = invite;
-
-            Object.assign(db.invites,inviteData)
-            await client.dbmanager.updateGuild(guild, {invites:db.invites});
-        }).catch((err)=>{
-            console.error(err)
-        })
-        //TODO FIX getInvitation for guildMemberAdd event log
     }
 
     resolveUser(message,member, permission){

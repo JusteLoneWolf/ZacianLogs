@@ -26,6 +26,13 @@ class DatabaseManager{
         }
         return data.updateOne(Object.assign(data,settings));
     };
+    removeGuild = async guild => {
+         Guild.deleteOne({ GuildId: guild.id  }, function (err) {
+            if(err) console.log(err);
+            console.log("Successful deletion");
+        });
+
+    };
 }
 
 module.exports =  DatabaseManager;

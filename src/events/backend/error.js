@@ -9,6 +9,7 @@ module.exports = class {
                 error = error.substr(0, 950);
                 error  += "\nTrop long..";
             }
+
             message.send({
                 embed:{
                     title:"Une erreur est survenue",
