@@ -80,6 +80,28 @@ class Configuration extends Command {
                 }
                 switch (args[1]) {
 
+                    case undefined:
+                        return message.channel.send({
+                            embed:{
+                                description:'Aide de la commande configuration',
+                                fields:[
+                                    {
+                                        name:"Paramettre",
+                                        value:"capchat/logs/welcome/ignorerole/blacklistwords/prefix"
+                                    },
+                                    {
+                                        name:"Exemple",
+                                        value: `${guildData.prefix}configuration set capchat <unverifiedrole/channel/enabled> <nom du role/mention du role/nom du channel/mention du channel>\n`+
+                                            `${guildData.prefix}configuration set logs <nom du channel/mention du channel>\n`+
+                                            `${guildData.prefix}configuration set blacklistwords <on/mot ou phrase>\n`+
+                                            `${guildData.prefix}configuration set welcome <enabled/autorole> <on/nom du role>\n`+
+                                            `${guildData.prefix}configuration set ignorerole <nom du role>\n`+
+                                            `${guildData.prefix}configuration set prefix <prefix>`
+
+                                    }
+                                ]
+                            }
+                        })
                     case "logs":
                         let channel = message.mentions.channels.first() ? message.mentions.channels.first() : args.slice(2) ? args.slice(2).join(' ').toLowerCase() : false;
                         channel = channel ? message.mentions.channels.first() ? channel.name : args.slice(2).join(' ').toLowerCase() : message.channel.name;
@@ -205,16 +227,18 @@ class Configuration extends Command {
                         }
                         if (!args[2]) {
                             return message.channel.send({
-                                embed: {
-                                    title: "Mauvais Argument",
-                                    fields: [
+                                embed:{
+                                    description:'Aide de la commande configuration du badword',
+                                    fields:[
                                         {
-                                            name: "❱ Utilisation",
-                                            value: this.help.usage
+                                            name:"Paramettre",
+                                            value:"on/mot ou phrase"
                                         },
                                         {
-                                            name: "❱ Exemple",
-                                            value: this.help.exemple
+                                            name:"Exemple",
+                                            value:`${guildData.prefix}configuration set blacklistwords on\n`+
+                                                `${guildData.prefix}configuration set blacklistwords mot ou phrase\n`
+
                                         }
                                     ]
                                 }
@@ -261,7 +285,7 @@ class Configuration extends Command {
                         roles = message.guild.roles.cache.find(r => r.name === roles || r.id === roles);
                         if (!roles) return message.channel.send("Le roles est introuvable");
                         if (!guildData.badwords.ignore_role.includes(roles.id)) return super.respond(`Le role ${roles.name} n'est pas listé`);
-                        let ignoredRole = guildData.badwordss.ignore_role;
+                        let ignoredRole = guildData.badwords.ignore_role;
                         let newIgnoredRole = [];
                         ignoredRole.forEach(role => {
                             if (role !== roles.id) {
