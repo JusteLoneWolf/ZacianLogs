@@ -19,6 +19,8 @@ class StructureBot extends Client {
         this.config = option.config || {};
         require('../Utils/mongoose').init();
         this.dbmanager = new DatabaseManager(this)
+
+        this.antiraid = new Collection();
     }
     init() {
         this.commandLoader();
