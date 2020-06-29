@@ -7,7 +7,11 @@ module.exports ={
 
     },
 
-    getMessage(){
+    getMessage(client,message,data){
+
+        if(!data.advert[message.author.id]){
+
+        }
 
     },
 

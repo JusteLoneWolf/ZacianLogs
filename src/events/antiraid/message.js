@@ -7,6 +7,7 @@ module.exports = class {
         if (message.channel.type === "dm") return
         let guildData = await this.getDataOrCreate(message.guild);
         if(!guildData.settings.antiraid.enabled) return
+        require('../../modules/antiraid').getMessage(this.client,message,guildData.settings.antiraid)
     }
 
     async getDataOrCreate(guild){
