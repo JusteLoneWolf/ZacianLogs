@@ -7,6 +7,13 @@ module.exports ={
         for(const channel of guild.channels.cache.array()){
             //TODO
             // server lockdown
+
+            channel.overwritePermissions([
+                {
+                    deny :["SEND_MESSAGE"]
+                }
+
+            ])
         }
 
     },
@@ -15,6 +22,7 @@ module.exports ={
 
         if(!data.advert[message.author.id]){
             data.advert[message.author.id]= {
+                username: message.author.username,
                 content: message.content,
                 warn:0
             }
@@ -59,7 +67,12 @@ module.exports ={
 
     },
 
-    removeWarns(){
+    async removeWarns(client,message,data) {
+        if (!data.advert[message.author.id]) return
+
+        data.advert[message.author.id].advert = 0
+        await client.dbmanager.updateGuild(message.guild,{advert: data.advert})
+
 
     },
 
