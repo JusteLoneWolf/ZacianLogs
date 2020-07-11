@@ -8,8 +8,7 @@ const {Client, Collection} = require("discord.js"),
 class StructureBot extends Client {
     constructor(options) {
         super(options);
-        this.commands = new Collection();
-        this.aliases = new Collection();
+        ["commands","aliases","cooldowns"].forEach(x=>this[x] = new Collection())
         this.option = require("../../option");
         require("../Utils/errorHandler")(this.client);
         this.config = this.option.config;
