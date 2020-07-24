@@ -38,6 +38,14 @@ const guildSchema = mongoose.Schema({
                     channel: null,
                     enabled: false
                 },
+            },
+            antiraid:{
+                enabled: false,
+                blockServer:{
+                    enabled: false,
+                    sanction:""
+                },
+                advert:{}
             }
         }
     },

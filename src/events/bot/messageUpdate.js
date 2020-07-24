@@ -23,10 +23,29 @@ module.exports = class {
 
         const cmd = this.client.commands.get(command) || this.client.commands.get(this.client.aliases.get(command));
         if (!cmd) return;
-       // if (cmd.cooldown.has(newMessage.author.id)) return newMessage.delete();
+
+        if (!this.client.cooldowns.has(cmd.help.name)) {
+            this.client.cooldowns.set(cmd.help.name, new Collection());
+        }
+
+        const timeNow = Date.now();
+        const tStamps = this.client.cooldowns.get(cmd.help.name);
+        const cdAmount = (cmd.help.cooldown || 5) * 1000;
+
+        if (tStamps.has(newMessage.author.id)) {
+            const cdExpirationTime = tStamps.get(newMessage.author.id) + cdAmount;
+
+            if (timeNow < cdExpirationTime) {
+                let timeLeft = (cdExpirationTime - timeNow) / 1000;
+                return newMessage.channel.send(`merci d'attendre ${timeLeft.toFixed(0)} seconde(s) avant de ré-utiliser la commande \`${cmd.help.name}\`.`);
+            }
+        }
+
+        tStamps.set(newMessage.author.id, timeNow);
+        setTimeout(() => tStamps.delete(newMessage.author.id), cdAmount);
+        if(cmd.help.category.toLowerCase() === 'owner' && !this.client.config.owner.includes(newMessage.author.id)) return newMessage.channel.send('Vous devez etre dévellopeur du bot');
 
         cmd.setMessage(newMessage);
-        //if(cmd.help.category.toLowerCase() === 'owner' && !this.client.config.owner.includes(newMessage.author.id)) return newMessage.channel.send('Vous devez etre dévellopeur du bot');
 
         try{
             cmd.run(newMessage, args,guildData);

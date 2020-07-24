@@ -25,7 +25,7 @@ const HELPER = {
                 name:"eval",
                 description:"Fait un eval",
                 usage:`eval [code]`,
-                coolDown: 2000,
+                coolDown: 1000,
                 aliases:["e"],
                 permission: "READ_MESSAGES",
                 category:"Owner"
@@ -76,7 +76,7 @@ const HELPER = {
               name:"warn",
               description:"Averti un utilisateur",
               usage:"warn [user] <raison>",
-              coolDown:2000,
+              coolDown:1000,
               aliases:["w"],
               permission: "BAN_MEMBERS",
               category:"Modération"
@@ -85,7 +85,7 @@ const HELPER = {
                 name:"unwarn",
                 description:"Enleve un avertissement a un utilisateur",
                 usage:"unwarn [user] <warn>",
-                coolDown:2000,
+                coolDown:1000,
                 aliases:["uw"],
                 permission: "BAN_MEMBERS",
                 category:"Modération"
@@ -94,7 +94,7 @@ const HELPER = {
                 name:"warnlist",
                 description:"Liste les avertissement d'un utilisateur",
                 usage:"warnlist [user]",
-                coolDown:2000,
+                coolDown:1000,
                 aliases:["lw"],
                 permission: "BAN_MEMBERS",
                 category:"Modération"
@@ -103,7 +103,7 @@ const HELPER = {
                 name:"kick",
                 description:"Kick un utilisateur",
                 usage:"kick [user] <raison>",
-                coolDown:2000, aliases:["k"],
+                coolDown:1000, aliases:["k"],
                 permission: "KICK_MEMBERS",
                 category:"Modération"
             },
@@ -111,7 +111,7 @@ const HELPER = {
                 name:"ban",
                 description:"Ban un utilisateur",
                 usage:"ban [user] <raison>",
-                coolDown:2000,
+                coolDown:1000,
                 aliases:["b"],
                 permission: "BAN_MEMBERS",
                 category:"Modération"
@@ -120,7 +120,7 @@ const HELPER = {
                 name:"mute",
                 description:"Mute un utilisateur",
                 usage:"mute [user] <raison>",
-                coolDown:2000,
+                coolDown:1000,
                 aliases:["m"],
                 permission: "MANAGE_MEMBERS",
                 category:"Modération"
@@ -138,7 +138,7 @@ const HELPER = {
                 name:"unmute",
                 description:"Unmute un utilisateur",
                 usage:"unmute [user] <raison>",
-                coolDown:2000,
+                coolDown:1000,
                 aliases:["um"],
                 permission: "MANAGE_MEMBERS",
                 category:"Modération"
@@ -147,7 +147,7 @@ const HELPER = {
                 name:"mutelist",
                 description:"Liste les mute d'un utilisateur",
                 usage:"mutelist [user]",
-                coolDown:2000,
+                coolDown:1000,
                 aliases:["lm"],
                 permission: "BAN_MEMBERS",
                 category:"Modération"
@@ -159,7 +159,7 @@ const HELPER = {
                 description:"Configure le bot",
                 usage:"configuration <set/remove/view> <logs/ignorerole/blacklistwords/prefix/capchat/welcome> [channel/mention channel/role/mot/unverifiedrole/autorole/enabled] [role/channel]",
                 exemple: "zac!configuration set logs #ChannelMention/nom du channel \nzac!configuration set ignorerole @roleMemtion/role name\nzac!configuration set prefix !\nzac!configuration set capchat unverifiedrole role\nzac!configuration set capchat enabled ",
-                oolDown:2000,
+                oolDown:1000,
                 aliases:["conf","config"],
                 permission: "MANAGE_GUILD",
                 category:"Admin"
@@ -168,7 +168,7 @@ const HELPER = {
                 name:"checkpermission",
                 description:"Regarde les permission du bot dans chaque channel",
                 usage:"checkpermission",
-                coolDown:2000,
+                coolDown:1000,
                 aliases:["cp"],
                 permission: "MANAGE_MEMBERS",
                 category:"Admin"
