@@ -125,6 +125,15 @@ const HELPER = {
                 permission: "MANAGE_MEMBERS",
                 category:"Modération"
             },
+            PURGE:{
+                name:"purge",
+                description:"Supprime des message",
+                usage:"purge <mention/nombre/all/search>",
+                coolDown:2000,
+                aliases:["p"],
+                permission: "MANAGE_MEMBERS",
+                category:"Modération"
+            },
             UNMUTE:{
                 name:"unmute",
                 description:"Unmute un utilisateur",
