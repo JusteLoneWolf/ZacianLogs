@@ -6,7 +6,6 @@ class Purge extends Command {
     }
 
     async run(message, args) {
-        console.log(args)
         if (args[0] === "search") return purgeSearch(message, this.client);
         else return purge(message, this.client);
 
@@ -18,14 +17,13 @@ class Purge extends Command {
 
                 message.channel.messages.fetch({limit: 100}).then(msgs => {
 
-                    msgs = msgs.filter(m => m.content.includes(query) && m.id !== message.id);
+                    msgs = msgs.filter(m => m.content.toLowerCase().includes(query) && m.id !== message.id);
 
-                    if (msgs.size < 1) return top.edit(`Pas de message trouver pour \`${query}\``);
+                    if (msgs.size < 1) return top.edit(`Pas de message trouver contenant \`${query}\``);
                     message.channel.bulkDelete(msgs, true).then(() => {
-
-                        top.edit(`Suppression de  \`${msgs.size-1}\` message pour \`${query}\``);
-                        message.channel.send(`Suppression des **${msgs.size-1}** reussi`)
-
+                            top.edit(`Suppression de  \`${msgs.size}\` message contenant \`${query}\``).catch(()=>{
+                                message.channel.send(`Suppression de  \`${msgs.size}\` message contenant \`${query}\``);
+                            })
 
                     }).catch(err => top.edit(`\`Suppression echoué...\`\n\nenvoyer cette erreur a  <@${client.users.cache.get("236627494764150784").id}> ou sur le serveur du support\n\`${err}\``))
 

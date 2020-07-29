@@ -6,6 +6,7 @@ module.exports = class {
     async run(oldMessage,newMessage) {
         if (newMessage.channel.type === "dm") return
         let guildData = await this.getDataOrCreate(newMessage.guild);
+        if(!guildData.settings.antiraid) return
         if(!guildData.settings.antiraid.enabled) return
     }
 
