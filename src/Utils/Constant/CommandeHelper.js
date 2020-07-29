@@ -134,6 +134,15 @@ const HELPER = {
                 permission: "MANAGE_MEMBERS",
                 category:"Modération"
             },
+            VOICEKICK:{
+                name:"voicekick",
+                description:"Kick un utilisateur dans un vocal",
+                usage:"voicekick [user]",
+                coolDown:2000,
+                aliases:["p"],
+                permission: "MANAGE_MEMBERS",
+                category:"Modération"
+            },
             UNMUTE:{
                 name:"unmute",
                 description:"Unmute un utilisateur",
