@@ -181,6 +181,15 @@ const HELPER = {
                 aliases:["cp"],
                 permission: "MANAGE_MEMBERS",
                 category:"Admin"
+            },
+            WHITELISTINVITE:{
+                name:"whitelistinvite",
+                description:"Met une whitelist sur le systeme de supprssion de sinvitation automatique",
+                usage:"whitelistinvite add [invitation]",
+                coolDown:1000,
+                aliases:["wi"],
+                permission: "MANAGE_GUILD",
+                category:"Admin"
             }
         }
 
