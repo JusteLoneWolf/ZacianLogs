@@ -95,7 +95,6 @@ class ListWarn extends Command {
                 })
             });
         })
-
     }
 }
 
