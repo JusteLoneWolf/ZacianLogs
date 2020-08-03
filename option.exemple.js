@@ -21,5 +21,5 @@ module.exports = {
         partials:["GUILD_MEMBER","MESSAGE","USER","CHANNEL"]
     },
     perm:{},
-    DBconnection: process.env.Dbconnect
+    DBconnection: process.env.DBCONNECT
 };
