@@ -94,7 +94,7 @@ const HELPER = {
                 name:"warnlist",
                 description:"Liste les avertissement d'un utilisateur",
                 usage:"warnlist [user]",
-                coolDown:1000,
+                coolDown:3000,
                 aliases:["lw"],
                 permission: "BAN_MEMBERS",
                 category:"Modération"
@@ -125,6 +125,15 @@ const HELPER = {
                 permission: "MANAGE_MEMBERS",
                 category:"Modération"
             },
+            CHECKUSER:{
+                name:"checkuser",
+                description:"Verifie le status des utilisateur",
+                usage:"checkuser",
+                coolDown:10000,
+                aliases:["m"],
+                permission: "MANAGE_MEMBERS",
+                category:"Modération"
+            },
             PURGE:{
                 name:"purge",
                 description:"Supprime des message",
@@ -138,7 +147,7 @@ const HELPER = {
                 name:"voicekick",
                 description:"Kick un utilisateur dans un vocal",
                 usage:"voicekick [user]",
-                coolDown:2000,
+                coolDown:1000,
                 aliases:["p"],
                 permission: "MANAGE_MEMBERS",
                 category:"Modération"
@@ -156,7 +165,7 @@ const HELPER = {
                 name:"mutelist",
                 description:"Liste les mute d'un utilisateur",
                 usage:"mutelist [user]",
-                coolDown:1000,
+                coolDown:3000,
                 aliases:["lm"],
                 permission: "BAN_MEMBERS",
                 category:"Modération"
