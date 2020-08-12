@@ -4,15 +4,32 @@ module.exports = class {
     }
 
     async run() {
-
         await this.client.user.setPresence({
             activity: {
                 name: `${this.client.config.prefix}help `,
                 type: "LISTENING"
             }
         }).then(() => this.client.logger.info('Status set !'));
+        /*let client = this.client
 
-        /*this.client.guilds.cache.map(async guild => {
+        setInterval(async function () {
+            const jeuxlist = [
+                `${client.config.prefix}help `,
+                `${client.guilds.cache.size} serveurs `
+                `${client.users.cache.size} utilisateurs `,
+            ];
+
+            const jeux = jeuxlist[Math.floor(Math.random() * jeuxlist.length)];
+
+            await client.user.setPresence({
+                activity: {
+                    name: jeux,
+                    type: "LISTENING"
+                }
+            });
+        }, 20000);*/
+
+        this.client.guilds.cache.map(async guild => {
 
             try {
                if( this.client.guilds.cache.get(guild.id).members.cache.get(this.client.user.id).hasPermission('MANAGE_GUILD')) {
@@ -22,7 +39,7 @@ module.exports = class {
                        await this.client.utils.fetchInvite(this.client,guildDataInvite, guildData).then(() => {
                            this.client.logger.info(`Toutes les invitation get ${guild.id}`);
                        }).catch((err) => {
-                           this.client.emit("error", err);
+                           //this.client.emit("error", err);
                        });
                    }else{
                        this.client.logger.error(`Aucune invitation get ${guild.id} (pas de base de donnée)`);
@@ -31,10 +48,9 @@ module.exports = class {
                    this.client.logger.error(`Aucune invitation get ${guild.id} (manque de permission)`);
                }
             } catch (err) {
-                console.log(err)
-                this.client.emit("error", err);
+                //this.client.emit("error", err);
             }
-        });*/
+        });
 
         /*this.client.guilds.cache.map(async guild =>{
             let data =await this.client.dbmanager.getGuild(guild)
@@ -68,7 +84,6 @@ module.exports = class {
 */
         this.client.logger.info(`${this.client.user.username} pret`);
         require('../../Utils/statsChannels').init(this.client)
-
 
 
     }
