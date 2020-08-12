@@ -1,6 +1,6 @@
 const Command = require("../../Base/Command");
 const {HELPER } = require("../../Utils/Constant/CommandeHelper");
-class Ping extends Command{
+class Checkpermission extends Command{
     constructor(client){
         super(client,HELPER.COMMANDS.ADMIN.CHECKPERMISSION);
     }
@@ -19,4 +19,4 @@ class Ping extends Command{
     }
 }
 
-module.exports = Ping;
+module.exports = Checkpermission;

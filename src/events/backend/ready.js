@@ -10,78 +10,42 @@ module.exports = class {
                 type: "LISTENING"
             }
         }).then(() => this.client.logger.info('Status set !'));
-        /*let client = this.client
 
-        setInterval(async function () {
-            const jeuxlist = [
-                `${client.config.prefix}help `,
-                `${client.guilds.cache.size} serveurs `
-                `${client.users.cache.size} utilisateurs `,
-            ];
-
-            const jeux = jeuxlist[Math.floor(Math.random() * jeuxlist.length)];
-
-            await client.user.setPresence({
-                activity: {
-                    name: jeux,
-                    type: "LISTENING"
+        async function invite(client,guild) {
+                try {
+                    console.log('Collecte des invitation en cours '+guild)
+                    if( client.guilds.cache.get(guild).members.cache.get(client.user.id).hasPermission('MANAGE_GUILD')) {
+                        let guildDataInvite = client.guilds.cache.get(guild);
+                        let guildData = await client.dbmanager.getGuild(guild)
+                        if (guildData) {
+                            await client.utils.fetchInvite(client,guildDataInvite, guildData).then(() => {
+                                client.logger.info(`Toutes les invitation get ${guild}`);
+                            }).catch((err) => {
+                                this.client.emit("error", err);
+                            });
+                        }else{
+                            client.logger.error(`Aucune invitation get ${guild} (pas de base de donnée)`);
+                        }
+                    }else{
+                        client.logger.error(`Aucune invitation get ${guild} (manque de permission)`);
+                    }
+                } catch (err) {
+                    this.client.emit("error", err);
                 }
+
+        }
+
+        for (const guild of this.client.guilds.cache) {
+            await sleep(200)
+
+            await invite(this.client, guild[0])
+        }
+
+        function sleep(ms) {
+            return new Promise((resolve) => {
+                setTimeout(resolve, ms);
             });
-        }, 20000);*/
-
-        this.client.guilds.cache.map(async guild => {
-
-            try {
-               if( this.client.guilds.cache.get(guild.id).members.cache.get(this.client.user.id).hasPermission('MANAGE_GUILD')) {
-                   let guildDataInvite = this.client.guilds.cache.get(guild.id);
-                   let guildData = await this.client.dbmanager.getGuild(guild)
-                   if (guildData) {
-                       await this.client.utils.fetchInvite(this.client,guildDataInvite, guildData).then(() => {
-                           this.client.logger.info(`Toutes les invitation get ${guild.id}`);
-                       }).catch((err) => {
-                           //this.client.emit("error", err);
-                       });
-                   }else{
-                       this.client.logger.error(`Aucune invitation get ${guild.id} (pas de base de donnée)`);
-                   }
-               }else{
-                   this.client.logger.error(`Aucune invitation get ${guild.id} (manque de permission)`);
-               }
-            } catch (err) {
-                //this.client.emit("error", err);
-            }
-        });
-
-        /*this.client.guilds.cache.map(async guild =>{
-            let data =await this.client.dbmanager.getGuild(guild)
-            if(!data){
-                this.client.emit("guildCreate",guild)
-            }
-        })*/
-        /*if(this.client.ws.shards.find(shard => shard.id ===this.client.shard.count-1)){
-            require('../../modules/dashboard')(this.client)
-            await getShardData(this.client);
-            setInterval(async()=>{
-                await getShardData(this.client)
-            },60000)
-
-
         }
-        async function getShardData(client) {
-            const shardsInfo = await client.shard.broadcastEval(`let shardInfoArr = []; shardInfoArr.push(this.users.cache.size); shardInfoArr.push(this.guilds.cache.size); shardInfoArr.push(this.uptime); shardInfoArr.push(Math.trunc((process.memoryUsage().heapUsed) / 1024 / 1000)); shardInfoArr;`);
-            client.dataShard = []
-
-            for(let e = 0; e<shardsInfo.length;e++){
-                client.dataShard.push({
-                    user: shardsInfo[e][0],
-                    guild: shardsInfo[e][1],
-                    uptime: shardsInfo[e][2],
-                    ram: shardsInfo[e][3],
-                })
-            }
-            return client.dataShard
-        }
-*/
         this.client.logger.info(`${this.client.user.username} pret`);
         require('../../Utils/statsChannels').init(this.client)
 

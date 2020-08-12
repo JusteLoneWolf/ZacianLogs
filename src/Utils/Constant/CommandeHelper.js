@@ -167,7 +167,17 @@ const HELPER = {
                 permission: "BAN_MEMBERS",
                 category:"Modération",
                 mention:true
-            }
+            },
+            CHECKINVITE:{
+                name:"checkinvite",
+                description:"Donne les information d'une invitation",
+                usage:"checkinvite [invitation]",
+                coolDown:1000,
+                aliases:["wi"],
+                permission: "MANAGE_GUILD",
+                category:"Admin",
+                mention:true
+            },
         },
         ADMIN:{
             CONFIGURATION:{
