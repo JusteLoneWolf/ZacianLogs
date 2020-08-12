@@ -14,7 +14,8 @@ class Command {
             cooldown: options.cooldown || 1000,
             aliases: options.aliases || [],
             allowDMs: options.allowDMs || false,
-            args : options.args || "pas d\"arguments"
+            args : options.args || "pas d\"arguments",
+            mention : options.mention || false
         };
         this.cooldown = new Set();
     }

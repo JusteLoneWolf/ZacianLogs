@@ -8,17 +8,9 @@ const HELPER = {
                 coolDown: 5000,
                 aliases:["pong","p"],
                 permission: "READ_MESSAGES",
-                category:"Générique"
+                category:"Générique",
+                mention:true
             },
-            SAY:{
-                name:"say",
-                description:"Envoi le ping du bot",
-                usage:`say`,
-                coolDown: 5000,
-                aliases:["say"],
-                permission: "READ_MESSAGES",
-                category:"Générique"
-            }
         },
         OWNER:{
             EVAL:{
@@ -28,17 +20,9 @@ const HELPER = {
                 coolDown: 1000,
                 aliases:["e"],
                 permission: "READ_MESSAGES",
-                category:"Owner"
+                category:"Owner",
+                mention:false
             },
-            TEST:{
-                name:"test",
-                description:"Commande de test",
-                usage:`test `,
-                coolDown: 2000,
-                aliases:[],
-                permission: "READ_MESSAGES",
-                category:"Owner"
-            }
         },
         INFO:{
             HELP:{
@@ -49,7 +33,8 @@ const HELPER = {
                 aliases:["h"],
                 permission: "READ_MESSAGES",
                 allowDMs: true,
-                category:"Information"
+                category:"Information",
+                mention:true
             },
             INFO:{
                 name:"stats",
@@ -58,7 +43,8 @@ const HELPER = {
                 coolDown:2000,
                 aliases:["info"],
                 permission: "READ_MESSAGES",
-                category:"Information"
+                category:"Information",
+                mention:true
             },
             BOTINFO:{
                 name:"botinfo",
@@ -68,7 +54,8 @@ const HELPER = {
                 aliases:["bi"],
                 permission: "READ_MESSAGES",
                 allowDMs: true,
-                category:"Information"
+                category:"Information",
+                mention:false
             },
         },
         MOD:{
@@ -79,7 +66,8 @@ const HELPER = {
               coolDown:1000,
               aliases:["w"],
               permission: "BAN_MEMBERS",
-              category:"Modération"
+              category:"Modération",
+              mention:true
           },
             UNWARN:{
                 name:"unwarn",
@@ -88,7 +76,8 @@ const HELPER = {
                 coolDown:1000,
                 aliases:["uw"],
                 permission: "BAN_MEMBERS",
-                category:"Modération"
+                category:"Modération",
+                mention:true
             },
             LISTWARN:{
                 name:"warnlist",
@@ -97,7 +86,8 @@ const HELPER = {
                 coolDown:3000,
                 aliases:["lw"],
                 permission: "BAN_MEMBERS",
-                category:"Modération"
+                category:"Modération",
+                mention:true
             },
             KICK:{
                 name:"kick",
@@ -105,7 +95,8 @@ const HELPER = {
                 usage:"kick [user] <raison>",
                 coolDown:1000, aliases:["k"],
                 permission: "KICK_MEMBERS",
-                category:"Modération"
+                category:"Modération",
+                mention:true
             },
             BAN:{
                 name:"ban",
@@ -114,7 +105,8 @@ const HELPER = {
                 coolDown:1000,
                 aliases:["b"],
                 permission: "BAN_MEMBERS",
-                category:"Modération"
+                category:"Modération",
+                mention:true
             },
             MUTE:{
                 name:"mute",
@@ -123,7 +115,8 @@ const HELPER = {
                 coolDown:1000,
                 aliases:["m"],
                 permission: "MANAGE_MEMBERS",
-                category:"Modération"
+                category:"Modération",
+                mention:true
             },
             CHECKUSER:{
                 name:"checkuser",
@@ -132,7 +125,8 @@ const HELPER = {
                 coolDown:10000,
                 aliases:["m"],
                 permission: "MANAGE_MEMBERS",
-                category:"Modération"
+                category:"Modération",
+                mention:true
             },
             PURGE:{
                 name:"purge",
@@ -141,7 +135,8 @@ const HELPER = {
                 coolDown:2000,
                 aliases:["p"],
                 permission: "MANAGE_MEMBERS",
-                category:"Modération"
+                category:"Modération",
+                mention:true
             },
             VOICEKICK:{
                 name:"voicekick",
@@ -150,7 +145,8 @@ const HELPER = {
                 coolDown:1000,
                 aliases:["p"],
                 permission: "MANAGE_MEMBERS",
-                category:"Modération"
+                category:"Modération",
+                mention:true
             },
             UNMUTE:{
                 name:"unmute",
@@ -159,7 +155,8 @@ const HELPER = {
                 coolDown:1000,
                 aliases:["um"],
                 permission: "MANAGE_MEMBERS",
-                category:"Modération"
+                category:"Modération",
+                mention:true
             },
             LISTMUTE:{
                 name:"mutelist",
@@ -168,7 +165,8 @@ const HELPER = {
                 coolDown:3000,
                 aliases:["lm"],
                 permission: "BAN_MEMBERS",
-                category:"Modération"
+                category:"Modération",
+                mention:true
             }
         },
         ADMIN:{
@@ -180,7 +178,8 @@ const HELPER = {
                 oolDown:1000,
                 aliases:["conf","config"],
                 permission: "MANAGE_GUILD",
-                category:"Admin"
+                category:"Admin",
+                mention:false
             },
             CHECKPERMISSION:{
                 name:"checkpermission",
@@ -189,7 +188,8 @@ const HELPER = {
                 coolDown:1000,
                 aliases:["cp"],
                 permission: "MANAGE_MEMBERS",
-                category:"Admin"
+                category:"Admin",
+                mention:false
             },
             WHITELISTINVITE:{
                 name:"whitelistinvite",
@@ -198,7 +198,8 @@ const HELPER = {
                 coolDown:1000,
                 aliases:["wi"],
                 permission: "MANAGE_GUILD",
-                category:"Admin"
+                category:"Admin",
+                mention:false
             }
         }
 

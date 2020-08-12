@@ -15,7 +15,7 @@ module.exports = class {
         this.client.emit('invitationLogger' ,message);
         this.client.emit('messageCitation' ,message);
         if (message.author.bot) return;
-        if(message.content.startsWith('<@!717658826379231256>')) return this.client.emit('MessageMentionBot',message,this.client)
+        if(message.content.startsWith('<@!717658826379231256>')) return this.client.emit('MessageMentionBot',message,guildData)
         let prefix = guildData ? guildData.prefix : "zac!";
         if(!message.content.startsWith(prefix)) return;
 
