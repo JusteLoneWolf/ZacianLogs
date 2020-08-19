@@ -12,11 +12,12 @@ Vous devez **imperativement** mettre une mention disant que le votre bot est iss
 
 ```cd ZacianLogs/ && npm i```
 
-Créer un fichier `.env` et mettre les valeur `TOKEN=` `DBCONNECT=` `WHLOG=`
+Créer un fichier `.env` et mettre les valeur `TOKEN=`, `DBCONNECT=`, `WHLOG=`, et `WHSERVERLOG`
 ```
 TOKEN est le token de votre bot
 DBCONNECT est le lien de la connection a la base de donné mongo db
 WHLOG est le token du webhook pour les logs des errors
+WHSERVERLOG est le token du webhook pour les logs des serveurs ( ajout et suppression)
 ```
 Votre fichier doit ressemblé a ca 
 
@@ -24,6 +25,7 @@ Votre fichier doit ressemblé a ca
 TOKEN=
 DBCONNECT=
 WHLOG=
+WHSERVERLOG=
 ```
 
 Renomer `option.js.exemple` en `option.js`
