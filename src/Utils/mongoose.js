@@ -3,6 +3,7 @@ const {DBconnection} = require('../../option');
 
 module.exports = {
     init: () => {
+        if(!DBconnection) throw new Error('Connection a mongoDB impossible (manque l\'url de connection dans le fichier opton.js) veuillez verifier le fichier .env ou le README.md')
         const mongOptions = {
             useNewUrlParser: true,
             useUnifiedTopology: true,
