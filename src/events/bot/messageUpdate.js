@@ -60,9 +60,9 @@ module.exports = class {
             const {Guild} = require('../../models/index');
             let data = await this.client.dbmanager.getGuild(guild);
             if (!data) {
-                data = new Guild({GuildId: guild.id});
-                data.save();
-                resolve(data)
+                let savedata = await new Guild(merged);
+                savedata.save();
+                resolve(savedata)
             } else {
                 resolve(data);
             }

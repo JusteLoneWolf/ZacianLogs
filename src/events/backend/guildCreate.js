@@ -1,4 +1,4 @@
-const {WebhookClient} = require('discord.js')
+const {WebhookClient} = require('discord.js');
 
 
 module.exports = class {
@@ -7,7 +7,7 @@ module.exports = class {
     }
     async run(guild){
         if(process.env.WHSERVERLOG.length !== 0) {
-            const log = new WebhookClient(745583452312829983,process.env.WHSERVERLOG)
+            const log = new WebhookClient(745583452312829983,process.env.WHSERVERLOG);
             await log.send({
                 embed:{
                     title:"Nouveau serveur ajouté",

@@ -15,7 +15,7 @@ module.exports = class {
         this.client.emit('invitationLogger' ,message);
         this.client.emit('messageCitation' ,message);
         if (message.author.bot) return;
-        if(message.content.startsWith('<@!717658826379231256>')) return this.client.emit('MessageMentionBot',message,guildData)
+        if(message.content.startsWith('<@!717658826379231256>')) return this.client.emit('MessageMentionBot',message,guildData);
         let prefix = guildData ? guildData.prefix : "zac!";
         if(!message.content.startsWith(prefix)) return;
 
@@ -68,9 +68,9 @@ module.exports = class {
                     GuildId : guild.id
                 };
                 const merged = Object.assign({ _id: mongoose.Types.ObjectId()}, newGuild);
-                data = await new Guild(merged);
-                data.save();
-                resolve(data)
+                let savedata = await new Guild(merged);
+                savedata.save();
+                resolve(savedata)
             }
         })
 

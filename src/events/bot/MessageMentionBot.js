@@ -12,7 +12,7 @@ module.exports = class {
             } else if (this.client.commands.get(command)) {
                 if(this.client.commands.get(command).conf.mention){
                     const cmd = this.client.commands.get(command) || this.client.commands.get(this.client.aliases.get(command));
-                    if(!cmd) return
+                    if(!cmd) return;
                     cmd.run(message, message.content.split(' ').slice(2), guildData);
                 }
             }
@@ -25,4 +25,4 @@ module.exports = class {
             })
         }
     };
-}
+};

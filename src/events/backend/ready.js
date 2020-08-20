@@ -13,10 +13,10 @@ module.exports = class {
 
         async function invite(client,guild) {
                 try {
-                    console.log('Collecte des invitation en cours '+guild)
+                    console.log('Collecte des invitation en cours '+guild);
                     if( client.guilds.cache.get(guild).members.cache.get(client.user.id).hasPermission('MANAGE_GUILD')) {
                         let guildDataInvite = client.guilds.cache.get(guild);
-                        let guildData = await client.dbmanager.getGuild(guild)
+                        let guildData = await client.dbmanager.getGuild(guild);
                         if (guildData) {
                             await client.utils.fetchInvite(client,guildDataInvite, guildData).then(() => {
                                 client.logger.info(`Toutes les invitation get ${guild}`);
@@ -36,7 +36,7 @@ module.exports = class {
         }
 
         for (const guild of this.client.guilds.cache) {
-            await sleep(200)
+            await sleep(200);
 
             await invite(this.client, guild[0])
         }

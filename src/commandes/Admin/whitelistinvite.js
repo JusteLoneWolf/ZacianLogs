@@ -10,7 +10,7 @@ class Configuration extends Command {
         if (!message.member.permissions.has("MANAGE_GUILD",true)) return message.channel.send("Tu n\'as pas la permission `GERER LE SERVER` ou `ADMINISTRATOR`");
         switch (args[0]) {
             case "add":
-                if(!args[1]) return message.channel.send("Merci de specifier une invitation ou un serveur")
+                if(!args[1]) return message.channel.send("Merci de specifier une invitation ou un serveur");
                 if(args[1].match(/(discord\.gg|discord\.com\/invite)\/.+/)){
                     this.client.fetchInvite(args[1]).then(async invite => {
                         if(!guildData.whitelist[guildData.whitelist.length]){

@@ -9,10 +9,10 @@ module.exports = class {
             GuildId : guild.id
         };
         await this.client.dbmanager.createGuild(newGuild);
-       this.client.logger.info(`Nouveau serveur -> ${guild.name}`)
+       this.client.logger.info(`Nouveau serveur -> ${guild.name}`);
 
 
-       let data = await this.client.dbmanager.getGuild(guild)
+       let data = await this.client.dbmanager.getGuild(guild);
 
 
        await this.client.utils.fetchInvite(guild,data).then(()=>{

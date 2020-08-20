@@ -10,10 +10,10 @@ module.exports ={
 
             channel.overwritePermissions([
                 {
-                    deny :["SEND_MESSAGE"]
+                    deny: ["SEND_MESSAGE"]
                 }
 
-            ])
+            ]).then(r => console.log(''))
         }
 
     },
@@ -25,13 +25,13 @@ module.exports ={
                 username: message.author.username,
                 content: message.content,
                 warn:0
-            }
-            await client.dbmanager.updateGuild(message.guild,{advert: data.advert})
+            };
+            await client.dbmanager.updateGuild(message.guild,{advert: data.advert});
             return
         }
 
         if(data.advert[message.author.id].content === message.content){
-            data.advert[message.author.id].warn++
+            data.advert[message.author.id].warn++;
             await client.dbmanager.updateGuild(message.guild,{advert: data.advert})
 
         }
@@ -39,13 +39,13 @@ module.exports ={
         if(data.advert[message.author.id].warn < 3) {
             switch (data.settings.antiraid.blockServer.sanction) {
                 case "ban":
-                    this.banAction(message.member,message.content)
-                    break
+                    this.banAction(message.member,message.content);
+                    break;
                 case "kick":
-                    this.kickAction(message.member,message.content)
-                    break
+                    this.kickAction(message.member,message.content);
+                    break;
                 case "mute":
-                    this.muteAction(message.member,message.content)
+                    this.muteAction(message.member,message.content);
 
                     break
             }
@@ -54,12 +54,12 @@ module.exports ={
     },
 
     banAction(user,content){
-        let reason = 'Spam/raid avec le message "'+content+'"'
+        let reason = 'Spam/raid avec le message "'+content+'"';
         user.ban(reason)
     },
 
     kickAction(user,content){
-        let reason = 'Spam/raid avec le message "'+content+'"'
+        let reason = 'Spam/raid avec le message "'+content+'"';
         user.kick(reason)
     },
 
@@ -68,9 +68,9 @@ module.exports ={
     },
 
     async removeWarns(client,message,data) {
-        if (!data.advert[message.author.id]) return
+        if (!data.advert[message.author.id]) return;
 
-        data.advert[message.author.id].advert = 0
+        data.advert[message.author.id].advert = 0;
         await client.dbmanager.updateGuild(message.guild,{advert: data.advert})
 
 
@@ -89,4 +89,4 @@ module.exports ={
     sendRapport(){
 
     }
-}
+};
