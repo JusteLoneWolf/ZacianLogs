@@ -1,5 +1,5 @@
 const {Client, Collection} = require("discord.js"),
-    {readdir, existsSync, mkdirSync} = require("fs"),
+    {readdir} = require("fs"),
     option = require("../../option"),
     Logger = require("../Utils/Logger"),
     Utils = require("../Utils/utils"),
@@ -8,7 +8,7 @@ const {Client, Collection} = require("discord.js"),
 class StructureBot extends Client {
     constructor(options) {
         super(options);
-        ["commands","aliases","cooldowns"].forEach(x=>this[x] = new Collection())
+        ["commands","aliases","cooldowns"].forEach(x=>this[x] = new Collection());
         this.option = require("../../option");
         require("../Utils/errorHandler")(this.client);
         this.config = this.option.config;
@@ -17,7 +17,7 @@ class StructureBot extends Client {
         this.utils = new Utils();
         this.config = option.config || {};
         require('../Utils/mongoose').init();
-        this.dbmanager = new DatabaseManager(this)
+        this.dbmanager = new DatabaseManager(this);
 
         this.antiraid = new Collection();
     }
@@ -28,7 +28,7 @@ class StructureBot extends Client {
     }
 
     login() {
-        if(!this.option.config.token) throw new Error("Token du bot introuvable dans option.js veuillez verifier le fichier .env ou le README.md")
+        if(!this.option.config.token) throw new Error("Token du bot introuvable dans option.js veuillez verifier le fichier .env ou le README.md");
         return super.login(this.option.config.token)
     }
 
