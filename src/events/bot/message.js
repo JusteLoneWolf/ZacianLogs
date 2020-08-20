@@ -32,18 +32,21 @@ module.exports = class {
         const timeNow = Date.now();
         const tStamps = this.client.cooldowns.get(cmd.help.name);
         const cdAmount = (cmd.help.cooldown || 5) * 1000;
+        if(!this.client.config.owner.includes(message.author.id)){
+            if (tStamps.has(message.author.id)) {
+                const cdExpirationTime = tStamps.get(message.author.id) + cdAmount;
 
-        if (tStamps.has(message.author.id)) {
-            const cdExpirationTime = tStamps.get(message.author.id) + cdAmount;
-
-            if (timeNow < cdExpirationTime) {
-                let timeLeft = (cdExpirationTime - timeNow) / 1000;
-                return message.reply(`merci d'attendre ${timeLeft.toFixed(0)} seconde(s) avant de ré-utiliser la commande \`${cmd.help.name}\`.`);
+                if (timeNow < cdExpirationTime) {
+                    let timeLeft = (cdExpirationTime - timeNow) / 1000;
+                    return message.reply(`merci d'attendre ${timeLeft.toFixed(0)} seconde(s) avant de ré-utiliser la commande \`${cmd.help.name}\`.`);
+                }
             }
+            tStamps.set(message.author.id, timeNow);
+            setTimeout(() => tStamps.delete(message.author.id), cdAmount);
         }
 
-        tStamps.set(message.author.id, timeNow);
-        setTimeout(() => tStamps.delete(message.author.id), cdAmount);
+
+
         if(cmd.help.category.toLowerCase() === 'owner' && !this.client.config.owner.includes(message.author.id)) return message.channel.send('Vous devez etre dévellopeur du bot');
 
         cmd.setMessage(message);
