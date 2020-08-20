@@ -28,6 +28,7 @@ class StructureBot extends Client {
     }
 
     login() {
+        if(!this.option.config.token) throw new Error("Token du bot introuvable dans option.js veuillez verifier le fichier .env ou le README.md")
         return super.login(this.option.config.token)
     }
 
