@@ -23,6 +23,16 @@ const HELPER = {
                 category:"Owner",
                 mention:false
             },
+            TWEET:{
+                name:"tweet",
+                description:"Fait un tweet",
+                usage:`tweet [message]`,
+                coolDown: 1000,
+                aliases:["e"],
+                permission: "READ_MESSAGES",
+                category:"Owner",
+                mention:false
+            },
         },
         INFO:{
             HELP:{

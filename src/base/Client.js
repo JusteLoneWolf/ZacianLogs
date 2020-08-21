@@ -3,7 +3,8 @@ const {Client, Collection} = require("discord.js"),
     option = require("../../option"),
     Logger = require("../Utils/Logger"),
     Utils = require("../Utils/utils"),
-    DatabaseManager = require("../Utils/DatabaseManager");
+    DatabaseManager = require("../Utils/DatabaseManager"),
+    TwitClient = require('./TwitClient')
 
 class StructureBot extends Client {
     constructor(options) {
@@ -18,6 +19,7 @@ class StructureBot extends Client {
         this.config = option.config || {};
         require('../Utils/mongoose').init();
         this.dbmanager = new DatabaseManager(this);
+        this.twit = new TwitClient(options.twit)
 
         this.antiraid = new Collection();
     }
