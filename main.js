@@ -5,13 +5,13 @@ const Client = require("./src/Base/Client"),
     client.init();
 
     process.on('rejectionHandled', (err) => {
-        console.log(err);
+        client.logger.error(err)
     });
 
     process.on('unhandledRejection', (err) => {
-        console.log(err);
+        client.logger.error(err)
     });
 
     process.on('uncaughtException', (err) => {
-        console.log(err);
+        client.logger.error(err)
     });
