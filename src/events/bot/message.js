@@ -45,17 +45,15 @@ module.exports = class {
             setTimeout(() => tStamps.delete(message.author.id), cdAmount);
         }
 
-
-
         if(cmd.help.category.toLowerCase() === 'owner' && !this.client.config.owner.includes(message.author.id)) return message.channel.send('Vous devez etre dévellopeur du bot');
 
         cmd.setMessage(message);
         try{
+            await this.getInvite(this.client,message.guild, guildData)
             cmd.run(message, args,guildData);
         }catch (e) {
             this.client.emit('error',e.stack,message.channel,cmd)
         }
-
 
         if (cmd.conf.cooldown > 0) cmd.startCooldown(message.author.id);
     }
@@ -78,5 +76,28 @@ module.exports = class {
             }
         })
 
+    }
+
+    async getInvite(client,guild,db){
+        if(db){
+            try{
+                await guild.fetchInvites().then(async invite=>{
+                    if(!db.invites[invite.code]){
+                        db.invites[invite.code] ={}
+                        await client.dbmanager.updateGuild(guild, {invites:db.invites});
+
+                    }
+                    let inviteData = {};
+                    inviteData[guild.id] = invite;
+                    Object.assign(db.invites,inviteData);
+                    await client.dbmanager.updateGuild(guild, {invites:db.invites});
+                    console.log(`Invitation get ${guild.id}`)
+                }).catch((err)=>{
+                    console.error(err)
+                })
+            }catch (e) {
+                return
+            }
+        }
     }
 };
