@@ -96,7 +96,7 @@ module.exports = class {
                     console.error(err)
                 })
             }catch (e) {
-                return
+                return client.logger.error(e)
             }
         }
     }
