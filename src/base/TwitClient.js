@@ -1,6 +1,6 @@
 if(process.env.CTOKEN.length !== 0 || process.env.CSECRETTOKEN.length !== 0 || process.env.ATOKEN.length !== 0 || process.env.ASECRET.length !== 0) {
-    const Twit = require('twit')
-    const Client = new Twit(require("../../option").twit)
+    const Twit = require('twit');
+    const Client = new Twit(require("../../option").twit);
 
 
     class TwitClient {

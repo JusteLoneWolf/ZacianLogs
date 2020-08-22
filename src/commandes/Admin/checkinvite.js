@@ -6,7 +6,7 @@ class Checkinvite extends Command{
     }
 
     run(message,args){
-        if(!args[0]) return message.channel.send('Merci de spécifier une invitation')
+        if(!args[0]) return message.channel.send('Merci de spécifier une invitation');
         this.client.fetchInvite(args[0]).then(invite => {
             message.channel.send({
                 embed:{

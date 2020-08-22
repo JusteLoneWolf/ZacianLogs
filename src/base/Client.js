@@ -19,7 +19,7 @@ class StructureBot extends Client {
         this.config = option.config || {};
         require('../Utils/mongoose').init();
         this.dbmanager = new DatabaseManager(this);
-        this.twit = new TwitClient(options.twit).init()
+        this.twit = new TwitClient(options.twit)
 
         this.antiraid = new Collection();
     }
