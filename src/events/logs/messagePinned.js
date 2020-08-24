@@ -12,7 +12,11 @@ module.exports = class {
         let channel= newMessage.guild.channels.cache.get(db.channels.log);
 
         if(!channel )return;
-
+        let content = newMessage.content;
+        if(content.length > 1024){
+            content = newMessage.content.substr(0,1000);
+            content = content + "\n Trop long..."
+        }
 
         return channel.send({
             embed:{
@@ -26,7 +30,7 @@ module.exports = class {
                     },
                     {
                         name:"❱ Message",
-                        value: newMessage.content
+                        value: content
                     },
                 ]
             }

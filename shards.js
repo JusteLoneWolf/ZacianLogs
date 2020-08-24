@@ -11,4 +11,4 @@ manager.on("shardCreate",()=>{
     console.log('shard lancé')
 });
 
-manager.spawn()
+manager.spawn().then(r => console.log("Tous les shards sont lancé !"))

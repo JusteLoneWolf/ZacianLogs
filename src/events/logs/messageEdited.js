@@ -12,6 +12,16 @@ module.exports = class {
         let channel= newMessage.guild.channels.cache.get(db.channels.log);
         if(!channel) return;
 
+        let contentold = oldMessage.content;
+        if(contentold.length > 1024){
+            contentold = oldMessage.content.substr(0,1000);
+            contentold = contentold + "\n Trop long..."
+        }
+        let contentnew = newMessage.content;
+        if(contentnew.length > 1024){
+            contentnew = oldMessage.content.substr(0,1000);
+            contentnew = contentnew + "\n Trop long..."
+        }
         return channel.send({
             embed:{
                 title:"Message Logs",
@@ -24,11 +34,11 @@ module.exports = class {
                     },
                     {
                         name:"❱ Ancien message",
-                        value: oldMessage.content
+                        value: contentold
                     },
                     {
                         name:"❱ Nouveau message",
-                        value: newMessage.content
+                        value: contentnew
                     }
                 ]
             }
