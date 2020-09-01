@@ -7,29 +7,41 @@ if(process.env.CTOKEN.length !== 0 || process.env.CSECRETTOKEN.length !== 0 || p
 
         postTweet(message) {
             if (!message) return;
-            return new Promise(async (resolve) => {
-                Client.post('statuses/update', {status: message}, function (err, data, response) {
-                    resolve(data)
-                })
+            return new Promise(async (resolve, reject) => {
+                try {
+                    Client.post('statuses/update', {status: message}, function (err, data, response) {
+                        resolve(data)
+                    })
+                } catch (e) {
+                    reject(e)
+                }
             })
 
         }
 
         searchLatest(id) {
             if (!id) return;
-            return new Promise(async (resolve) => {
-                Client.get('statuses/user_timeline/:id', {id: id}, function (err, data, response) {
-                    resolve(data)
-                })
+            return new Promise(async (resolve, reject) => {
+                try {
+                    Client.get('statuses/user_timeline/:id', {id: id}, function (err, data, response) {
+                        resolve(data)
+                    })
+                } catch (e) {
+                    reject(e)
+                }
             })
         }
 
         deleteTweet(id) {
             if (!id) return;
-            return new Promise(async (resolve) => {
-                Client.post('statuses/destroy/:id', {id: id}, function (err, data, response) {
-                    resolve(data)
-                })
+            return new Promise(async (resolve, reject) => {
+                try {
+                    Client.post('statuses/destroy/:id', {id: id}, function (err, data, response) {
+                        resolve(data)
+                    })
+                } catch (e) {
+                    reject(e)
+                }
             })
         }
     }
