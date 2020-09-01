@@ -11,7 +11,6 @@ class Configuration extends Command {
        if (!message.member.permissions.has("MANAGE_GUILD",true)) return message.channel.send("Tu n\'as pas la permission `GERER LE SERVER` ou `ADMINISTRATOR`");
         async function makeMessage(text,client) {
             let db =  await client.dbmanager.getGuild(message.guild);
-            console.log(db);
 
             text += !db.settings.welcome.capchat.enabled ?`\n:warning: Le system de capchat n'est pas activé \`${db.prefix}configuration set capchat enabled\`` :'';
             text += !db.settings.welcome.enabled ?`\n:warning: Le system de bienvenue n'est pas activé \`${db.prefix}configuration set welcome enabled\`` :'';
