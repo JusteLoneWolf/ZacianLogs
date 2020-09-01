@@ -7,8 +7,8 @@ class Configuration extends Command {
     }
 
    async run(message, args,guildData) {
+       let text = ''
        if (!message.member.permissions.has("MANAGE_GUILD",true)) return message.channel.send("Tu n\'as pas la permission `GERER LE SERVER` ou `ADMINISTRATOR`");
-        let text ='';
         async function makeMessage(text,client) {
             let db =  await client.dbmanager.getGuild(message.guild);
             console.log(db);
@@ -26,7 +26,7 @@ class Configuration extends Command {
            if(!channels) return;
            let roles = message.guild.roles.cache.find(c => c.id === db.settings.welcome.capchat.unverifiedRole);
            if(!roles) return;
-           await roles.setPermissions(0);
+           //await roles.setPermissions(0);
            for (const channel of message.guild.channels.cache.array()) {
                if (channel.id !== channels.id) {
                    if(channel.permissionsFor(roles).has("SEND_MESSAGES") &&channel.permissionsFor(roles).has("VIEW_CHANNEL") ) {
@@ -109,9 +109,8 @@ class Configuration extends Command {
                         if (guildData.channels.logs === channel.id) return super.respond(`Le channel de logs est deja mis sur ${channel.name}`);
                         guildData.channels.log = channel.id;
                         await this.client.dbmanager.updateGuild(message.guild, {channels:guildData.channels });
-                        let text = ''
                         if(!channel.permissionsFor(message.guild.member(this.client.user)).has("SEND_MESSAGES")){
-                            text = `\n:warning: je n'est pas la permission d'écrire dans ${channel}`
+                            text = text + `\n:warning: je n'est pas la permission d'écrire dans ${channel}`
                         }
                         super.respond(`Les logs sont mis sur ${channel.name}${text}`);
                         break;
@@ -120,7 +119,7 @@ class Configuration extends Command {
                             case "enabled":
                                 guildData.settings.welcome.capchat.enabled = true;
                                 await this.client.dbmanager.updateGuild(message.guild, {settings:guildData.settings});
-                                text += 'Le capchat est activé\n';
+                                text = text + 'Le capchat est activé\n';
                                 await makeMessage(text, this.client);
                                 await setCapchat(this.client);
                                 break;
@@ -132,7 +131,7 @@ class Configuration extends Command {
 
                                 guildData.settings.welcome.capchat.unverifiedRole = roles.id;
                                 await this.client.dbmanager.updateGuild(message.guild, {settings:guildData.settings});
-                                text += `Le role pour les personne non verifier est mis a jour ${roles.name}\n`;
+                                text = text + `Le role pour les personne non verifier est mis a jour ${roles.name}\n`;
                                 await makeMessage(text, this.client);
                                 await setCapchat(this.client);
                                 break;
@@ -144,7 +143,7 @@ class Configuration extends Command {
 
                                 guildData.settings.welcome.capchat.channel = channel.id;
                                 await this.client.dbmanager.updateGuild(message.guild, {settings:guildData.settings});
-                                text += `Le channel pour les personne non verifier est mis a jour sur ${channel.name}\n`;
+                                text = text +`Le channel pour les personne non verifier est mis a jour sur ${channel.name}\n`;
                                 await makeMessage(text, this.client);
                                 await setCapchat(this.client);
                                 break;
@@ -171,7 +170,7 @@ class Configuration extends Command {
                     case "welcome":
                         switch (args[2]) {
                             case "enabled":
-                                text += 'Le system de bienvenue est activé\n';
+                                text = text + 'Le system de bienvenue est activé\n';
 
                                 guildData.settings.welcome.enabled = true;
                                 await this.client.dbmanager.updateGuild(message.guild, {settings:guildData.settings});
@@ -184,7 +183,7 @@ class Configuration extends Command {
                                 if (!roles) return message.channel.send("Le role est introuvable");
                                 guildData.settings.welcome.autorole = roles.id;
                                 await this.client.dbmanager.updateGuild(message.guild, {settings:guildData.settings});
-                                text +=`L'autorole est sur ${roles.name}\n`;
+                                text = text +`L'autorole est sur ${roles.name}\n`;
                                 await makeMessage(text, this.client);
                                 break;
                             case undefined:
