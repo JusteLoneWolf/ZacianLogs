@@ -29,7 +29,7 @@ module.exports = class {
                                     },
                                     {
                                         name:"Nom du createur de l'invitation",
-                                        value: invite.inviter.username
+                                        value: invite.inviter ? invite.inviter.username: 'Pas trouvé'
                                     },
                                     {
                                         name:"L'invitation",
