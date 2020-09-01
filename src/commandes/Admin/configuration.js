@@ -25,7 +25,7 @@ class Configuration extends Command {
            if(!channels) return;
            let roles = message.guild.roles.cache.find(c => c.id === db.settings.welcome.capchat.unverifiedRole);
            if(!roles) return;
-           //await roles.setPermissions(0);
+           await roles.setPermissions(0);
            for (const channel of message.guild.channels.cache.array()) {
                if (channel.id !== channels.id) {
                    if(channel.permissionsFor(roles).has("SEND_MESSAGES") &&channel.permissionsFor(roles).has("VIEW_CHANNEL") ) {
