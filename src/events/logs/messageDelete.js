@@ -21,8 +21,8 @@ module.exports = class {
 
         return channeldb.send({
             embed:{
-                title:"Channel Logs",
-                description:"Un channel vien d'etre créer",
+                title:"Message Logs",
+                description:"Un message vient d'être supprimé",
                 color :0xF5AD2E,
                 fields:[
                     {
