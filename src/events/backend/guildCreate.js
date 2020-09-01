@@ -7,13 +7,8 @@ module.exports = class {
     }
     async run(guild){
         if(process.env.WHSERVERLOG.length !== 0) {
-            const log = new WebhookClient(745583452312829983,process.env.WHSERVERLOG);
-            await log.send({
-                embed:{
-                    title:"Nouveau serveur ajouté",
-                    description: `Le serveur ${guild.name} a ajouté le bot il posséde ${guild.memberCount}`
-                }
-            })
+            const log = new WebhookClient('745583452312829983',process.env.WHSERVERLOG);
+            await log.send(`Le serveur ${guild.name} a ajouté le bot il posséde ${guild.memberCount}`)
         }
     }
 };
