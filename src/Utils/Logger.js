@@ -3,8 +3,7 @@ const chalk = require("chalk"),
 require("moment-duration-format");
 
 class Logger{
-    constructor(client){
-        this.client = client
+    constructor(){
     }
     info(content){
         return console.log(`[${moment.utc(Date.now()).format("HH:mm:ss")}] ${chalk.bgBlack.green(content)}`)

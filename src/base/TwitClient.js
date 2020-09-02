@@ -4,7 +4,9 @@ if(process.env.CTOKEN.length !== 0 || process.env.CSECRETTOKEN.length !== 0 || p
 
 
     class TwitClient {
+        constructor() {
 
+        }
         postTweet(message) {
             if (!message) return;
             return new Promise(async (resolve, reject) => {
@@ -16,7 +18,6 @@ if(process.env.CTOKEN.length !== 0 || process.env.CSECRETTOKEN.length !== 0 || p
                     reject(e)
                 }
             })
-
         }
 
         searchLatest(id) {

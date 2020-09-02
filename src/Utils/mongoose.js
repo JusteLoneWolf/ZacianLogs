@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const {DBconnection} = require('../../option');
+const Log = require('../Utils/Logger')
+const Logger = new Log()
 
 module.exports = {
     init: () => {
@@ -17,7 +19,7 @@ module.exports = {
         };
         mongoose.connect(DBconnection, mongOptions);
         mongoose.Promise = global.Promise;
-        mongoose.connection.on("connected", () => console.log("Mongoose est connecté!"));
+        mongoose.connection.on("connected", () => Logger.info("Mongoose est connecté!"));
 
     }
 };

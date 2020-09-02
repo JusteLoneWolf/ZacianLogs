@@ -14,7 +14,7 @@ class StructureBot extends Client {
         require("../Utils/errorHandler")(this.client);
         this.config = this.option.config;
         this.web = this.option.dashboard;
-        this.logger = new Logger(this);
+        this.logger = new Logger();
         this.utils = new Utils();
         this.config = option.config || {};
         require('../Utils/mongoose').init();
