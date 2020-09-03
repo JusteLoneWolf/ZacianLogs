@@ -141,7 +141,24 @@ const HELPER = {
             PURGE:{
                 name:"purge",
                 description:"Supprime des message",
-                usage:"purge <mention/nombre/all/search>",
+                usage:"purge <mention/all/search>",
+                args:[
+                    {
+                        arg: 'purge mention',
+                        description: 'Supprime les messages d\'un utilisateur mentionné',
+                        usage: 'pruge @[Dev] zechaos#2310 5'
+                    },
+                    {
+                        arg: 'purge all',
+                        description: 'Supprime n\'importe quelles messages',
+                        usage: 'pruge all 5'
+                    },
+                    {
+                        arg: 'purge search',
+                        description: 'Supprime les messages qui contient une chaine de character',
+                        usage: 'pruge search bonjour'
+                    }
+                ],
                 coolDown:2000,
                 aliases:["p"],
                 permission: "MANAGE_MEMBERS",
@@ -195,7 +212,7 @@ const HELPER = {
                 description:"Configure le bot",
                 usage:"configuration <set/remove/view> <logs/ignorerole/blacklistwords/prefix/capchat/welcome> [channel/mention channel/role/mot/unverifiedrole/autorole/enabled] [role/channel]",
                 exemple: "zac!configuration set logs #ChannelMention/nom du channel \nzac!configuration set ignorerole @roleMemtion/role name\nzac!configuration set prefix !\nzac!configuration set capchat unverifiedrole role\nzac!configuration set capchat enabled ",
-                oolDown:1000,
+                coolDown:1000,
                 aliases:["conf","config"],
                 permission: "MANAGE_GUILD",
                 category:"Admin",
