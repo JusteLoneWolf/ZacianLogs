@@ -144,19 +144,19 @@ const HELPER = {
                 usage:"purge <mention/all/search>",
                 args:[
                     {
-                        arg: 'purge mention',
+                        arg: 'zac!purge mention',
                         description: 'Supprime les messages d\'un utilisateur mentionné',
-                        usage: 'pruge @[Dev] zechaos#2310 5'
+                        usage: 'zac!pruge @[Dev] zechaos#2310 5'
                     },
                     {
-                        arg: 'purge all',
+                        arg: 'zac!purge all',
                         description: 'Supprime n\'importe quelles messages',
-                        usage: 'pruge all 5'
+                        usage: 'zac!pruge all 5'
                     },
                     {
-                        arg: 'purge search',
+                        arg: 'zac!purge search',
                         description: 'Supprime les messages qui contient une chaine de character',
-                        usage: 'pruge search bonjour'
+                        usage: 'zac!pruge search bonjour'
                     }
                 ],
                 coolDown:2000,
@@ -215,6 +215,23 @@ const HELPER = {
                 coolDown:1000,
                 aliases:["conf","config"],
                 permission: "MANAGE_GUILD",
+                args:[
+                    {
+                        arg: 'zac!configuration set capchat <enabled/unverifiedrole/channel>',
+                        description: 'Met le capchat et le configure',
+                        usage: 'zac!configuration set capchat enabled\nzac!configuration set capchat unverifiedrole @pas verifier\nzac!configuration set capchat channel #verif'
+                    },
+                    {
+                        arg: 'zac!configuration set welcome <enabled/autorole>',
+                        description: 'Met l\'autorole, si le capchat et mis ce role seras mis une fois l\'utilisateur vérifié',
+                        usage: 'zac!configuration set welcome enabled\nzac!configuration set welcome autorole @membre'
+                    },
+                    {
+                        arg: 'zac!configuration <set/remove> <ignorerole/blacklistwords>',
+                        description: 'Met ou supprime les role ignoré ou les mot blacklist',
+                        usage: 'zac!configuration set ignorerole @modo\nzac!configuration remove ignorerole @modo'
+                    }
+                ],
                 category:"Admin",
                 mention:false
             },
