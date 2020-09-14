@@ -78,7 +78,7 @@ module.exports = class {
 
     }
 
-    async getInvite(client,guild,db){
+    /*async getInvite(client,guild,db){
         if(db){
             try{
                 await guild.fetchInvites().then(async invite=>{
@@ -99,5 +99,5 @@ module.exports = class {
                 return client.logger.error(e)
             }
         }
-    }
+    }*/
 };
