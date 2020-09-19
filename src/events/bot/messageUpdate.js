@@ -14,6 +14,15 @@ module.exports = class {
         const insulte = new AntiInsulte(this.client);
         await insulte.run(newMessage);
 
+        //Antiraid
+        if(guildData.settings.antiraid) {
+            if(guildData.settings.antiraid.enabled) {
+                await require('../../modules/antiraid').getMessage(this.client, newMessage, guildData.settings.antiraid)
+            }
+        }
+        //
+        this.client.emit('LogmessageUpdate',oldMessage,newMessage)
+
         if (newMessage.author.bot) return;
         let prefix = guildData.prefix|| "zac!";
         if(!newMessage.content.startsWith(prefix)) return;

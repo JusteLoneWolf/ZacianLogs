@@ -12,10 +12,20 @@ module.exports = class {
 
         const insulte = new AntiInsulte(this.client);
         await insulte.run(message);
+        //Antiraid
+        if(guildData.settings.antiraid) {
+            if(guildData.settings.antiraid.enabled) {
+                await require('../../modules/antiraid').getMessage(this.client, message, guildData.settings.antiraid)
+            }
+        }
+        //
+
+
         this.client.emit('invitationLogger' ,message);
         this.client.emit('messageCitation' ,message);
         if (message.author.bot) return;
         if(message.content.startsWith('<@!717658826379231256>')) return this.client.emit('MessageMentionBot',message,guildData);
+
         let prefix = guildData ? guildData.prefix : "zac!";
         if(!message.content.startsWith(prefix)) return;
 
@@ -49,7 +59,7 @@ module.exports = class {
 
         cmd.setMessage(message);
         try{
-            await this.getInvite(this.client,message.guild, guildData)
+            //await this.getInvite(this.client,message.guild, guildData)
             cmd.run(message, args,guildData);
         }catch (e) {
             this.client.emit('error',e.stack,message.channel,cmd)
