@@ -5,7 +5,7 @@ module.exports = class {
     }
 
     async run(oldMessage,newMessage) {
-       // if(!newMessage.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS","MANAGE_CHANNELS","MANAGE_GUILD"], true)) return;
+       //if(!newMessage.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS","MANAGE_CHANNELS","MANAGE_GUILD"], true)) return;
 
         if (!newMessage.author || newMessage.author.bot) return;
 
