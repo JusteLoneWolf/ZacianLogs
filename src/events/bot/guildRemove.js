@@ -1,17 +1,10 @@
 
-module.exports = class {
-    constructor(client) {
-        this.client = client;
-    }
+module.exports = async (client,guild) => {
+    let data = await client.dbmanager.getGuild(guild);
+    if (!data) return;
 
-     run= async (guild) => {
-        let data = await this.client.dbmanager.getGuild(guild);
-        if(!data) return;
+    await client.dbmanager.removeGuild(guild).then(() => {
+        console.log('guild supprimé')
+    })
 
-        await this.client.dbmanager.removeGuild(guild).then(()=>{
-            console.log('guild supprimé')
-        })
-
-
-    }
-};
+}

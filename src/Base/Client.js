@@ -74,9 +74,9 @@ class StructureBot extends Client {
                     for (const evt of file) {
                         try {
                             if (!evt) return;
-                            const event = new (require(`../events/${dir}/${evt}`))(this);
+                            const event =require(`../events/${dir}/${evt}`);
                             this.logger.info(`${evt} chargé`);
-                            super.on(evt.split(".")[0], (...args) => event.run(...args));
+                            super.on(evt.split(".")[0], event.bind(null, this));
                         } catch (e) {
                             this.emit("error", `${evt} n"a pas chargé ${e.stack}`)
                         }

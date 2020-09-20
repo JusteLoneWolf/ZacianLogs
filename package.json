@@ -9,6 +9,7 @@
   "author": "zechaos",
   "license": "ISC",
   "dependencies": {
+    "@discordjs/collection": "^0.1.6",
     "body-parser": "^1.19.0",
     "chalk": "latest",
     "discord.js": "^12.3.1",
