@@ -4,7 +4,7 @@ module.exports = class {
         this.client = client;
     }
 
-   async run(guild) {
+   run= async (guild) => {
         const newGuild= {
             GuildId : guild.id
         };

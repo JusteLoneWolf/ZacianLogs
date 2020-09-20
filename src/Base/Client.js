@@ -9,7 +9,7 @@ const {Client, Collection} = require("discord.js"),
 class StructureBot extends Client {
     constructor(options) {
         super(options);
-        ["commands","aliases","cooldowns"].forEach(x=>this[x] = new Collection());
+        ["commands","aliases","cooldowns","antiraid"].forEach(x=>this[x] = new Collection());
         this.option = require("../../option");
         require("../Utils/errorHandler")(this.client);
         this.config = this.option.config;
@@ -19,18 +19,16 @@ class StructureBot extends Client {
         this.config = option.config || {};
         this.dbmanager = new DatabaseManager(this);
         this.twit = new TwitClient()
-
-        this.antiraid = new Collection();
     }
     init = () => {
-        this.commandLoader();
-        this.eventLoader();
-        this.connect().then(() =>{
+        this._commandLoader();
+        this._eventLoader();
+        this._connect().then(() =>{
             console.log('Bot pret a l\'emploit')
         } );
     }
 
-    connect = async () => {
+    _connect = async () => {
         require('../Utils/mongoose').init().then(()=>{
             if(!this.option.config.token) throw new Error("Token du bot introuvable dans option.js veuillez verifier le fichier .env ou le README.md");
             return super.login(this.option.config.token)
@@ -40,7 +38,7 @@ class StructureBot extends Client {
 
 
 
-    commandLoader= () => {
+    _commandLoader= () => {
         readdir("./src/commandes/", (err, files) => {
             if (err) this.emit("error", err);
             for (const dir of files) {
@@ -65,7 +63,7 @@ class StructureBot extends Client {
         return this
     }
 
-    eventLoader= () => {
+    _eventLoader= () => {
         readdir("./src/events", (err, files) => {
             if (!files) return;
             if (err) this.emit("error", err);

@@ -2,7 +2,8 @@ module.exports = class {
     constructor(client) {
         this.client = client;
     }
-   async run(message){
+    run= async (message) => {
+
        if(!message.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS","MANAGE_CHANNELS","MANAGE_GUILD"], true)) return;
 
         let db = await this.client.dbmanager.getGuild(message.guild);

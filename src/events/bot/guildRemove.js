@@ -4,7 +4,7 @@ module.exports = class {
         this.client = client;
     }
 
-    async run(guild) {
+     run= async (guild) => {
         let data = await this.client.dbmanager.getGuild(guild);
         if(!data) return;
 

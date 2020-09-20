@@ -5,7 +5,7 @@ module.exports = class {
         this.client = client;
     }
 
-    async run(message) {
+     run= async (message) => {
         if (message.author.bot) return;
         if (message.channel.type === "dm") return this.client.emit("DirectMessage", message);
         let guildData = await this.getDataOrCreate(message.guild);
@@ -68,7 +68,7 @@ module.exports = class {
         if (cmd.conf.cooldown > 0) cmd.startCooldown(message.author.id);
     }
 
-    async getDataOrCreate(guild){
+     getDataOrCreate = async (guild) => {
         const {Types} = require('mongoose')
         return new Promise(async (resolve)=>{
             const {Guild} = require('../../models/index');

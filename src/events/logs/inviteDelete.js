@@ -3,7 +3,8 @@ module.exports = class {
         this.client = client;
     }
 
-    async run(invite) {
+    run= async (invite) => {
+
         if(!invite.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS","MANAGE_CHANNELS","MANAGE_GUILD"], true)) return;
 
 

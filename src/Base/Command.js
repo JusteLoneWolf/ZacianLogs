@@ -22,6 +22,7 @@ class Command {
     }
 
     startCooldown = (user) => {
+        if(!user) return console.log("Pas d'utilisateur donné")
         this.cooldown.add(user);
         setTimeout(() => {
             this.cooldown.delete(user);

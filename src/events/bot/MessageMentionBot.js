@@ -3,7 +3,7 @@ module.exports = class {
         this.client = client;
     }
 
-    async run(message, guildData) {
+    run= async (message,guildData) => {
         const command = message.content.split(' ')[1] ? message.content.split(' ')[1].toString() : false;
         if (command) {
             if (command === 'resetprefix') {

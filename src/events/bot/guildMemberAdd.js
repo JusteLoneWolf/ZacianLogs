@@ -3,7 +3,7 @@ module.exports = class {
         this.client = client;
     }
 
-    async run(newMember) {
+     run= async (newMember) => {
         let db = await this.client.dbmanager.getGuild(newMember.guild);
         if(!db) return;
 

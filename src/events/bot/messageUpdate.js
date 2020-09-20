@@ -5,7 +5,7 @@ module.exports = class {
         this.client = client;
     }
 
-    async run(oldMessage,newMessage) {
+    run= async (oldMessage,newMessage) => {
 
         if (!newMessage.author || newMessage.author.bot) return;
 
@@ -65,7 +65,7 @@ module.exports = class {
 
         if (cmd.conf.cooldown > 0) cmd.startCooldown(newMessage.author.id);
     }
-    async getDataOrCreate(guild){
+    getDataOrCreate= async (guild) => {
         return new Promise(async (resolve)=>{
             const {Guild} = require('../../models/index');
             let data = await this.client.dbmanager.getGuild(guild);

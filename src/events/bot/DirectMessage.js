@@ -4,7 +4,7 @@ module.exports = class {
         this.client = client;
     }
 
-    run(message) {
+    run= (message) => {
         if (message.author.bot || !message.content.startsWith(this.client.config.prefix)) return;
 
         const args = message.content.split(' ').slice(1);
