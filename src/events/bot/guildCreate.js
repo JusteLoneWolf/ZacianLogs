@@ -1,19 +1,19 @@
 
-module.exports =  async (guild) => {
-        const newGuild= {
-            GuildId : guild.id
-        };
-        await this.client.dbmanager.createGuild(newGuild);
-       this.client.logger.info(`Nouveau serveur -> ${guild.name}`);
+module.exports =  async (client,guild) => {
+    const newGuild = {
+        GuildId: guild.id
+    };
+    await client.dbmanager.createGuild(newGuild);
+    client.logger.info(`Nouveau serveur -> ${guild.name}`);
 
 
-       let data = await this.client.dbmanager.getGuild(guild);
+    let data = await client.dbmanager.getGuild(guild);
 
 
-       await this.client.utils.fetchInvite(guild,data).then(()=>{
-           console.log(`Toutes les invitation get ${guild.id}`);
-       }).catch((err)=>{
-           console.error(err)
-       });
+    await client.utils.fetchInvite(guild, data).then(() => {
+        console.log(`Toutes les invitation get ${guild.id}`);
+    }).catch((err) => {
+        console.error(err)
+    });
 
-};
+}

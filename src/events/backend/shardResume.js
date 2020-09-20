@@ -1,5 +1,5 @@
-module.exports = (id) => {
-        if(!this.client.shard) return;
-        this.client.logger.info(`[SHARD] Shard ${id} resume`)
+module.exports = (client,id) => {
+        if (!client.shard) return;
+        client.logger.info(`[SHARD] Shard ${id} resume`)
 
 };

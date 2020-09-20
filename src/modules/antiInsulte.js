@@ -1,12 +1,7 @@
-class AntiInsulte {
-    constructor(client) {
-        this.client = client
-    }
-
-   async run(message) {
-
+module.exports = {
+    run: async (client,message) =>{
         if (message.author.bot) return;
-        const db = await this.client.dbmanager.getGuild(message.guild.id);
+        const db = await client.dbmanager.getGuild(message.guild.id);
         if(!db) return;
         if (!db.badwords.active) return;
 
@@ -24,7 +19,7 @@ class AntiInsulte {
                     message.delete().then(() => {
                         let data = msg[word];
                         return message.channel.send("Ce message est dans les mot interdit").then(() => {
-                            this.client.emit("InsulteLogs", message, data)
+                            client.emit("InsulteLogs", message, data)
                         })
                     });
                     return;
@@ -33,9 +28,8 @@ class AntiInsulte {
             }
 
         }
-    }
-
-    getRoles(message) {
+    },
+    getRoles :(message) => {
         let roles = [];
         message.member.roles.cache.filter(filter => filter.name !== "@everyone").forEach(data => {
             roles.push(data.id)
@@ -43,5 +37,3 @@ class AntiInsulte {
         return roles
     }
 }
-
-module.exports = AntiInsulte;

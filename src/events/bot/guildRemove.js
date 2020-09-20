@@ -1,10 +1,10 @@
 
-module.exports = async (guild) => {
-        let data = await this.client.dbmanager.getGuild(guild);
-        if(!data) return;
+module.exports = async (client,guild) => {
+    let data = await client.dbmanager.getGuild(guild);
+    if (!data) return;
 
-        await this.client.dbmanager.removeGuild(guild).then(()=>{
-            console.log('guild supprimé')
-        })
+    await client.dbmanager.removeGuild(guild).then(() => {
+        console.log('guild supprimé')
+    })
 
-};
+}
