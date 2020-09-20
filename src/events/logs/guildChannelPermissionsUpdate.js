@@ -1,33 +1,29 @@
-module.exports = class {
-    constructor(client) {
-        this.client = client;
-    }
-    run= async (oldChannel,newChannel) => {
+module.exports= async (client,oldChannel,newChannel) => {
 
-       if(!newChannel.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS","MANAGE_CHANNELS","MANAGE_GUILD"], true)) return;
+    if (!newChannel.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS", "MANAGE_CHANNELS", "MANAGE_GUILD"], true)) return;
 
-       let db = await this.client.dbmanager.getGuild(newChannel);
-        if(!db) return;
+    let db = await client.dbmanager.getGuild(newChannel);
+    if (!db) return;
 
-        let channel = newChannel.channels.cache.get(db.channels.log);
-        if(!channel )return;
+    let channel = newChannel.channels.cache.get(db.channels.log);
+    if (!channel) return;
 
-       return channel.send({
-            embed:{
-                title:"Channel Logs",
-                description:"Les permission d'un channel ont etait chnage",
-                color :0xF5AD2E,
-                fields:[
-                    {
-                        name:"❱ Ancien Permission",
-                        value : oldChannel.permissionOverwrites
-                    },
-                    {
-                        name:"❱ Nouvelle Permission",
-                        value : newChannel.permissionOverwrites
-                    }
-                ]
-            }
-        })
-    }
+    return channel.send({
+        embed: {
+            title: "Channel Logs",
+            description: "Les permission d'un channel ont etait chnage",
+            color: 0xF5AD2E,
+            fields: [
+                {
+                    name: "❱ Ancien Permission",
+                    value: oldChannel.permissionOverwrites
+                },
+                {
+                    name: "❱ Nouvelle Permission",
+                    value: newChannel.permissionOverwrites
+                }
+            ]
+        }
+    })
+
 };

@@ -1,15 +1,9 @@
 
-module.exports = class {
-    constructor(client) {
-        this.client = client;
-    }
-
-    run= async (message) => {
-
+module.exports = async (client,message) => {
         if(!message.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS","MANAGE_CHANNELS","MANAGE_GUILD"], true)) return;
 
         if(message.channel.type ==="dm") return;
-        let db = await this.client.dbmanager.getGuild(message.guild);
+        let db = await client.dbmanager.getGuild(message.guild);
         if(!db) return;
         let channeldb = message.guild.channels.cache.get(db.channels.log);
         if(!channeldb )return;
@@ -37,7 +31,4 @@ module.exports = class {
                 ]
             }
         })
-
-
-    }
 };
