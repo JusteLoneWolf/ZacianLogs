@@ -4,7 +4,7 @@ const Log = require('../Utils/Logger')
 const Logger = new Log()
 
 module.exports = {
-    init: () => {
+    init: async () => {
         if(!DBconnection) throw new Error('Connection a mongoDB impossible (manque l\'url de connection dans le fichier opton.js) veuillez verifier le fichier .env ou le README.md')
         const mongOptions = {
             useNewUrlParser: true,
@@ -19,7 +19,7 @@ module.exports = {
         };
         mongoose.connect(DBconnection, mongOptions);
         mongoose.Promise = global.Promise;
-        mongoose.connection.on("connected", () => Logger.info("Mongoose est connecté!"));
+       await mongoose.connection.on("connected", () => Logger.info("Mongoose est connecté!"));
 
     }
 };

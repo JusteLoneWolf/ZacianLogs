@@ -17,26 +17,30 @@ class StructureBot extends Client {
         this.logger = new Logger();
         this.utils = new Utils();
         this.config = option.config || {};
-        require('../Utils/mongoose').init();
         this.dbmanager = new DatabaseManager(this);
         this.twit = new TwitClient()
 
         this.antiraid = new Collection();
     }
-    init() {
+    init = () => {
         this.commandLoader();
         this.eventLoader();
-        this.login();
+        this.connect().then(() =>{
+            console.log('Bot pret a l\'emploit')
+        } );
     }
 
-    login() {
-        if(!this.option.config.token) throw new Error("Token du bot introuvable dans option.js veuillez verifier le fichier .env ou le README.md");
-        return super.login(this.option.config.token)
+    connect = async () => {
+        require('../Utils/mongoose').init().then(()=>{
+            if(!this.option.config.token) throw new Error("Token du bot introuvable dans option.js veuillez verifier le fichier .env ou le README.md");
+            return super.login(this.option.config.token)
+        })
+
     }
 
 
 
-    commandLoader() {
+    commandLoader= () => {
         readdir("./src/commandes/", (err, files) => {
             if (err) this.emit("error", err);
             for (const dir of files) {
@@ -61,7 +65,7 @@ class StructureBot extends Client {
         return this
     }
 
-    eventLoader() {
+    eventLoader= () => {
         readdir("./src/events", (err, files) => {
             if (!files) return;
             if (err) this.emit("error", err);

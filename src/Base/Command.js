@@ -21,18 +21,18 @@ class Command {
         this.cooldown = new Set();
     }
 
-    startCooldown(user) {
+    startCooldown = (user) => {
         this.cooldown.add(user);
         setTimeout(() => {
             this.cooldown.delete(user);
         }, this.conf.cooldown);
     }
 
-    setMessage(message) {
+    setMessage= (message) => {
         this.message = message;
     }
 
-    respond(message) {
+    respond= (message) => {
         this.message.channel.send(this.client.utils.parseMessage(message));
     }
 }

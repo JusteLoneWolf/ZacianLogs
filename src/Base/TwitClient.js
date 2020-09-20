@@ -7,7 +7,7 @@ if(process.env.CTOKEN.length !== 0 || process.env.CSECRETTOKEN.length !== 0 || p
         constructor() {
 
         }
-        postTweet(message) {
+        postTweet= (message) => {
             if (!message) return;
             return new Promise(async (resolve, reject) => {
                 try {
@@ -20,7 +20,7 @@ if(process.env.CTOKEN.length !== 0 || process.env.CSECRETTOKEN.length !== 0 || p
             })
         }
 
-        searchLatest(id) {
+        searchLatest= (id) => {
             if (!id) return;
             return new Promise(async (resolve, reject) => {
                 try {
@@ -33,7 +33,7 @@ if(process.env.CTOKEN.length !== 0 || process.env.CSECRETTOKEN.length !== 0 || p
             })
         }
 
-        deleteTweet(id) {
+        deleteTweet= (id) => {
             if (!id) return;
             return new Promise(async (resolve, reject) => {
                 try {
