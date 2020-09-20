@@ -1,20 +1,11 @@
-const {Guild} = require('../../models/index');
-module.exports = class {
-    constructor(client) {
-        this.client = client;
-    }
-
-    async run() {
-        await this.client.user.setPresence({
+module.exports =  async (client) => {
+        await client.user.setPresence({
             activity: {
-                name: `${this.client.config.prefix}help `,
+                name: `${client.config.prefix}help `,
                 type: "LISTENING"
             }
-        }).then(() => this.client.logger.info('Status set !'));
+        }).then(() => client.logger.info('Status set !'));
 
-        this.client.logger.info(`${this.client.user.username} pret`);
-        require('../../Utils/statsChannels').init(this.client)
-
-
-    }
+        client.logger.info(`${client.user.username} pret`);
+        require('../../Utils/statsChannels').init(client)
 };

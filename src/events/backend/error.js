@@ -1,9 +1,6 @@
-module.exports = class {
-    constructor(client) {
-        this.client = client;
-    }
-    run(error, message,cmd){
-        this.client.logger.error(error);
+module.exports = (client,error, message,cmd)=>{
+    console.log(client)
+        client.logger.error(error);
         if(message){
             if(error.length > 950) {
                 error = error.substr(0, 950);
@@ -29,6 +26,4 @@ module.exports = class {
             return log.send(` ${cmd ? `La commande ${cmd.help.name} a une erreur \n` : ''}\`\`\`js\n${error}\`\`\``)
         }
         console.log(` ${cmd ? `La commande ${cmd.help.name} a une erreur \n` : ''}\n${error}`)
-
-    }
 };

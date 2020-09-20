@@ -1,9 +1,4 @@
-module.exports = class {
-    constructor(client) {
-        this.client = client;
-    }
-
-     run= async (newMember) => {
+module.exports = async (newMember) => {
         let db = await this.client.dbmanager.getGuild(newMember.guild);
         if(!db) return;
 
@@ -82,7 +77,7 @@ module.exports = class {
                 result += characters.charAt(Math.floor(Math.random() * characters.length));
             }
             return result;
-        }
+
     }
 };
 

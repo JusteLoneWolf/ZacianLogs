@@ -1,10 +1,5 @@
 
-module.exports = class {
-    constructor(client) {
-        this.client = client;
-    }
-
-    run= (message) => {
+module.exports = (message) => {
         if (message.author.bot || !message.content.startsWith(this.client.config.prefix)) return;
 
         const args = message.content.split(' ').slice(1);
@@ -19,5 +14,5 @@ module.exports = class {
         cmd.run(message, args);
 
         if (cmd.conf.cooldown > 0) cmd.startCooldown(message.author.id);
-    }
+
 };

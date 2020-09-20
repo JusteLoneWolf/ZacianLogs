@@ -1,12 +1,9 @@
-const {WebhookClient} = require('discord.js');
 
 
-module.exports = class {
-    constructor(client) {
-        this.client = client;
-    }
-    async run(guild){
+module.exports = async (guild)=>{
         if(process.env.WHSERVERLOG.length !== 0) {
+            const {WebhookClient} = require('discord.js');
+
             const log = new WebhookClient(745583452312829983,process.env.WHSERVERLOG);
             await log.send({
                 embed:{
@@ -15,5 +12,4 @@ module.exports = class {
                 }
             })
         }
-    }
 };

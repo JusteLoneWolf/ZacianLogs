@@ -1,10 +1,5 @@
 
-module.exports = class {
-    constructor(client) {
-        this.client = client;
-    }
-
-   run= async (guild) => {
+module.exports =  async (guild) => {
         const newGuild= {
             GuildId : guild.id
         };
@@ -20,5 +15,5 @@ module.exports = class {
        }).catch((err)=>{
            console.error(err)
        });
-    }
+
 };

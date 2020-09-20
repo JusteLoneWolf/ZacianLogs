@@ -1,10 +1,5 @@
 
-module.exports = class {
-    constructor(client) {
-        this.client = client;
-    }
-
-     run= async (guild) => {
+module.exports = async (guild) => {
         let data = await this.client.dbmanager.getGuild(guild);
         if(!data) return;
 
@@ -12,6 +7,4 @@ module.exports = class {
             console.log('guild supprimé')
         })
 
-
-    }
 };
