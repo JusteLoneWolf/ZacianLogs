@@ -6,7 +6,7 @@ const {Client, Collection} = require("discord.js"),
     DatabaseManager = require("../Utils/DatabaseManager"),
     TwitClient = require('./TwitClient')
 
-class StructureBot extends Client {
+class ZacianBot extends Client {
     constructor(options) {
         super(options);
         ["commands","aliases","cooldowns","antiraid"].forEach(x=>this[x] = new Collection());
@@ -87,4 +87,4 @@ class StructureBot extends Client {
     }
 }
 
-module.exports = StructureBot;
+module.exports = ZacianBot;
