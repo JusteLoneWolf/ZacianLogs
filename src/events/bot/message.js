@@ -2,10 +2,10 @@ const   AntiInsulte = require("../../modules/antiInsulte"),
      {Collection} = require("discord.js");
 module.exports = async (client,message) => {
     if (message.author.bot) return;
-    if (message.channel.type === "dm") return client.emit("DirectMessage",client, message);
+    if (message.channel.type === "dm") return client.emit("DirectMessage", client, message);
     let guildData = await getDataOrCreate(message.guild);
 
-    await AntiInsulte.run(client,message);
+    await AntiInsulte.run(client, message);
     //Antiraid
     if (guildData.settings.antiraid) {
         if (guildData.settings.antiraid.enabled) {
@@ -14,10 +14,10 @@ module.exports = async (client,message) => {
     }
     //
 
-    await require('../../Utils/invitationLogger')(client,message);
+    await require('../../Utils/invitationLogger')(client, message);
     await require('../../Utils/messageCitation')(client, message)
     if (message.author.bot) return;
-    if (message.content.startsWith('<@!717658826379231256>')) return client.emit('MessageMentionBot',client, message, guildData);
+    if (message.content.startsWith('<@!717658826379231256>')) return client.emit('MessageMentionBot', client, message, guildData);
 
     let prefix = guildData ? guildData.prefix : "zac!";
     if (!message.content.startsWith(prefix)) return;
@@ -28,6 +28,7 @@ module.exports = async (client,message) => {
     const cmd = client.commands.get(command) || client.commands.get(client.aliases.get(command));
     if (!cmd) return;
 
+    //Cooldown
     if (!client.cooldowns.has(cmd.help.name)) {
         client.cooldowns.set(cmd.help.name, new Collection());
     }
@@ -35,30 +36,35 @@ module.exports = async (client,message) => {
     const timeNow = Date.now();
     const tStamps = client.cooldowns.get(cmd.help.name);
     const cdAmount = (cmd.help.cooldown || 5) * 1000;
-    if (!client.config.owner.includes(message.author.id)) {
-        if (tStamps.has(message.author.id)) {
-            const cdExpirationTime = tStamps.get(message.author.id) + cdAmount;
 
-            if (timeNow < cdExpirationTime) {
-                let timeLeft = (cdExpirationTime - timeNow) / 1000;
-                return message.reply(`merci d'attendre ${timeLeft.toFixed(0)} seconde(s) avant de ré-utiliser la commande \`${cmd.help.name}\`.`);
+    if (!client.config.owner.includes(message.author.id)){
+
+        if (tStamps.has(message.author.id)) {
+            const exT = tStamps.get(message.author.id) + cdAmount
+
+            if (timeNow < exT) {
+                let remain = (exT - timeNow) / 1000
+                return message.reply(`merci d'attendre ${remain.toFixed(0)} seconde(s) avant de ré-utiliser la commande \`${cmd.help.name}\`.`);
             }
+        } else {
+            tStamps.set(message.author.id, timeNow);
         }
-        tStamps.set(message.author.id, timeNow);
-        setTimeout(() => tStamps.delete(message.author.id), cdAmount);
     }
+        setTimeout(()=> tStamps.delete(message.author.id),cdAmount)
+    //Cooldown
 
     if (cmd.help.category.toLowerCase() === 'owner' && !client.config.owner.includes(message.author.id)) return message.channel.send('Vous devez etre dévellopeur du bot');
 
     cmd.setMessage(message);
     try {
         //await this.getInvite(client,message.guild, guildData)
+        console.log(client.cooldowns)
+
         cmd.run(message, args, guildData);
     } catch (e) {
         client.emit('error', e.stack, message.channel, cmd)
     }
 
-    if (cmd.conf.cooldown > 0) cmd.startCooldown(message.author.id);
 
     async function getDataOrCreate(guild) {
         const {Types} = require('mongoose')

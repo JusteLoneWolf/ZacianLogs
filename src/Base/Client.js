@@ -51,7 +51,6 @@ class StructureBot extends Client {
                             this.commands.set(command.help.name, command);
                             command.conf.aliases.forEach(a => this.aliases.set(a, command.help.name));
                             this.logger.info(`${com} chargé`)
-
                         } catch (e) {
                             this.emit("error", `${com} n"a pas chargé ${e.message}`)
                         }

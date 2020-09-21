@@ -29,6 +29,7 @@ module.exports = async (client,oldMessage,newMessage) => {
     const cmd = client.commands.get(command) || client.commands.get(client.aliases.get(command));
     if (!cmd) return;
 
+    //Cooldown
     if (!client.cooldowns.has(cmd.help.name)) {
         client.cooldowns.set(cmd.help.name, new Collection());
     }
@@ -36,19 +37,22 @@ module.exports = async (client,oldMessage,newMessage) => {
     const timeNow = Date.now();
     const tStamps = client.cooldowns.get(cmd.help.name);
     const cdAmount = (cmd.help.cooldown || 5) * 1000;
-    if (!client.config.owner.includes(newMessage.author.id)) {
-        if (tStamps.has(newMessage.author.id)) {
-            const cdExpirationTime = tStamps.get(newMessage.author.id) + cdAmount;
 
-            if (timeNow < cdExpirationTime) {
-                let timeLeft = (cdExpirationTime - timeNow) / 1000;
-                return newMessage.channel.send(`merci d'attendre ${timeLeft.toFixed(0)} seconde(s) avant de ré-utiliser la commande \`${cmd.help.name}\`.`);
+    if (!client.config.owner.includes(newMessage.author.id)){
+
+        if (tStamps.has(newMessage.author.id)) {
+            const exT = tStamps.get(newMessage.author.id) + cdAmount
+
+            if (timeNow < exT) {
+                let remain = (exT - timeNow) / 1000
+                return newMessage.reply(`merci d'attendre ${remain.toFixed(0)} seconde(s) avant de ré-utiliser la commande \`${cmd.help.name}\`.`);
             }
+        } else {
+            tStamps.set(newMessage.author.id, timeNow);
         }
     }
-
-    tStamps.set(newMessage.author.id, timeNow);
-    setTimeout(() => tStamps.delete(newMessage.author.id), cdAmount);
+    setTimeout(()=> tStamps.delete(newMessage.author.id),cdAmount)
+    //Cooldown
     if (cmd.help.category.toLowerCase() === 'owner' && !client.config.owner.includes(newMessage.author.id)) return newMessage.channel.send('Vous devez etre dévellopeur du bot');
 
     cmd.setMessage(newMessage);

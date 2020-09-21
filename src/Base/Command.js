@@ -1,10 +1,9 @@
 class Command {
     constructor(client, options) {
-        this.client = client;
         this.help = {
             name: options.name || null,
             description: options.description || "Pas d'information donnée.",
-            usage: options.usage ?  `${this.client.config.prefix}${options.usage}`: "",
+            usage: options.usage ?  `${client.config.prefix}${options.usage}`: "",
             category: options.category || "Information",
             exemple: options.exemple || "Pas d'exemple",
             args: options.args || "Pas d\'argument complexe"
@@ -12,7 +11,7 @@ class Command {
         this.conf = {
             permLevel: options.permLevel || 0,
             permission: options.permission || "SEND_MESSAGES",
-            cooldown: options.cooldown || 1000,
+            cooldowns: options.cooldowns || 1000,
             aliases: options.aliases || [],
             allowDMs: options.allowDMs || false,
             args : options.args || "pas d\"arguments",
@@ -21,20 +20,12 @@ class Command {
         this.cooldown = new Set();
     }
 
-    startCooldown = (user) => {
-        if(!user) return console.log("Pas d'utilisateur donné")
-        this.cooldown.add(user);
-        setTimeout(() => {
-            this.cooldown.delete(user);
-        }, this.conf.cooldown);
-    }
-
     setMessage= (message) => {
         this.message = message;
     }
 
     respond= (message) => {
-        this.message.channel.send(this.client.utils.parseMessage(message));
+        this.message.channel.send(client.utils.parseMessage(message));
     }
 }
 
