@@ -3,6 +3,8 @@ const {HELPER } = require("../../Utils/Constant/CommandeHelper");
 class Checkinvite extends Command{
     constructor(client){
         super(client,HELPER.COMMANDS.MOD.CHECKINVITE);
+        this.client = client
+
     }
 
     run(message,args){

@@ -7,6 +7,8 @@ const {HELPER } = require("../../Utils/Constant/CommandeHelper");
 class Ping extends Command {
     constructor(client) {
         super(client, HELPER.COMMANDS.INFO.INFO);
+        this.client = client
+
     }
 
     run(message) {

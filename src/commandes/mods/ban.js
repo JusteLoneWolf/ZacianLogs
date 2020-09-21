@@ -4,6 +4,8 @@ const {HELPER } = require("../../Utils/Constant/CommandeHelper");
 class Ban extends Command{
     constructor(client){
         super(client,HELPER.COMMANDS.MOD.BAN);
+        this.client = client
+
     }
 
     async run(message,args){

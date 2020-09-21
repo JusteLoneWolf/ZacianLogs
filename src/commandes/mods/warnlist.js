@@ -3,6 +3,8 @@ const {HELPER } = require("../../Utils/Constant/CommandeHelper");
 class ListWarn extends Command {
     constructor(client) {
         super(client, HELPER.COMMANDS.MOD.LISTWARN);
+        this.client = client
+
     }
 
     async run(message) {

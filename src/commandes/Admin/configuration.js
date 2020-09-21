@@ -4,6 +4,8 @@ const {HELPER } = require("../../Utils/Constant/CommandeHelper");
 class Configuration extends Command {
     constructor(client) {
         super(client, HELPER.COMMANDS.ADMIN.CONFIGURATION);
+        this.client = client
+
     }
 
    async run(message, args,guildData) {

@@ -4,7 +4,9 @@ const moment = require('moment');
 
 class Unmute extends Command {
     constructor(client) {
-        super(client, HELPER.COMMANDS.MOD.UNMUTE)
+        super(client, HELPER.COMMANDS.MOD.UNMUTE);
+        this.client = client
+
     }
 
     async run(message, args,guildData) {

@@ -3,6 +3,8 @@ const {HELPER } = require("../../Utils/Constant/CommandeHelper");
 class Purge extends Command {
     constructor(client) {
         super(client, HELPER.COMMANDS.MOD.PURGE);
+        this.client = client
+
     }
 
     async run(message, args) {

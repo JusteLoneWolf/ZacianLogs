@@ -4,6 +4,8 @@ const {HELPER } = require("../../Utils/Constant/CommandeHelper");
 class Kick extends Command{
     constructor(client){
         super(client,HELPER.COMMANDS.MOD.KICK);
+        this.client = client
+
     }
 
     async run(message,args){

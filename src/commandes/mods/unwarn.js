@@ -3,6 +3,8 @@ const {HELPER } = require("../../Utils/Constant/CommandeHelper");
 class UnWarn extends Command{
     constructor(client){
         super(client,HELPER.COMMANDS.MOD.UNWARN);
+        this.client = client
+
     }
 
     async run(message,args) {

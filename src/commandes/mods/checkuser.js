@@ -3,7 +3,9 @@ const {HELPER } = require("../../Utils/Constant/CommandeHelper");
 
 class Checkuser extends Command {
     constructor(client) {
-        super(client, HELPER.COMMANDS.MOD.CHECKUSER)
+        super(client, HELPER.COMMANDS.MOD.CHECKUSER);
+        this.client = client
+
     }
 
     async run(message) {

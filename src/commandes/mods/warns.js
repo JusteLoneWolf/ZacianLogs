@@ -4,6 +4,8 @@ const moment = require('moment');
 class Warn extends Command{
     constructor(client){
         super(client,HELPER.COMMANDS.MOD.WARN);
+        this.client = client
+
     }
 
     async run(message,args) {

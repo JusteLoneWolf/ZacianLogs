@@ -6,6 +6,8 @@ const {HELPER } = require("../../Utils/Constant/CommandeHelper");
 class Botinfo extends Command {
     constructor(client) {
         super(client, HELPER.COMMANDS.INFO.BOTINFO);
+        this.client = client
+
     }
 
     run(message) {

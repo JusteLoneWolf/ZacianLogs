@@ -4,6 +4,8 @@ const {HELPER } = require("../../Utils/Constant/CommandeHelper");
 class ListMute extends Command {
     constructor(client) {
         super(client, HELPER.COMMANDS.MOD.LISTMUTE);
+        this.client = client
+
     }
 
     async run(message) {

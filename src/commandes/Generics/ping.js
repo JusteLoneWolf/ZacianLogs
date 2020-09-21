@@ -3,6 +3,8 @@ const {HELPER } = require("../../Utils/Constant/CommandeHelper");
 class Ping extends Command{
     constructor(client){
         super(client,HELPER.COMMANDS.GENERICS.PING);
+        this.client = client
+
     }
 
     async run(message){

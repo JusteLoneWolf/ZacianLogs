@@ -3,6 +3,8 @@ const {HELPER } = require("../../Utils/Constant/CommandeHelper");
 class Checkpermission extends Command{
     constructor(client){
         super(client,HELPER.COMMANDS.ADMIN.CHECKPERMISSION);
+        this.client = client
+
     }
 
     run(message){
