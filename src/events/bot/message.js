@@ -14,9 +14,8 @@ module.exports = async (client,message) => {
     }
     //
 
-
-    /* client.emit('invitationLogger' ,message);
-     client.emit('messageCitation' ,message);*/
+    await require('../../Utils/invitationLogger')(client,message);
+    await require('../../Utils/messageCitation')(client, message)
     if (message.author.bot) return;
     if (message.content.startsWith('<@!717658826379231256>')) return client.emit('MessageMentionBot',client, message, guildData);
 
