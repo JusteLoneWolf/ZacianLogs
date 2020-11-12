@@ -1,7 +1,7 @@
 module.exports = {
     run: async (client,message) =>{
         if (message.author.bot) return;
-        const db = await client.dbmanager.getGuild(message.guild.id);
+        const db = await client.dbmanager.getGuild(message.guild);
         if(!db) return;
         if (!db.badwords.active) return;
 
