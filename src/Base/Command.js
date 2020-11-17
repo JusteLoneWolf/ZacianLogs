@@ -20,13 +20,7 @@ class Command {
         this.cooldown = new Set();
     }
 
-    setMessage= (message) => {
-        this.message = message;
-    }
 
-    respond= (message) => {
-        this.message.channel.send(client.utils.parseMessage(message));
-    }
 }
 
 module.exports = Command;
