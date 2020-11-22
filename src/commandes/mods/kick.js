@@ -18,7 +18,7 @@ class Kick extends Command{
         if(!member.kickable) return message.channel.send("Je ne peux pas kick un utilisateur");
 
         member.kick(reason).then(()=>{
-            super.respond(`${member.user.username} a était kick par ${message.author.username} `)
+            message.channel.send(`${member.user.username} a était kick par ${message.author.username} `)
         })
     }
 }

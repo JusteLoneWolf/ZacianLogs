@@ -107,13 +107,13 @@ class Configuration extends Command {
                         let channel = message.mentions.channels.first() ? message.mentions.channels.first() : args.slice(2) ? args.slice(2).join(' ').toLowerCase() : false;
                         channel = channel ? message.mentions.channels.first() ? channel.name : args.slice(2).join(' ').toLowerCase() : message.channel.name;
                         channel = message.guild.channels.cache.find(c => c.name === channel || c.id === channel);
-                        if (guildData.channels.logs === channel.id) return super.respond(`Le channel de logs est deja mis sur ${channel.name}`);
+                        if (guildData.channels.logs === channel.id) return message.channel.send(`Le channel de logs est deja mis sur ${channel.name}`);
                         guildData.channels.log = channel.id;
                         await this.client.dbmanager.updateGuild(message.guild, {channels:guildData.channels });
                         if(!channel.permissionsFor(message.guild.member(this.client.user)).has("SEND_MESSAGES")){
                             text = text + `\n:warning: je n'est pas la permission d'écrire dans ${channel}`
                         }
-                        super.respond(`Les logs sont mis sur ${channel.name}${text}`);
+                        message.channel.send(`Les logs sont mis sur ${channel.name}${text}`);
                         break;
                     case "capchat":
                         switch (args[2]) {
@@ -212,10 +212,10 @@ class Configuration extends Command {
                         roles = message.mentions.roles.first() ? roles.name : args.slice(2).join(' ').toLowerCase();
                         roles = message.guild.roles.cache.find(r => r.name === roles || r.id === roles);
                         if (!roles) return message.channel.send("Le roles est introuvable");
-                        if (guildData.badwords.ignore_role.includes(roles.id)) return super.respond(`Le role ${roles.name} est deja dans la liste`);
+                        if (guildData.badwords.ignore_role.includes(roles.id)) return message.channel.send(`Le role ${roles.name} est deja dans la liste`);
                         guildData.badwords.ignore_role.push(roles.id);
                         await this.client.dbmanager.updateGuild(message.guild, {badwords: guildData.badwords});
-                        super.respond(`Le role ${roles.name} est maintenant ignoré`);
+                        message.channel.send(`Le role ${roles.name} est maintenant ignoré`);
                         break;
 
                     case "blacklistwords":
@@ -223,7 +223,7 @@ class Configuration extends Command {
                             case "on":
                                 guildData.badwords.active = true;
                                 await this.client.dbmanager.updateGuild(message.guild, {badwords: guildData.badwords});
-                                return super.respond(`La blacklist word est activé`);
+                                return message.channel.send(`La blacklist word est activé`);
                         }
                         if (!args[2]) {
                             return message.channel.send({
@@ -245,17 +245,17 @@ class Configuration extends Command {
                             })
                         }
                         let words = args.slice(2).join(' ');
-                        if (guildData.badwords.list.includes(words)) return super.respond(`Le mot ${words} est déja listé`);
+                        if (guildData.badwords.list.includes(words)) return message.channel.send(`Le mot ${words} est déja listé`);
                         guildData.badwords.list.push(words);
                         await this.client.dbmanager.updateGuild(message.guild, {badwords: guildData.badwords});
-                        super.respond(`Le mot ${words} est blacklist`);
+                        message.channel.send(`Le mot ${words} est blacklist`);
                         break;
                     case "prefix":
-                        if (!args.slice(2).toString()) return super.respond('Merci de definir un prefix');
-                        if (args.slice(2).join(' ').length >= 3) return super.respond(`Le prefix doit avoir moins de  **3** characters`);
-                        if (args.slice(2).join(' ').includes('*') || args.slice(2).join(' ').includes('_') || args.slice(2).join(' ').includes('~') || args.slice(2).join(' ').includes('`')) return super.respond(`Les caracterres \`*\`, \`_\`, \`~\`, \`~\`, \`\`\` ne sont pas accepté`);
+                        if (!args.slice(2).toString()) return message.channel.send('Merci de definir un prefix');
+                        if (args.slice(2).join(' ').length >= 3) return message.channel.send(`Le prefix doit avoir moins de  **3** characters`);
+                        if (args.slice(2).join(' ').includes('*') || args.slice(2).join(' ').includes('_') || args.slice(2).join(' ').includes('~') || args.slice(2).join(' ').includes('`')) return message.channel.send(`Les caracterres \`*\`, \`_\`, \`~\`, \`~\`, \`\`\` ne sont pas accepté`);
                         await this.client.dbmanager.updateGuild(message.guild, {prefix: args.slice(2).join('')});
-                        super.respond(`Le prefix est maintenant **${args.slice(2).join('')}**`);
+                        message.channel.send(`Le prefix est maintenant **${args.slice(2).join('')}**`);
                         break
                 }
                 break;
@@ -284,7 +284,7 @@ class Configuration extends Command {
                         roles = message.mentions.roles.first() ? roles.name : args.slice(2).join(' ').toLowerCase();
                         roles = message.guild.roles.cache.find(r => r.name === roles || r.id === roles);
                         if (!roles) return message.channel.send("Le roles est introuvable");
-                        if (!guildData.badwords.ignore_role.includes(roles.id)) return super.respond(`Le role ${roles.name} n'est pas listé`);
+                        if (!guildData.badwords.ignore_role.includes(roles.id)) return message.channel.send(`Le role ${roles.name} n'est pas listé`);
                         let ignoredRole = guildData.badwords.ignore_role;
                         let newIgnoredRole = [];
                         ignoredRole.forEach(role => {
@@ -294,11 +294,11 @@ class Configuration extends Command {
                             guildData.badwords.ignore_role = newIgnoredRole;
                         });
                         await this.client.dbmanager.updateGuild(message.guild, {badwords: guildData.badwords});
-                        super.respond(`Le role ${roles.name} a etait supprimé`);
+                        message.channel.send(`Le role ${roles.name} a etait supprimé`);
                         break;
                     case "blacklistwords":
                         let words = args.slice(2).join(' ');
-                        if (!guildData.badwords.list.includes(words)) return super.respond(`Le mot ${words} n'est pas listé`);
+                        if (!guildData.badwords.list.includes(words)) return message.channel.send(`Le mot ${words} n'est pas listé`);
                         let badWord = guildData.badwords.list;
                         let newBadWord = [];
                         badWord.forEach(role => {
@@ -310,7 +310,7 @@ class Configuration extends Command {
 
                         await this.client.dbmanager.updateGuild(message.guild, {badwords: guildData.badwords});
 
-                        super.respond(`Le mot ${words} n'est plus blacklist`);
+                        message.channel.send(`Le mot ${words} n'est plus blacklist`);
                         break;
                 }
                 break;

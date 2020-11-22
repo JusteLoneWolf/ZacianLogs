@@ -1,4 +1,5 @@
-class Command {
+    class Command {
+
     constructor(client, options) {
         this.help = {
             name: options.name || null,
@@ -19,7 +20,21 @@ class Command {
         };
         this.cooldown = new Set();
     }
+    startCooldown = (user) => {
+        if(!user) return console.log("[CoolDown] Pas d'utilisateur donnée")
+        this.cooldown.add(user);
+        setTimeout(() => {
+            this.cooldown.delete(user);
+        }, this.conf.cooldown);
+    }
 
+    setMessage= (message) => {
+        this.message = message;
+    }
+
+    respond= (message) => {
+        this.message.channel.send(this.client.utils.parseMessage(message));
+    }
 
 }
 

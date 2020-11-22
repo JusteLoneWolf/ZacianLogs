@@ -18,7 +18,7 @@ class Ban extends Command{
         if(!member.voice.channel) return message.channel.send("Cette utilisateur n'est pas dans un channel");
 
         member.voice.kick(reason).then(()=>{
-            super.respond(`${member.user.username} a était kick du vocal par ${message.author.username} `)
+            message.channel.send(`${member.user.username} a était kick du vocal par ${message.author.username} `)
         })
     }
 }

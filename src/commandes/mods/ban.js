@@ -18,7 +18,7 @@ class Ban extends Command{
         if(!member.bannable) return message.channel.send("Je ne peux pas ban un utilisateur");
 
         member.ban(reason).then(()=>{
-            super.respond(`${member.user.username} a était ban par ${message.author.username} `)
+            message.channel.send(`${member.user.username} a était ban par ${message.author.username} `)
         })
     }
 }

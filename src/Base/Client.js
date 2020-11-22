@@ -50,9 +50,9 @@ class ZacianBot extends Client {
                             const command = new (require(`../commandes/${dir}/${com}`))(this);
                             this.commands.set(command.help.name, command);
                             command.conf.aliases.forEach(a => this.aliases.set(a, command.help.name));
-                            this.logger.info(`${com} chargé`)
+                            this.logger.info(`[Client] ${com} chargé`)
                         } catch (e) {
-                            this.emit("error", `${com} n"a pas chargé ${e.message}`)
+                            this.emit("error", `[Client] ${com} n"a pas chargé ${e.message}`)
                         }
                     }
 
@@ -74,10 +74,10 @@ class ZacianBot extends Client {
                         try {
                             if (!evt) return;
                             const event =require(`../events/${dir}/${evt}`);
-                            this.logger.info(`${evt} chargé`);
+                            this.logger.info(`[Client] ${evt} chargé`);
                             super.on(evt.split(".")[0], event.bind(null, this));
                         } catch (e) {
-                            this.emit("error", `${evt} n"a pas chargé ${e.stack}`)
+                            this.emit("error", `[Client] ${evt} n"a pas chargé ${e.stack}`)
                         }
                     }
                 })

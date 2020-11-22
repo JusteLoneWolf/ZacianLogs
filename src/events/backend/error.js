@@ -1,6 +1,4 @@
 module.exports = (client,error, message,cmd)=> {
-    console.log(client)
-    client.logger.error(error);
     if (message) {
         if (error.length > 950) {
             error = error.substr(0, 950);
@@ -25,5 +23,5 @@ module.exports = (client,error, message,cmd)=> {
         const log = new WebhookClient('717677164836814888', process.env.WHLOG);
         return log.send(` ${cmd ? `La commande ${cmd.help.name} a une erreur \n` : ''}\`\`\`js\n${error}\`\`\``)
     }
-    console.log(` ${cmd ? `La commande ${cmd.help.name} a une erreur \n` : ''}\n${error}`)
+    console.log(` ${cmd ? `La commande ${cmd.help.name} a une erreur \n` : ''}Une erreur est survenue\n${error}`)
 };
