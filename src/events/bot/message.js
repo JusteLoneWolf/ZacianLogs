@@ -17,16 +17,37 @@ module.exports = async (client,message) => {
     await require('../../Utils/invitationLogger')(client, message);
     await require('../../Utils/messageCitation')(client, message)
     if (message.author.bot) return;
-    if (message.content.startsWith('<@!717658826379231256>')) return client.emit('MessageMentionBot', client, message, guildData);
-
-    if (!message.content.startsWith(guildData ? guildData.prefix : "zac!")) return;
 
     const args = message.content.split(' ').slice(1);
 
-    const command = message.content.split(' ')[0].slice((guildData ? guildData.prefix : "zac!").length);
+    //const command = message.content.split(' ')[1].slice((guildData ? guildData.prefix : "zac!").length);
     const cmd = client.commands.get(command) || client.commands.get(client.aliases.get(command));
+    //console.log(message.content)
+   /* if (message.content.startsWith('<@!717658826379231256>') || message.content.startsWith('<@&719837291794923581>')) {
+        console.log(command)
+        if (command === 'resetprefix') {
+            console.log(3)
+            await client.dbmanager.updateGuild(message.guild, {prefix: 'zac!'});
+            message.channel.send('Le prefix a etait reset')
+        } else if (cmd) {
+            console.log(2)
+            if (cmd.conf.mention) {
+                const cmd = client.commands.get(command) || client.commands.get(client.aliases.get(command));
+                if (!cmd) return;
+                cmd.run(message, message.content.split(' ').slice(2), guildData);
+            }
+        }else {
+            console.log(1)
+            await message.channel.send({
+                embed: {
+                    title: client.username,
+                    description: `Je suis ZacianBot un bot de logs discord et moderation, je suis [open source](https://github.com/zechaos031/ZacianLogs), faite \`${guildData.prefix}help\``
+                }
+            })
+        }
+    }*/
+    if (!message.content.startsWith(guildData ? guildData.prefix : "zac!")) return;
     if (!cmd) return;
-
     //Cooldown
     if (!client.cooldowns.has(cmd.help.name)) {
         client.cooldowns.set(cmd.help.name, new Collection());
