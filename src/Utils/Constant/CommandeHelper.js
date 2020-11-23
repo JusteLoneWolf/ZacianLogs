@@ -79,6 +79,16 @@ const HELPER = {
               category:"Modération",
               mention:true
           },
+            LOCKDOWN:{
+                name:"lockdown",
+                description:"Bloque tous les channels",
+                usage:"lockdown <time> <raison>",
+                cooldowns:10000,
+                aliases:["lc"],
+                permission: "BAN_MEMBERS",
+                category:"Modération",
+                mention:true
+            },
             UNWARN:{
                 name:"unwarn",
                 description:"Enleve un avertissement a un utilisateur",
@@ -205,6 +215,16 @@ const HELPER = {
                 category:"Admin",
                 mention:true
             },
+            UNLOCKDOWN :{
+                name:"unlockdown",
+                description:"Débloque tous les channels",
+                usage:"unlockdown <time> <raison>",
+                cooldowns:10000,
+                aliases:["ulc"],
+                permission: "BAN_MEMBERS",
+                category:"Modération",
+                mention:true
+            }
         },
         ADMIN:{
             CONFIGURATION:{

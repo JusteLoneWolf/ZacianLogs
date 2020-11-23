@@ -4,18 +4,28 @@ module.exports ={
     },
 
     lockChannel(guild){
-        for(const channel of guild.channels.cache.array()){
-            //TODO
-            // server lockdown
+        return new Promise((resolve, reject) => {
+            let id = guild.roles.everyone.id;
+            for(const channel of guild.channels.cache.filter(c => c.type !== 'category').array()){
+                channel.updateOverwrite(id, {
+                    SEND_MESSAGES: false
 
-            channel.overwritePermissions([
-                {
-                    deny: ["SEND_MESSAGE"]
-                }
+                })
+            }
+            resolve(true)
+        })
+    },
+    unlockChannel(guild){
+        return new Promise((resolve, reject) => {
+            let id = guild.roles.everyone.id;
+            for(const channel of guild.channels.cache.filter(c => c.type !== 'category').array()){
+                channel.updateOverwrite(id, {
+                    'SEND_MESSAGES': null
 
-            ]).then(r => console.log(''))
-        }
-
+                })
+            }
+            resolve(true)
+        })
     },
 
    async getMessage(client,message,data){
