@@ -11,8 +11,8 @@ class Poll extends Command{
 
         const slipAws = args.join(' ').split('/')
 
-        if(!slipAws) return
-        if(!slipAws[1].split('|')) return
+        if(!slipAws) return message.channel.send('Vous devez inclure un question')
+        if(!slipAws[1].split('|')) return message.channel.send('Vous devez inclure une a 10 reponse')
         const emote = ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟']
         let question = []
         for(let i = 0; i<slipAws[1].split('|').length;i++){

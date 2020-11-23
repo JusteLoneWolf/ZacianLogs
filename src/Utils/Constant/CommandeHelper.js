@@ -218,10 +218,10 @@ const HELPER = {
             UNLOCKDOWN :{
                 name:"unlockdown",
                 description:"Débloque tous les channels",
-                usage:"unlockdown <time> <raison>",
+                usage:"unlockdown",
                 cooldowns:10000,
                 aliases:["ulc"],
-                permission: "BAN_MEMBERS",
+                permission: "MANAGE_GUILD",
                 category:"Modération",
                 mention:true
             },
@@ -231,9 +231,10 @@ const HELPER = {
                 usage:"poll <time> <raison>",
                 cooldowns:10000,
                 aliases:["ulc"],
-                permission: "BAN_MEMBERS",
+                permission: "MANAGE_GUILD",
                 category:"Modération",
-                mention:true
+                mention:true,
+                exemple: "zac!poll Chien ou chat ?/Chien | Chat | Je sais pas"
             }
         },
         ADMIN:{
