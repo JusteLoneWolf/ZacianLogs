@@ -18,7 +18,7 @@ class Botinfo extends Command {
                 description: "Information du bot",
                 fields: [{
                         name: "❱ Créateur",
-                        value: `${this.client.users.cache.get(this.client.config.owner[0]).username || '[BCFB] zechaos#2310'} `,
+                        value: `${this.client.users.cache.get(this.client.config.owner[0]).username || "[BCFB] zechaos#2310"} `,
                     },
                     {
                         name: "❱ Code Source",

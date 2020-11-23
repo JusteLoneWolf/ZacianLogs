@@ -11,32 +11,32 @@ module.exports = async (client, message) => {
     //Antiraid
     if (guildData.settings.antiraid) {
         if (guildData.settings.antiraid.enabled) {
-            await require('../../modules/antiraid').getMessage(client, message, guildData.settings.antiraid)
+            await require("../../modules/antiraid").getMessage(client, message, guildData.settings.antiraid)
         }
     }
     //
 
-    await require('../../Utils/invitationLogger')(client, message);
-    await require('../../Utils/messageCitation')(client, message)
+    await require("../../Utils/invitationLogger")(client, message);
+    await require("../../Utils/messageCitation")(client, message)
     if (message.author.bot) return;
 
-    const args = message.content.split(' ').slice(1);
+    const args = message.content.split(" ").slice(1);
 
-    const command = message.content.split(' ')[0].slice((guildData ? guildData.prefix : "zac!").length);
+    const command = message.content.split(" ")[0].slice((guildData ? guildData.prefix : "zac!").length);
     const cmd = client.commands.get(command) || client.commands.get(client.aliases.get(command));
     //console.log(message.content)
-    /* if (message.content.startsWith('<@!717658826379231256>') || message.content.startsWith('<@&719837291794923581>')) {
+    /* if (message.content.startsWith("<@!717658826379231256>") || message.content.startsWith("<@&719837291794923581>")) {
          console.log(command)
-         if (command === 'resetprefix') {
+         if (command === "resetprefix") {
              console.log(3)
-             await client.dbmanager.updateGuild(message.guild, {prefix: 'zac!'});
-             message.channel.send('Le prefix a etait reset')
+             await client.dbmanager.updateGuild(message.guild, {prefix: "zac!"});
+             message.channel.send("Le prefix a etait reset")
          } else if (cmd) {
              console.log(2)
              if (cmd.conf.mention) {
                  const cmd = client.commands.get(command) || client.commands.get(client.aliases.get(command));
                  if (!cmd) return;
-                 cmd.run(message, message.content.split(' ').slice(2), guildData);
+                 cmd.run(message, message.content.split(" ").slice(2), guildData);
              }
          }else {
              console.log(1)
@@ -71,24 +71,24 @@ module.exports = async (client, message) => {
     setTimeout(() => client.cooldowns.get(cmd.help.name).delete(message.author.id), (cmd.help.cooldown || 5) * 1000)
     //Cooldown
 
-    if (cmd.help.category.toLowerCase() === 'owner' && !client.config.owner.includes(message.author.id)) return message.channel.send('Vous devez etre dévellopeur du bot');
+    if (cmd.help.category.toLowerCase() === "owner" && !client.config.owner.includes(message.author.id)) return message.channel.send("Vous devez etre dévellopeur du bot");
 
     cmd.setMessage(message);
     try {
         cmd.run(message, args, guildData);
     } catch (e) {
-        client.emit('error', e.stack, message.channel, cmd)
+        client.emit("error", e.stack, message.channel, cmd)
     }
 
 
     async function getDataOrCreate(guild) {
         const {
             Types
-        } = require('mongoose')
+        } = require("mongoose")
         return new Promise(async (resolve) => {
             const {
                 Guild
-            } = require('../../models/index');
+            } = require("../../models/index");
             let data = await client.dbmanager.getGuild(guild);
             if (data) {
                 resolve(data)

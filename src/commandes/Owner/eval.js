@@ -9,20 +9,20 @@ class Eval extends Command {
     }
 
     async run(message, args) {
-        if (!this.client.config.owner.includes(message.author.id)) return message.channel.send('Vous devez etre dévellopeur du bot');
+        if (!this.client.config.owner.includes(message.author.id)) return message.channel.send("Vous devez etre dévellopeur du bot");
         const initialTime = process.hrtime();
         try {
-            let code = args.join(' ');
+            let code = args.join(" ");
             let evaled = eval(code);
             if (evaled) {
                 if (evaled.length > 900) {
                     evaled = evaled.substr(0, 900);
                     evaled += "\nTrop long..";
                 }
-                if (typeof evaled !== 'string')
-                    evaled = require('util').inspect(evaled);
+                if (typeof evaled !== "string")
+                    evaled = require("util").inspect(evaled);
                 if (evaled.includes(this.client.config.token)) {
-                    evaled = evaled.replace(this.client.config.token, 'TOKEN')
+                    evaled = evaled.replace(this.client.config.token, "TOKEN")
                 }
             }
 

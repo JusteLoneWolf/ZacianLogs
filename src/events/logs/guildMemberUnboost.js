@@ -1,6 +1,6 @@
 module.exports = async (client, member) => {
 
-    if (!member.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS", "MANAGE_CHANNELS", "MANAGE_GUILD"], true)) return;
+    if (!member.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS", "MANAGE_CHANNELS", "MANAGE_GUILd"], true)) return;
 
     let db = await client.dbmanager.getGuild(member.guild);
     if (!db) return;

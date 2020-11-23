@@ -1,7 +1,7 @@
 const AntiInsulte = require("../../modules/antiInsulte");
 const {
     Collection
-} = require('discord.js')
+} = require("discord.js")
 module.exports = async (client, oldMessage, newMessage) => {
 
     if (!newMessage.author || newMessage.author.bot) return;
@@ -14,18 +14,18 @@ module.exports = async (client, oldMessage, newMessage) => {
     //Antiraid
     if (guildData.settings.antiraid) {
         if (guildData.settings.antiraid.enabled) {
-            await require('../../modules/antiraid').getMessage(client, newMessage, guildData.settings.antiraid)
+            await require("../../modules/antiraid").getMessage(client, newMessage, guildData.settings.antiraid)
         }
     }
     //
-    client.emit('LogmessageUpdate', oldMessage, newMessage)
+    client.emit("LogmessageUpdate", oldMessage, newMessage)
 
     if (newMessage.author.bot) return;
     let prefix = guildData.prefix || "zac!";
     if (!newMessage.content.startsWith(prefix)) return;
 
-    const command = newMessage.content.split(' ')[0].slice(prefix.length);
-    const args = newMessage.content.split(' ').slice(1);
+    const command = newMessage.content.split(" ")[0].slice(prefix.length);
+    const args = newMessage.content.split(" ").slice(1);
 
     const cmd = client.commands.get(command) || client.commands.get(client.aliases.get(command));
     if (!cmd) return;
@@ -54,14 +54,14 @@ module.exports = async (client, oldMessage, newMessage) => {
     }
     setTimeout(() => tStamps.delete(newMessage.author.id), cdAmount)
     //Cooldown
-    if (cmd.help.category.toLowerCase() === 'owner' && !client.config.owner.includes(newMessage.author.id)) return newMessage.channel.send('Vous devez etre dévellopeur du bot');
+    if (cmd.help.category.toLowerCase() === "owner" && !client.config.owner.includes(newMessage.author.id)) return newMessage.channel.send("Vous devez etre dévellopeur du bot");
 
     cmd.setMessage(newMessage);
 
     try {
         cmd.run(newMessage, args, guildData);
     } catch (e) {
-        client.emit('error', e.stack, newMessage.channel)
+        client.emit("error", e.stack, newMessage.channel)
     }
 
     if (cmd.conf.cooldown > 0) cmd.startCooldown(newMessage.author.id);
@@ -71,7 +71,7 @@ module.exports = async (client, oldMessage, newMessage) => {
         return new Promise(async (resolve) => {
             const {
                 Guild
-            } = require('../../models/index');
+            } = require("../../models/index");
             let data = await client.dbmanager.getGuild(guild);
             if (!data) {
                 const merged = Object.assign({

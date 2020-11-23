@@ -6,7 +6,7 @@ module.exports = {
     lockChannel(guild) {
         return new Promise((resolve, reject) => {
             let id = guild.roles.everyone.id;
-            for (const channel of guild.channels.cache.filter(c => c.type !== 'category').array()) {
+            for (const channel of guild.channels.cache.filter(c => c.type !== "category").array()) {
                 channel.updateOverwrite(id, {
                     SEND_MESSAGES: false
 
@@ -18,9 +18,9 @@ module.exports = {
     unlockChannel(guild) {
         return new Promise((resolve, reject) => {
             let id = guild.roles.everyone.id;
-            for (const channel of guild.channels.cache.filter(c => c.type !== 'category').array()) {
+            for (const channel of guild.channels.cache.filter(c => c.type !== "category").array()) {
                 channel.updateOverwrite(id, {
-                    'SEND_MESSAGES': null
+                    "SEND_MESSAGES": null
 
                 })
             }
@@ -68,12 +68,12 @@ module.exports = {
     },
 
     banAction(user, content) {
-        let reason = 'Spam/raid avec le message "' + content + '"';
+        let reason = "Spam/raid avec le message " + content + "";
         user.ban(reason)
     },
 
     kickAction(user, content) {
-        let reason = 'Spam/raid avec le message "' + content + '"';
+        let reason = "Spam/raid avec le message " + content + "";
         user.kick(reason)
     },
 

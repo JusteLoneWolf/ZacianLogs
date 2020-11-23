@@ -1,4 +1,4 @@
-<%- include('helpers/header.ejs', {bot, user, path}) %>
+<%- include("helpers/header.ejs", {bot, user, path}) %>
 <% const help = {};
 bot.commands.forEach((command) => { const cat = command.help.category;;if
 (!help.hasOwnProperty(cat)) help[cat] = []; help[cat].push(command); }); %> <%
@@ -6,7 +6,7 @@ for (const category in help) { %>
     <h3 class="cmd-title"><%= category %></h3>
     <br />
     <% for (const command of help[category]) { %>
-        <div class="card">
+        <div class="card'>
             <header class="card-header">
                 <p class="card-header-title"><%= command.help.name %>
                 <a href="#" class="card-header-icon" aria-label="more options">
@@ -17,9 +17,9 @@ for (const category in help) { %>
                     <strong>Description:</strong> <%= command.help.description %><br />
                     <strong>Permission:</strong> <%= command.help.exemple %><br />
                     <strong>Utilisation:</strong> <%= command.help.usage %><br />
-                    <strong>Aliases:</strong> <%= `${command.conf.aliases.join(', ')}` %><br />
+                    <strong>Aliases:</strong> <%= `${command.conf.aliases.join(", ")}` %><br />
                 </div>
             </div>
         </div>
     <% } %><% } %>
-<%- include('helpers/footers.ejs') %>
+<%- include("helpers/footers.ejs") %>

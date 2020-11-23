@@ -8,7 +8,7 @@ const {
     Logger = require("../Utils/Logger"),
     Utils = require("../Utils/utils"),
     DatabaseManager = require("../Utils/DatabaseManager"),
-    TwitClient = require('./TwitClient')
+    TwitClient = require("./TwitClient")
 
 class ZacianBot extends Client {
     constructor(options) {
@@ -28,12 +28,12 @@ class ZacianBot extends Client {
         this._commandLoader();
         this._eventLoader();
         this._connect().then(() => {
-            console.log('Bot pret a l\'emploit')
+            console.log("Bot pret a l\"emploit")
         });
     }
 
     _connect = async () => {
-        require('../Utils/mongoose').init().then(() => {
+        require("../Utils/mongoose").init().then(() => {
             if (!this.option.config.token) throw new Error("Token du bot introuvable dans option.js veuillez verifier le fichier .env ou le README.md");
             return super.login(this.option.config.token)
         })
@@ -56,7 +56,7 @@ class ZacianBot extends Client {
                             command.conf.aliases.forEach(a => this.aliases.set(a, command.help.name));
                             this.logger.info(`[Client] ${com} chargé`)
                         } catch (e) {
-                            this.emit("error", `[Client] ${com} n"a pas chargé ${e.message}`)
+                            this.emit("error", `[Client] ${com} n"a pas chargé \n${e.stack}`)
                         }
                     }
 

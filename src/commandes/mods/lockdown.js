@@ -4,7 +4,7 @@ const {
 } = require("../../Utils/Constant/CommandeHelper");
 const {
     lockChannel
-} = require('../../modules/antiraid')
+} = require("../../modules/antiraid")
 class Lockdown extends Command {
     constructor(client) {
         super(client, HELPER.COMMANDS.MOD.LOCKDOWN);

@@ -28,7 +28,7 @@ class Checkuser extends Command {
               if(user.user.presence.activities.length !== 0){
                   for(const activity of user.user.presence.activities){
                       if(/(discord\.(gg|io|me|li)\/.+|discordapp\.com\/invite\/.+)/i.test(activity.name)){
-                          console.log('content')
+                          console.log("content")
                       }
                   }
               }

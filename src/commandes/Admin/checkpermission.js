@@ -10,7 +10,7 @@ class Checkpermission extends Command {
     }
 
     run(message) {
-        let permMessage = '';
+        let permMessage = "";
         message.guild.channels.cache.filter(channel => channel.type === "text").map(channel => {
             permMessage += `${channel.name} =>`;
             if (channel.permissionsFor(this.client.user).has("SEND_MESSAGES")) {

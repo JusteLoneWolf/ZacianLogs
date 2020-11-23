@@ -11,17 +11,17 @@ class Poll extends Command {
 
     async run(message, args) {
 
-        const slipAws = args.join(' ').split('/')
+        const slipAws = args.join(" ").split("/")
 
-        if (!slipAws) return message.channel.send('Vous devez inclure un question')
-        if (!slipAws[1].split('|')) return message.channel.send('Vous devez inclure une a 10 reponse')
-        const emote = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟']
+        if (!slipAws) return message.channel.send("Vous devez inclure un question")
+        if (!slipAws[1].split("|")) return message.channel.send("Vous devez inclure une a 10 reponse")
+        const emote = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟"]
         let question = []
-        for (let i = 0; i < slipAws[1].split('|').length; i++) {
+        for (let i = 0; i < slipAws[1].split("|").length; i++) {
             if (i < emote.length) {
-                if (slipAws[1].split('|')[i]) {
+                if (slipAws[1].split("|")[i]) {
 
-                    question.push(`${emote[i]} ${slipAws[1].split('|')[i]}`)
+                    question.push(`${emote[i]} ${slipAws[1].split("|")[i]}`)
                 }
             }
         }
@@ -29,13 +29,13 @@ class Poll extends Command {
         message.channel.send({
             embed: {
                 title: "Sondage",
-                description: slipAws[0] + '\n' + question.join('\n'),
+                description: slipAws[0] + "\n" + question.join("\n"),
                 fields: []
             }
         }).then((msg) => {
-            for (let i = 0; i < slipAws[1].split('|').length; i++) {
+            for (let i = 0; i < slipAws[1].split("|").length; i++) {
                 if (i < emote.length) {
-                    if (slipAws[1].split('|')[i]) {
+                    if (slipAws[1].split("|")[i]) {
                         msg.react(emote[i])
                     }
                 }

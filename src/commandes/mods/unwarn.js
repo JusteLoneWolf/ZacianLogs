@@ -33,7 +33,7 @@ class UnWarn extends Command {
             }
         }
         message.channel.send(`Le warn ${args[1]} a etait supprime\nRaison du warn: ${db.warns[mention.user.id][args[1]-1].raison}`);
-        this.client.emit('warnDelete', message, mention, db, args);
+        this.client.emit("warnDelete", message, mention, db, args);
         db.warns[mention.user.id] = newWarn;
 
         await this.client.dbmanager.updateGuild(message.guild, {

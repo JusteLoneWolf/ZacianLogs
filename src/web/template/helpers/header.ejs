@@ -14,7 +14,7 @@
     <title><%= bot.user.username %></title>
     <script>
         jQuery(document).ready(function($) {
-            $('.bold').counterUp({
+            $(".bold").counterUp({
                 delay: 10,
                 time: 1000,
             });
@@ -27,8 +27,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
 
 <nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-        <a class="navbar-item" href="/"> <img src="<%= bot.user.avatarURL() %>" class="img-brand" width="30" heigth="30" />
+    <div class="navbar-brand'>
+        <a class="navbar-item" href="/"> <img src="<%= bot.user.avatarURL() %>" class="img-brand' width="30" heigth="30" />
             <%= bot.user.username %>
         </a>
         <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -49,7 +49,7 @@
                 <div class="one"></div>
 
                 <div class="two">
-                    <p class="bold"><%=
+                    <p class="bold'><%=
                         bot.guilds.cache.size%> serveurs
                         </p>
                 </div>

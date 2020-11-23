@@ -8,7 +8,7 @@ Une description de votre bug
 
 2./ executer ...
 
-3./ L'erreur apparait
+3./ l'erreur apparait
 
 **Code/Erreur**
 

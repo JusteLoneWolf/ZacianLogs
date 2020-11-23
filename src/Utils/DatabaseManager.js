@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const {
     Guild
-} = require('../models/index');
+} = require("../models/index");
 
 class DatabaseManager {
     constructor(client) {

@@ -27,15 +27,15 @@ class ListWarn extends Command {
         message.channel.send({
             embed: {
                 title: `Warns de ${mention.user.username}`,
-                description: warnlist.join('\n')
+                description: warnlist.join("\n")
             }
         }).then(msg => {
-            msg.react('◀').then(() => {
-                msg.react('❌').then(() => {
-                    msg.react('▶').then(() => {
-                        const backF = (reaction, user) => reaction.emoji.name === '◀' && user.id === message.author.id;
-                        const forF = (reaction, user) => reaction.emoji.name === '▶' && user.id === message.author.id;
-                        const delF = (reaction, user) => reaction.emoji.name === '❌' && user.id === message.author.id;
+            msg.react("◀").then(() => {
+                msg.react("❌").then(() => {
+                    msg.react("▶").then(() => {
+                        const backF = (reaction, user) => reaction.emoji.name === "◀" && user.id === message.author.id;
+                        const forF = (reaction, user) => reaction.emoji.name === "▶" && user.id === message.author.id;
+                        const delF = (reaction, user) => reaction.emoji.name === "❌" && user.id === message.author.id;
                         const del = msg.createReactionCollector(delF, {
                             time: 180000
                         });
@@ -46,7 +46,7 @@ class ListWarn extends Command {
                             time: 180000
                         });
 
-                        back.on('collect', async r => {
+                        back.on("collect", async r => {
                             let x = i - 5;
                             if (x <= 0) return;
                             i -= 10;
@@ -62,12 +62,12 @@ class ListWarn extends Command {
                             await msg.edit({
                                 embed: {
                                     title: `Warns de ${mention.user.username}`,
-                                    description: warnlist.join('\n')
+                                    description: warnlist.join("\n")
                                 }
                             });
                             await r.users.remove(message.author.id)
                         });
-                        forw.on('collect', async r => {
+                        forw.on("collect", async r => {
                             if (i >= mapwarn.length - 1) return;
 
                             let t = i + 5;
@@ -82,7 +82,7 @@ class ListWarn extends Command {
                             await msg.edit({
                                 embed: {
                                     title: `Warns de ${mention.user.username}`,
-                                    description: warn.join('\n')
+                                    description: warn.join("\n")
                                 }
                             });
 
@@ -90,7 +90,7 @@ class ListWarn extends Command {
 
 
                         });
-                        del.on('collect', async () => {
+                        del.on("collect", async () => {
                             await msg.edit({
                                 embed: {
                                     description: "La liste de warn a etait supprimé"

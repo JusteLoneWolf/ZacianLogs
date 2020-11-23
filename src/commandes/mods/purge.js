@@ -41,11 +41,11 @@ class Purge extends Command {
         function purge(message, client) {
 
             message.channel.send("Collecte des messages...").then(top => {
-                let args = message.content.split(' ').slice(1);
+                let args = message.content.split(" ").slice(1);
                 let num = args[1] || false;
 
                 if (!num) num = 10;
-                if (isNaN(num)) return message.send(`Ce n'est pas un nombre valide`);
+                if (isNaN(num)) return message.send(`Ce n"est pas un nombre valide`);
                 if (num < 2) num = 2;
                 if (num > 100) num = 100;
 

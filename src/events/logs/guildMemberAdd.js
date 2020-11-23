@@ -1,13 +1,13 @@
 module.exports = async (client, member) => {
 
-    if (!member.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS", "MANAGE_CHANNELS", "MANAGE_GUILD"], true)) return;
+    if (!member.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS", "MANAGE_CHANNELS", "MANAGE_GUILd"], true)) return;
 
 
     let db = await client.dbmanager.getGuild(member.guild);
     if (!db) return;
     if (db.members[member.id]) {
         if (db.members[member.id].mute) {
-            let role = member.guild.roles.cache.find(r => r.name === 'Mute' || r.id === db.settings.roles.mute);
+            let role = member.guild.roles.cache.find(r => r.name === "Mute" || r.id === db.settings.roles.mute);
             if (!role) {
                 member.guild.role.create({
                     name: "Muted",

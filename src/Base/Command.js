@@ -7,7 +7,7 @@
                 usage: options.usage ? `${client.config.prefix}${options.usage}` : "",
                 category: options.category || "Information",
                 exemple: options.exemple || "Pas d'exemple",
-                args: options.args || "Pas d\'argument complexe"
+                args: options.args || "Pas d\"argument complexe"
             };
             this.conf = {
                 permLevel: options.permLevel || 0,

@@ -19,9 +19,9 @@ module.exports = (client, error, message, cmd) => {
     if (process.env.WHLOG.length !== 0) {
         const {
             WebhookClient
-        } = require('discord.js');
-        const log = new WebhookClient('717677164836814888', process.env.WHLOG);
-        return log.send(` ${cmd ? `La commande ${cmd.help.name} a une erreur \n` : ''}\`\`\`js\n${error}\`\`\``)
+        } = require("discord.js");
+        const log = new WebhookClient("717677164836814888", process.env.WHLOG);
+        return log.send(` ${cmd ? `La commande ${cmd.help.name} a une erreur \n` : ""}\`\`\`js\n${error}\`\`\``)
     }
-    console.log(` ${cmd ? `La commande ${cmd.help.name} a une erreur \n` : ''}Une erreur est survenue\n${error}`)
+    console.log(` ${cmd ? `La commande ${cmd.help.name} a une erreur \n` : ""}Une erreur est survenue\n${error}`)
 };

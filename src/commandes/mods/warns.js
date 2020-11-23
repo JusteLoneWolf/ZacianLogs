@@ -2,7 +2,7 @@ const Command = require("../../Base/Command");
 const {
     HELPER
 } = require("../../Utils/Constant/CommandeHelper");
-const moment = require('moment');
+const moment = require("moment");
 class Warn extends Command {
     constructor(client) {
         super(client, HELPER.COMMANDS.MOD.WARN);
@@ -22,7 +22,7 @@ class Warn extends Command {
         }
         let newWarn = {
             raison: reason,
-            time: moment.utc(Date.now()).format('DD/MM/YYYY HH:mm:ss')
+            time: moment.utc(Date.now()).format("DD/MM/YYYY HH:mm:ss")
         };
         db.warns[mention.id].push(newWarn);
 

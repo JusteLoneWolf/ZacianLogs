@@ -44,7 +44,7 @@ class Help extends Command {
                 command = this.client.commands.get(this.client.aliases.get(command));
             }
             if (!command.conf) return message.channel.send("Cette commande n'existe pas");
-            let subcmdInfo = ''
+            let subcmdInfo = ""
 
             for (let test of command.help.args) {
                 subcmdInfo += `**Description** ${test.description}\n${test.arg}\n\n**Exemple** ${test.usage}}\n\n`
@@ -55,31 +55,31 @@ class Help extends Command {
                 embed: {
                     title: `Page d'aide de ${command.help.name}`,
                     fields: [{
-                            name: 'Description',
+                            name: "Description",
                             value: command.help.description
                         },
                         {
-                            name: 'Usage',
+                            name: "Usage",
                             value: command.help.usage
                         },
                         {
-                            name: 'Aliase',
-                            value: command.conf.aliases.join(', ')
+                            name: "Aliase",
+                            value: command.conf.aliases.join(", ")
                         },
                         {
-                            name: 'Exemple',
+                            name: "Exemple",
                             value: command.help.exemple
                         }
                     ]
 
                 }
             }).then(msg => {
-                msg.react('◀').then(() => {
-                    msg.react('❌').then(() => {
-                        msg.react('▶').then(() => {
-                            const backF = (reaction, user) => reaction.emoji.name === '◀' && user.id === message.author.id;
-                            const forF = (reaction, user) => reaction.emoji.name === '▶' && user.id === message.author.id;
-                            const delF = (reaction, user) => reaction.emoji.name === '❌' && user.id === message.author.id;
+                msg.react("◀").then(() => {
+                    msg.react("❌").then(() => {
+                        msg.react("▶").then(() => {
+                            const backF = (reaction, user) => reaction.emoji.name === "◀" && user.id === message.author.id;
+                            const forF = (reaction, user) => reaction.emoji.name === "▶" && user.id === message.author.id;
+                            const delF = (reaction, user) => reaction.emoji.name === "❌" && user.id === message.author.id;
                             const del = msg.createReactionCollector(delF, {
                                 time: 180000
                             });
@@ -90,26 +90,26 @@ class Help extends Command {
                                 time: 180000
                             });
 
-                            back.on('collect', async r => {
+                            back.on("collect", async r => {
                                 if (page === 1) return r.users.remove(message.author.id)
                                 page = 1
                                 await msg.edit({
                                     embed: {
                                         title: `Page d'aide de ${command.help.name}`,
                                         fields: [{
-                                                name: 'Description',
+                                                name: "Description",
                                                 value: command.help.description
                                             },
                                             {
-                                                name: 'Usage',
+                                                name: "Usage",
                                                 value: command.help.usage
                                             },
                                             {
-                                                name: 'Aliase',
-                                                value: command.conf.aliases.join(', ')
+                                                name: "Aliase",
+                                                value: command.conf.aliases.join(", ")
                                             },
                                             {
-                                                name: 'Exemple',
+                                                name: "Exemple",
                                                 value: command.help.exemple
                                             }
                                         ]
@@ -119,7 +119,7 @@ class Help extends Command {
                                 await r.users.remove(message.author.id)
                             });
 
-                            forw.on('collect', async r => {
+                            forw.on("collect", async r => {
 
                                 if (page === 2) return r.users.remove(message.author.id)
                                 page = 2

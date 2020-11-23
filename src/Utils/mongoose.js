@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
 const {
     DBconnection
-} = require('../../option');
-const Log = require('../Utils/Logger')
+} = require("../../option");
+const Log = require("../Utils/Logger")
 const Logger = new Log()
 
 module.exports = {
     init: async () => {
-        if (!DBconnection) throw new Error('Connection a mongoDB impossible (manque l\'url de connection dans le fichier opton.js) veuillez verifier le fichier .env ou le README.md')
+        if (!DBconnection) throw new Error("Connection a mongoDB impossible (manque l\"url de connection dans le fichier opton.js) veuillez verifier le fichier .env ou le README.md")
         const mongOptions = {
             useNewUrlParser: true,
             useUnifiedTopology: true,

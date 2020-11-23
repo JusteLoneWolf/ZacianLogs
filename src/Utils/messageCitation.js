@@ -1,7 +1,7 @@
 module.exports = async (client, message) => {
 
-    if (!message.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS", "MANAGE_CHANNELS", "MANAGE_GUILD"], true)) return;
-    const urlRegex = require('url-regex');
+    if (!message.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS", "MANAGE_CHANNELS", "MANAGE_GUILd"], true)) return;
+    const urlRegex = require("url-regex");
     let url = message.content.match(urlRegex());
     if (!url) return;
     let scrapedURL = url[0].split("/");
@@ -21,7 +21,7 @@ module.exports = async (client, message) => {
             return message.channel.send({
                 embed: {
                     title: `Message de ${msg.author.username}`,
-                    description: `[Le message](${url[0]})\n${msg.embeds[0] ? msg.embeds[0].description.length !== 0 ? msg.embeds[0].description : 'Pas de description' : msg.content}`,
+                    description: `[Le message](${url[0]})\n${msg.embeds[0] ? msg.embeds[0].description.length !== 0 ? msg.embeds[0].description : "Pas de description" : msg.content}`,
                     fields: data,
                 },
 

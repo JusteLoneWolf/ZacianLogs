@@ -2,7 +2,7 @@ const Command = require("../../Base/Command");
 const {
     HELPER
 } = require("../../Utils/Constant/CommandeHelper");
-const moment = require('moment');
+const moment = require("moment");
 
 class Mute extends Command {
     constructor(client) {
@@ -14,7 +14,7 @@ class Mute extends Command {
     async run(message, args, guildData) {
         let member = message.mentions.members.first();
         if (!this.client.utils.resolveUser(message, member, HELPER.COMMANDS.MOD.MUTE.permission)) return;
-        let role = message.guild.roles.cache.find(r => r.name === 'Mute' || r.id === guildData.settings.roles ? guildData.settings.roles.mute : false);
+        let role = message.guild.roles.cache.find(r => r.name === "Mute" || r.id === guildData.settings.roles ? guildData.settings.roles.mute : false);
         let reason = args.slice(1).join(" ") || "Aucune raison donnée";
 
         if (!role) {
@@ -58,7 +58,7 @@ class Mute extends Command {
                 }
             };
             let muteData = {
-                startAt: moment.utc(Date.now()).format('DD/MM/YYYY HH:mm:ss'),
+                startAt: moment.utc(Date.now()).format("DD/MM/YYYY HH:mm:ss"),
                 endAt: null,
                 reason: reason
             };

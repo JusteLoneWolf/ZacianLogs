@@ -35,15 +35,15 @@ module.exports = async client => {
 
     dashboard.use(passport.initialize());
     dashboard.use(passport.session());
-    dashboard.engine("html", require("ejs").renderFile);
-    dashboard.set("view engine", "html");
+    dashboard.engine("html', require("ejs").renderFile);
+    dashboard.set("view engine", "html');
 
     const renderTemplate = (res, req, template, data = {}) => {
         const baseData = {
             bot: client,
             path: req.path,
             user: req.isAuthenticated() ? req.user : null,
-            moment: require('moment')
+            moment: require("moment")
         };
         res.render(
             path.resolve(`${templateDir}${path.sep}${template}`),

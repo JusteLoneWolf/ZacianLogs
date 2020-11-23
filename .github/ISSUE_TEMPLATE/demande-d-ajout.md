@@ -3,11 +3,11 @@ name: Demande d'ajout
 
 about: Template d'ajout
 
-title: ''
+title: ""
 
-labels: ''
+labels: ""
 
-assignees: ''
+assignees: ""
 
 
 ---

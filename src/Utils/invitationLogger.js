@@ -1,6 +1,6 @@
 module.exports = async (client, message) => {
 
-    if (!message.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS", "MANAGE_CHANNELS", "MANAGE_GUILD"], true)) return;
+    if (!message.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS", "MANAGE_CHANNELS", "MANAGE_GUILd"], true)) return;
 
     let db = await client.dbmanager.getGuild(message.guild);
     if (!db) return;
@@ -8,7 +8,7 @@ module.exports = async (client, message) => {
     if (!channel) return;
 
     if (message.content.match(/(discord\.gg|discord\.com\/invite)\/.+/)) {
-        for (const invitation of message.content.split(' ')) {
+        for (const invitation of message.content.split(" ")) {
             if (message.content.match(/(discord\.gg|discord\.com\/invite)\/.+/)) {
                 client.fetchInvite(invitation).then(invite => {
                     return channel.send({
@@ -25,10 +25,10 @@ module.exports = async (client, message) => {
                                 },
                                 {
                                     name: "Nom du createur de l'invitation",
-                                    value: invite.inviter ? invite.inviter.username : 'Pas trouvé'
+                                    value: invite.inviter ? invite.inviter.username : "Pas trouvé"
                                 },
                                 {
-                                    name: "L'invitation",
+                                    name: "l'invitation",
                                     value: invitation
                                 }
                             ]

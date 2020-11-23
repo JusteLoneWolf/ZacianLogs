@@ -1,5 +1,5 @@
 if (process.env.CTOKEN.length !== 0 || process.env.CSECRETTOKEN.length !== 0 || process.env.ATOKEN.length !== 0 || process.env.ASECRET.length !== 0) {
-    const Twit = require('twit');
+    const Twit = require("twit");
     const Client = new Twit(require("../../option").twit);
     const Logger = require("../Utils/Logger");
 
@@ -13,7 +13,7 @@ if (process.env.CTOKEN.length !== 0 || process.env.CSECRETTOKEN.length !== 0 || 
             if (!message) return;
             return new Promise(async (resolve, reject) => {
                 try {
-                    Client.post('statuses/update', {
+                    Client.post("statuses/update", {
                         status: message
                     }, function(err, data, response) {
                         resolve(data)
@@ -28,7 +28,7 @@ if (process.env.CTOKEN.length !== 0 || process.env.CSECRETTOKEN.length !== 0 || 
             if (!id) return;
             return new Promise(async (resolve, reject) => {
                 try {
-                    Client.get('statuses/user_timeline/:id', {
+                    Client.get("statuses/user_timeline/:id", {
                         id: id
                     }, function(err, data, response) {
                         resolve(data)
@@ -43,7 +43,7 @@ if (process.env.CTOKEN.length !== 0 || process.env.CSECRETTOKEN.length !== 0 || 
             if (!id) return;
             return new Promise(async (resolve, reject) => {
                 try {
-                    Client.post('statuses/destroy/:id', {
+                    Client.post("statuses/destroy/:id", {
                         id: id
                     }, function(err, data, response) {
                         resolve(data)
