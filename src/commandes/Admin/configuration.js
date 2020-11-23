@@ -12,6 +12,7 @@ class Configuration extends Command {
     async run(message, args, guildData) {
         let text = ""
         if (!message.member.permissions.has("MANAGE_GUILD", true)) return message.channel.send("Tu n\"as pas la permission `GERER LE SERVER` ou `ADMINISTRATOR`");
+
         async function makeMessage(text, client) {
             let db = await client.dbmanager.getGuild(message.guild);
 
@@ -22,6 +23,7 @@ class Configuration extends Command {
             text += !db.settings.welcome.autorole ? `\n:warning: Il manque un role pour les personne verifier \`${db.prefix}configuration set welcome autorole <nom du role>\`` : "";
             message.channel.send(text)
         }
+
         async function setCapchat(client) {
             let db = await client.dbmanager.getGuild(message.guild);
             let channels = message.guild.channels.cache.find(c => c.id === db.settings.welcome.capchat.channel);
@@ -44,30 +46,16 @@ class Configuration extends Command {
 
 
         switch (args[0]) {
-            case undefined:
-                return message.channel.send({
-                    embed: {
-                        title: "Mauvais Argument",
-                        fields: [{
-                                name: "❱ Utilisation",
-                                value: this.help.usage
-                            },
-                            {
-                                name: "❱ Exemple",
-                                value: this.help.exemple
-                            }
-                        ]
-                    }
-                });
+
             case "set":
                 if (!args[1] || args[1] !== "logs" && args[1] !== "ignorerole" && args[1] !== "blacklistwords" && args[1] !== "prefix" && args[1] !== "capchat" && args[1] !== "welcome") {
                     return message.channel.send({
                         embed: {
                             title: "Mauvais Argument",
                             fields: [{
-                                    name: "❱ Utilisation",
-                                    value: this.help.usage
-                                },
+                                name: "❱ Utilisation",
+                                value: this.help.usage
+                            },
                                 {
                                     name: "❱ Exemple",
                                     value: this.help.exemple
@@ -77,15 +65,14 @@ class Configuration extends Command {
                     })
                 }
                 switch (args[1]) {
-
-                    case undefined:
+                    default:
                         return message.channel.send({
                             embed: {
                                 description: "Aide de la commande configuration",
                                 fields: [{
-                                        name: "Paramettre",
-                                        value: "capchat/logs/welcome/ignorerole/blacklistwords/prefix"
-                                    },
+                                    name: "Paramettre",
+                                    value: "capchat/logs/welcome/ignorerole/blacklistwords/prefix"
+                                },
                                     {
                                         name: "Exemple",
                                         value: `${guildData.prefix}configuration set capchat <unverifiedrole/channel/enabled> <nom du role/mention du role/nom du channel/mention du channel>\n` +
@@ -124,6 +111,16 @@ class Configuration extends Command {
                                 await makeMessage(text, this.client);
                                 await setCapchat(this.client);
                                 break;
+                            case "disabled":
+                                guildData.settings.welcome.capchat.enabled = false;
+                                await this.client.dbmanager.updateGuild(message.guild, {
+                                    settings: guildData.settings
+                                });
+                                text = text + "Le capchat est désactivé\n";
+                                await makeMessage(text, this.client);
+                                await setCapchat(this.client);
+                                break;
+
                             case "unverifiedrole":
                                 let roles = message.mentions.roles.first() ? message.mentions.roles.first() : args.slice(3) ? args.slice(3).join(" ").toLowerCase() : false;
                                 roles = message.mentions.roles.first() ? roles.name : args.slice(3).join(" ").toLowerCase();
@@ -152,19 +149,19 @@ class Configuration extends Command {
                                 await makeMessage(text, this.client);
                                 await setCapchat(this.client);
                                 break;
-                            case undefined:
+                            default:
                                 return message.channel.send({
                                     embed: {
                                         description: "Aide de la commande capchat",
                                         fields: [{
-                                                name: "Paramettre",
-                                                value: "unverifiedrole\nenabled\nchannel"
-                                            },
+                                            name: "Paramettre",
+                                            value: "unverifiedrole\nenabled\nchannel"
+                                        },
                                             {
                                                 name: "Exemple",
                                                 value: `${guildData.prefix}configuration set capchat unverifiedrole <nom du role/mention du role>\n` +
                                                     `${guildData.prefix}configuration set capchat channel <nom du channel/mention du channel>\n` +
-                                                    `${guildData.prefix}configuration set capchat enabled`
+                                                    `${guildData.prefix}configuration set capchat enabled\n${guildData.prefix}configuration set capchat disabled`
                                             }
                                         ]
                                     }
@@ -182,6 +179,15 @@ class Configuration extends Command {
                                 });
                                 await makeMessage(text, this.client);
                                 break;
+                            case "disabled":
+                                text = text + "Le system de bienvenue est désactivé\n";
+
+                                guildData.settings.welcome.enabled = false;
+                                await this.client.dbmanager.updateGuild(message.guild, {
+                                    settings: guildData.settings
+                                });
+                                await makeMessage(text, this.client);
+                                break;
                             case "autorole":
                                 let roles = message.mentions.roles.first() ? message.mentions.roles.first() : args.slice(3) ? args.slice(3).join(" ").toLowerCase() : false;
                                 roles = message.mentions.roles.first() ? roles.name : args.slice(3).join(" ").toLowerCase();
@@ -194,18 +200,18 @@ class Configuration extends Command {
                                 text = text + `l'autorole est sur ${roles.name}\n`;
                                 await makeMessage(text, this.client);
                                 break;
-                            case undefined:
+                            default:
                                 return message.channel.send({
                                     embed: {
                                         description: "Aide de la commande welcome",
                                         fields: [{
-                                                name: "Paramettre",
-                                                value: "enabled\nautorole"
-                                            },
+                                            name: "Paramettre",
+                                            value: "enabled\nautorole"
+                                        },
                                             {
                                                 name: "Exemple",
                                                 value: `${guildData.prefix}configuration set welcome autorole <nom du role/mention du role>\n` +
-                                                    `${guildData.prefix}configuration set welcome enabled`
+                                                    `${guildData.prefix}configuration set welcome enabled ` + `${guildData.prefix}configuration set welcome disabled`
                                             }
                                         ]
                                     }
@@ -225,7 +231,6 @@ class Configuration extends Command {
                         });
                         message.channel.send(`Le role ${roles.name} est maintenant ignoré`);
                         break;
-
                     case "blacklistwords":
                         switch (args[2]) {
                             case "on":
@@ -234,33 +239,41 @@ class Configuration extends Command {
                                     badwords: guildData.badwords
                                 });
                                 return message.channel.send(`La blacklist word est activé`);
-                        }
-                        if (!args[2]) {
-                            return message.channel.send({
-                                embed: {
-                                    description: "Aide de la commande configuration du badword",
-                                    fields: [{
-                                            name: "Paramettre",
-                                            value: "on/mot ou phrase"
-                                        },
-                                        {
-                                            name: "Exemple",
-                                            value: `${guildData.prefix}configuration set blacklistwords on\n` +
-                                                `${guildData.prefix}configuration set blacklistwords mot ou phrase\n`
+                            case "off":
+                                guildData.badwords.active = true;
+                                await this.client.dbmanager.updateGuild(message.guild, {
+                                    badwords: guildData.badwords
+                                });
+                                return message.channel.send(`La blacklist word est désactivé`);
+                            default:
+                                if (!args[2]) {
+                                    return message.channel.send({
+                                        embed: {
+                                            description: "Aide de la commande configuration du badword",
+                                            fields: [{
+                                                name: "Paramettre",
+                                                value: "on/mot ou phrase"
+                                            },
+                                                {
+                                                    name: "Exemple",
+                                                    value: `${guildData.prefix}configuration set blacklistwords on\n` +
+                                                        `${guildData.prefix}configuration set blacklistwords mot ou phrase\n` +
+                                                        `${guildData.prefix}configuration set blacklistwords off`
 
+                                                }
+                                            ]
                                         }
-                                    ]
+                                    })
                                 }
-                            })
+                                let words = args.slice(2).join(" ");
+                                if (guildData.badwords.list.includes(words)) return message.channel.send(`Le mot ${words} est déja listé`);
+                                guildData.badwords.list.push(words);
+                                await this.client.dbmanager.updateGuild(message.guild, {
+                                    badwords: guildData.badwords
+                                });
+                                message.channel.send(`Le mot ${words} est blacklist`);
+                                break;
                         }
-                        let words = args.slice(2).join(" ");
-                        if (guildData.badwords.list.includes(words)) return message.channel.send(`Le mot ${words} est déja listé`);
-                        guildData.badwords.list.push(words);
-                        await this.client.dbmanager.updateGuild(message.guild, {
-                            badwords: guildData.badwords
-                        });
-                        message.channel.send(`Le mot ${words} est blacklist`);
-                        break;
                     case "prefix":
                         if (!args.slice(2).toString()) return message.channel.send("Merci de definir un prefix");
                         if (args.slice(2).join(" ").length >= 3) return message.channel.send(`Le prefix doit avoir moins de  **3** characters`);
@@ -278,9 +291,9 @@ class Configuration extends Command {
                         embed: {
                             title: "Mauvais Argument",
                             fields: [{
-                                    name: "❱ Utilisation",
-                                    value: this.help.usage
-                                },
+                                name: "❱ Utilisation",
+                                value: this.help.usage
+                            },
                                 {
                                     name: "❱ Exemple",
                                     value: this.help.exemple
@@ -326,7 +339,7 @@ class Configuration extends Command {
                             badwords: guildData.badwords
                         });
 
-                        message.channel.send(`Le mot ${words} n"est plus blacklist`);
+                        message.channel.send(`Le mot ${words} n"est plus blacklist Development `);
                         break;
                 }
                 break;
@@ -336,9 +349,9 @@ class Configuration extends Command {
                     embed: {
                         title: "Configuration du bot",
                         fields: [{
-                                name: "❱ Channel de logs",
-                                value: message.guild.channels.cache.get(guildData.channels.log) ? message.guild.channels.cache.get(guildData.channels.log) : "Pas de channel"
-                            },
+                            name: "❱ Channel de logs",
+                            value: message.guild.channels.cache.get(guildData.channels.log) ? message.guild.channels.cache.get(guildData.channels.log) : "Pas de channel"
+                        },
                             {
                                 name: "❱ Systeme mauvais mot",
                                 value: guildData.badwords.active ? "Activé" : "Désactivé"
@@ -353,7 +366,7 @@ class Configuration extends Command {
                             },
                             {
                                 name: "❱ Capchat",
-                                value: `Channel: ${message.guild.channels.cache.get(guildData.settings.welcome.capchat.channel)? message.guild.channels.cache.get(guildData.settings.welcome.capchat.channel).name : "Pas de channel"}\nRole: ${message.guild.roles.cache.get(guildData.settings.welcome.capchat.unverifiedRole) ? message.guild.roles.cache.get(guildData.settings.welcome.capchat.unverifiedRole).name : "Pas de role"}`
+                                value: `Channel: ${message.guild.channels.cache.get(guildData.settings.welcome.capchat.channel) ? message.guild.channels.cache.get(guildData.settings.welcome.capchat.channel).name : "Pas de channel"}\nRole: ${message.guild.roles.cache.get(guildData.settings.welcome.capchat.unverifiedRole) ? message.guild.roles.cache.get(guildData.settings.welcome.capchat.unverifiedRole).name : "Pas de role"}`
                             },
                             {
                                 name: "❱ Autorole",
@@ -366,6 +379,21 @@ class Configuration extends Command {
                         ]
                     }
                 })
+            default:
+                return message.channel.send({
+                    embed: {
+                        title: "Mauvais Argument",
+                        fields: [{
+                            name: "❱ Utilisation",
+                            value: this.help.usage
+                        },
+                            {
+                                name: "❱ Exemple",
+                                value: this.help.exemple
+                            }
+                        ]
+                    }
+                });
         }
     }
 }
