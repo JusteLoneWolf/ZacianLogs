@@ -224,6 +224,16 @@ const HELPER = {
                 permission: "BAN_MEMBERS",
                 category:"Modération",
                 mention:true
+            },
+            POLL: {
+                name:"poll",
+                description:"Débloque tous les channels",
+                usage:"poll <time> <raison>",
+                cooldowns:10000,
+                aliases:["ulc"],
+                permission: "BAN_MEMBERS",
+                category:"Modération",
+                mention:true
             }
         },
         ADMIN:{
