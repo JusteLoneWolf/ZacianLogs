@@ -10,7 +10,7 @@ module.exports = async (client, invite) => {
     const moment = require("moment");
     require("moment-duration-format");
     moment.locale("fr");
-    client.utils.fetchInvite(invite.guild, client.guildDB).then(async () => {
+    client.utils.fetchInvite(client,invite.guild,db).then(async () => {
 
 
         const aLogFound = await invite.guild.fetchAuditLogs({
