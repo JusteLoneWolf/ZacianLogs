@@ -2,7 +2,9 @@ const moment = require("moment");
 moment.locale("fr");
 
 const Command = require("../../Base/Command");
-const {HELPER } = require("../../Utils/Constant/CommandeHelper");
+const {
+    HELPER
+} = require("../../Utils/Constant/CommandeHelper");
 class Botinfo extends Command {
     constructor(client) {
         super(client, HELPER.COMMANDS.INFO.BOTINFO);
@@ -12,15 +14,14 @@ class Botinfo extends Command {
 
     run(message) {
         return message.channel.send({
-            embed:{
-                description:"Information du bot",
-                fields:[
-                    {
-                        name:"❱ Créateur",
-                        value:`${this.client.users.cache.get(this.client.config.owner[0]).username || '[BCFB] zechaos#2310'} `,
+            embed: {
+                description: "Information du bot",
+                fields: [{
+                        name: "❱ Créateur",
+                        value: `${this.client.users.cache.get(this.client.config.owner[0]).username || '[BCFB] zechaos#2310'} `,
                     },
                     {
-                        name:"❱ Code Source",
+                        name: "❱ Code Source",
                         value: "[Code source du bot](https://github.com/zechaos031/ZacianLogs)"
                     },
                     {

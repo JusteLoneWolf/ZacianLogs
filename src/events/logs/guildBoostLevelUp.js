@@ -1,6 +1,4 @@
-
-
-module.exports = async (client,oldGuild,newGuild) => {
+module.exports = async (client, oldGuild, newGuild) => {
 
     if (!newGuild.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS", "MANAGE_CHANNELS", "MANAGE_GUILD"], true)) return;
 
@@ -14,8 +12,7 @@ module.exports = async (client,oldGuild,newGuild) => {
             title: "Boost Logs",
             description: "La guild vient de gagner un niveau",
             color: 0xF5AD2E,
-            fields: [
-                {
+            fields: [{
                     name: "❱ Ancien Niveau",
                     value: oldGuild.premiumTier
                 },

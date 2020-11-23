@@ -1,13 +1,14 @@
-
 const AntiInsulte = require("../../modules/antiInsulte");
-const {Collection} = require('discord.js')
-module.exports = async (client,oldMessage,newMessage) => {
+const {
+    Collection
+} = require('discord.js')
+module.exports = async (client, oldMessage, newMessage) => {
 
     if (!newMessage.author || newMessage.author.bot) return;
 
     if (newMessage.channel.type === "dm") return client.emit("DirectMessage", newMessage);
     let guildData = await getDataOrCreate(newMessage.guild);
-    await AntiInsulte.run(client,newMessage);
+    await AntiInsulte.run(client, newMessage);
 
 
     //Antiraid
@@ -38,7 +39,7 @@ module.exports = async (client,oldMessage,newMessage) => {
     const tStamps = client.cooldowns.get(cmd.help.name);
     const cdAmount = (cmd.help.cooldown || 5) * 1000;
 
-    if (!client.config.owner.includes(newMessage.author.id)){
+    if (!client.config.owner.includes(newMessage.author.id)) {
 
         if (tStamps.has(newMessage.author.id)) {
             const exT = tStamps.get(newMessage.author.id) + cdAmount
@@ -51,7 +52,7 @@ module.exports = async (client,oldMessage,newMessage) => {
             tStamps.set(newMessage.author.id, timeNow);
         }
     }
-    setTimeout(()=> tStamps.delete(newMessage.author.id),cdAmount)
+    setTimeout(() => tStamps.delete(newMessage.author.id), cdAmount)
     //Cooldown
     if (cmd.help.category.toLowerCase() === 'owner' && !client.config.owner.includes(newMessage.author.id)) return newMessage.channel.send('Vous devez etre dévellopeur du bot');
 
@@ -68,10 +69,14 @@ module.exports = async (client,oldMessage,newMessage) => {
     async function getDataOrCreate(guild) {
 
         return new Promise(async (resolve) => {
-            const {Guild} = require('../../models/index');
+            const {
+                Guild
+            } = require('../../models/index');
             let data = await client.dbmanager.getGuild(guild);
             if (!data) {
-                const merged = Object.assign({_id: mongoose.Types.ObjectId()}, guild);
+                const merged = Object.assign({
+                    _id: mongoose.Types.ObjectId()
+                }, guild);
                 let savedata = await new Guild(merged);
                 savedata.save();
                 resolve(savedata)
@@ -81,4 +86,3 @@ module.exports = async (client,oldMessage,newMessage) => {
         })
     };
 }
-

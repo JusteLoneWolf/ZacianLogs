@@ -1,4 +1,4 @@
-module.exports = async (client,message,data) => {
+module.exports = async (client, message, data) => {
 
     if (!message.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS", "MANAGE_CHANNELS", "MANAGE_GUILD"], true)) return;
 
@@ -13,8 +13,7 @@ module.exports = async (client,message,data) => {
             title: "Anti Insulte Logs",
             description: "Message supprimer",
             color: 0xF5AD2E,
-            fields: [
-                {
+            fields: [{
                     name: "❱ Utilisateur",
                     value: message.author.username
                 },

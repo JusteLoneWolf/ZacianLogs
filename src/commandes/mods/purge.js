@@ -1,5 +1,7 @@
 const Command = require("../../Base/Command");
-const {HELPER } = require("../../Utils/Constant/CommandeHelper");
+const {
+    HELPER
+} = require("../../Utils/Constant/CommandeHelper");
 class Purge extends Command {
     constructor(client) {
         super(client, HELPER.COMMANDS.MOD.PURGE);
@@ -17,15 +19,17 @@ class Purge extends Command {
 
             message.channel.send("Collecte des messages...").then(top => {
 
-                message.channel.messages.fetch({limit: 100}).then(msgs => {
+                message.channel.messages.fetch({
+                    limit: 100
+                }).then(msgs => {
 
                     msgs = msgs.filter(m => m.content.toLowerCase().includes(query) && m.id !== message.id);
 
                     if (msgs.size < 1) return top.edit(`Pas de message trouver contenant \`${query}\``);
                     message.channel.bulkDelete(msgs, true).then(() => {
-                            top.edit(`Suppression de  \`${msgs.size}\` message contenant \`${query}\``).catch(()=>{
-                                message.channel.send(`Suppression de  \`${msgs.size}\` message contenant \`${query}\``);
-                            })
+                        top.edit(`Suppression de  \`${msgs.size}\` message contenant \`${query}\``).catch(() => {
+                            message.channel.send(`Suppression de  \`${msgs.size}\` message contenant \`${query}\``);
+                        })
 
                     }).catch(err => top.edit(`\`Suppression echoué...\`\n\nenvoyer cette erreur a  <@${client.users.cache.get("236627494764150784").id}> ou sur le serveur du support\n\`${err}\``))
 
@@ -40,14 +44,14 @@ class Purge extends Command {
                 let args = message.content.split(' ').slice(1);
                 let num = args[1] || false;
 
-                if(!num) num = 10;
-                if(isNaN(num))return message.send(`Ce n'est pas un nombre valide`);
+                if (!num) num = 10;
+                if (isNaN(num)) return message.send(`Ce n'est pas un nombre valide`);
                 if (num < 2) num = 2;
                 if (num > 100) num = 100;
 
                 message.channel.messages.fetch({
-                    limit: num
-                })
+                        limit: num
+                    })
                     .then(msgs => {
 
                         msgs = filter(message, msgs);
@@ -92,7 +96,7 @@ class Purge extends Command {
                 }
 
                 return fail;
-                
+
 
             });
 

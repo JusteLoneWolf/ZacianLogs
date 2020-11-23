@@ -1,5 +1,4 @@
-
-module.exports = async (client,message) => {
+module.exports = async (client, message) => {
 
     if (!message.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS", "MANAGE_CHANNELS", "MANAGE_GUILD"], true)) return;
     const urlRegex = require('url-regex');
@@ -10,7 +9,7 @@ module.exports = async (client,message) => {
     if (isNaN(scrapedURL[5]) || isNaN(scrapedURL[6])) return;
     try {
         client.guilds.cache.get(message.guild.id).channels.cache.get(scrapedURL[5]).messages.fetch(scrapedURL[6]).then((msg) => {
-            if(!client.config.owner.includes(message.author.id)) return
+            if (!client.config.owner.includes(message.author.id)) return
             if (!msg) return;
             let data = [];
             if (msg.embeds[0] && msg.embeds[0].fields) {

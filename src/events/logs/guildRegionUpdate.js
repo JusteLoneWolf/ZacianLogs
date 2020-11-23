@@ -1,6 +1,4 @@
-
-
-module.exports =  async (client,oldGuild,newGuild) => {
+module.exports = async (client, oldGuild, newGuild) => {
 
     if (!newGuild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS", "MANAGE_CHANNELS", "MANAGE_GUILD"], true)) return;
 
@@ -15,8 +13,7 @@ module.exports =  async (client,oldGuild,newGuild) => {
             title: "Serveur Logs",
             description: "La guild vient de changé de region",
             color: 0xF5AD2E,
-            fields: [
-                {
+            fields: [{
                     name: "❱ Ancienne Region",
                     value: oldGuild.region
                 },

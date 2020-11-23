@@ -1,4 +1,4 @@
-module.exports = async (client,message) => {
+module.exports = async (client, message) => {
 
     if (!message.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS", "MANAGE_CHANNELS", "MANAGE_GUILD"], true)) return;
 
@@ -15,8 +15,7 @@ module.exports = async (client,message) => {
                         embed: {
                             title: "Invitation Logs",
                             description: "Une invitation a etait posté",
-                            fields: [
-                                {
+                            fields: [{
                                     name: "Nom du serveur de l'invitation",
                                     value: invite.guild.name
                                 },

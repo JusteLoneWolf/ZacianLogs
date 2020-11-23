@@ -1,15 +1,17 @@
 const mongoose = require("mongoose");
-const {config} = require("../../option");
+const {
+    config
+} = require("../../option");
 
 const guildSchema = mongoose.Schema({
     TableId: mongoose.Schema.Types.ObjectId,
     GuildId: String,
-    prefix:{
-        type :String,
-        default : config.prefix
+    prefix: {
+        type: String,
+        default: config.prefix
     },
     badwords: {
-        type:Object,
+        type: Object,
         default: {
             active: false,
             list: [],
@@ -18,9 +20,9 @@ const guildSchema = mongoose.Schema({
             ignore_members: [],
         }
     },
-    settings:{
-        type:Object,
-        default:{
+    settings: {
+        type: Object,
+        default: {
             punishment: {
                 enabled: false,
                 mute: 3,
@@ -39,34 +41,34 @@ const guildSchema = mongoose.Schema({
                     enabled: false
                 },
             },
-            antiraid:{
+            antiraid: {
                 enabled: false,
-                blockServer:{
+                blockServer: {
                     enabled: false,
-                    sanction:""
+                    sanction: ""
                 },
-                advert:{}
+                advert: {}
             }
         }
     },
     warns: {
         type: Object,
-        default : {}
+        default: {}
     },
-    members:{
-        type:Object,
-        default : {}
+    members: {
+        type: Object,
+        default: {}
     },
-    channels:{
-        type:Object,
-        default:{
+    channels: {
+        type: Object,
+        default: {
             log: null
         }
     },
-    invites:{
-        type:Object,
-        default:{}
+    invites: {
+        type: Object,
+        default: {}
     }
 });
 
-module.exports = mongoose.model("Guild",guildSchema);
+module.exports = mongoose.model("Guild", guildSchema);

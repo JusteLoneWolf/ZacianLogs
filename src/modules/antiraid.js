@@ -1,12 +1,12 @@
-module.exports ={
-    init(){
+module.exports = {
+    init() {
 
     },
 
-    lockChannel(guild){
+    lockChannel(guild) {
         return new Promise((resolve, reject) => {
             let id = guild.roles.everyone.id;
-            for(const channel of guild.channels.cache.filter(c => c.type !== 'category').array()){
+            for (const channel of guild.channels.cache.filter(c => c.type !== 'category').array()) {
                 channel.updateOverwrite(id, {
                     SEND_MESSAGES: false
 
@@ -15,10 +15,10 @@ module.exports ={
             resolve(true)
         })
     },
-    unlockChannel(guild){
+    unlockChannel(guild) {
         return new Promise((resolve, reject) => {
             let id = guild.roles.everyone.id;
-            for(const channel of guild.channels.cache.filter(c => c.type !== 'category').array()){
+            for (const channel of guild.channels.cache.filter(c => c.type !== 'category').array()) {
                 channel.updateOverwrite(id, {
                     'SEND_MESSAGES': null
 
@@ -28,34 +28,38 @@ module.exports ={
         })
     },
 
-   async getMessage(client,message,data){
+    async getMessage(client, message, data) {
 
-        if(!data.advert[message.author.id]){
-            data.advert[message.author.id]= {
+        if (!data.advert[message.author.id]) {
+            data.advert[message.author.id] = {
                 username: message.author.username,
                 content: message.content,
-                warn:0
+                warn: 0
             };
-            await client.dbmanager.updateGuild(message.guild,{advert: data.advert});
+            await client.dbmanager.updateGuild(message.guild, {
+                advert: data.advert
+            });
             return
         }
 
-        if(data.advert[message.author.id].content === message.content){
+        if (data.advert[message.author.id].content === message.content) {
             data.advert[message.author.id].warn++;
-            await client.dbmanager.updateGuild(message.guild,{advert: data.advert})
+            await client.dbmanager.updateGuild(message.guild, {
+                advert: data.advert
+            })
 
         }
 
-        if(data.advert[message.author.id].warn < 3) {
+        if (data.advert[message.author.id].warn < 3) {
             switch (data.settings.antiraid.blockServer.sanction) {
                 case "ban":
-                    this.banAction(message.member,message.content);
+                    this.banAction(message.member, message.content);
                     break;
                 case "kick":
-                    this.kickAction(message.member,message.content);
+                    this.kickAction(message.member, message.content);
                     break;
                 case "mute":
-                    this.muteAction(message.member,message.content);
+                    this.muteAction(message.member, message.content);
 
                     break
             }
@@ -63,40 +67,42 @@ module.exports ={
 
     },
 
-    banAction(user,content){
-        let reason = 'Spam/raid avec le message "'+content+'"';
+    banAction(user, content) {
+        let reason = 'Spam/raid avec le message "' + content + '"';
         user.ban(reason)
     },
 
-    kickAction(user,content){
-        let reason = 'Spam/raid avec le message "'+content+'"';
+    kickAction(user, content) {
+        let reason = 'Spam/raid avec le message "' + content + '"';
         user.kick(reason)
     },
 
-    muteAction(){
+    muteAction() {
 
     },
 
-    async removeWarns(client,message,data) {
+    async removeWarns(client, message, data) {
         if (!data.advert[message.author.id]) return;
 
         data.advert[message.author.id].advert = 0;
-        await client.dbmanager.updateGuild(message.guild,{advert: data.advert})
+        await client.dbmanager.updateGuild(message.guild, {
+            advert: data.advert
+        })
 
 
     },
 
 
-    beginAntiraid(){
+    beginAntiraid() {
 
     },
 
 
-    endAntiraid(){
+    endAntiraid() {
 
     },
 
-    sendRapport(){
+    sendRapport() {
 
     }
 };

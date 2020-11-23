@@ -1,6 +1,4 @@
-
-
-module.exports = async (client,newMember,role) => {
+module.exports = async (client, newMember, role) => {
 
     if (!newMember.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS", "MANAGE_CHANNELS", "MANAGE_GUILD"], true)) return;
 
@@ -14,8 +12,7 @@ module.exports = async (client,newMember,role) => {
             title: "Role Logs",
             description: "Un membre a un role en moins",
             color: 0xF5AD2E,
-            fields: [
-                {
+            fields: [{
                     name: "❱ Ancien role",
                     value: role.name
                 },

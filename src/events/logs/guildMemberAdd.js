@@ -1,5 +1,4 @@
-
-module.exports = async (client,member) => {
+module.exports = async (client, member) => {
 
     if (!member.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS", "MANAGE_CHANNELS", "MANAGE_GUILD"], true)) return;
 
@@ -19,19 +18,19 @@ module.exports = async (client,member) => {
             }
             let channels = member.guild.channels.cache.array();
             for (const channel of channels) {
-                await channel.overwritePermissions([
-                    {
-                        id: role.id,
-                        deny: ["SEND_MESSAGES", "ADD_REACTIONS"]
-                    }
-                ])
+                await channel.overwritePermissions([{
+                    id: role.id,
+                    deny: ["SEND_MESSAGES", "ADD_REACTIONS"]
+                }])
             }
             let toMute = member.guild.member(member);
             toMute.roles.add(role).then(() => {
                 db.settings.roles.mute = role.id;
                 db.members[member.id] = {};
                 db.members[member.id].mute = true;
-                client.dbmanager.updateGuild(member.guild,{member:db})
+                client.dbmanager.updateGuild(member.guild, {
+                    member: db
+                })
             })
         }
     }
@@ -42,9 +41,9 @@ module.exports = async (client,member) => {
         const ei = db.invites[member.guild.id];
         const invite = guildInvites.find(i =>
             ei ?
-                ei.get(i.code) ?
-                    ei.get(i.code).uses < i.uses
-                    : 0 < i.uses : false
+            ei.get(i.code) ?
+            ei.get(i.code).uses < i.uses :
+            0 < i.uses : false
         );
 
         const inviter = invite ? member.guild.members.cache.get(invite.inviter.id) : false;
@@ -53,8 +52,7 @@ module.exports = async (client,member) => {
             embed: {
                 title: "Bienvenue Logs",
                 description: "Un membre arrive",
-                fields: [
-                    {
+                fields: [{
                         name: "❱ Membres",
                         value: member.user.username
                     },

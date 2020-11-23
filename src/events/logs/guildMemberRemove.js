@@ -45,8 +45,7 @@ module.exports = async (client, member) => {
                         embed: {
                             title: "Aurevoir Logs",
                             description: "Un membre est parti",
-                            fields: [
-                                {
+                            fields: [{
                                     name: "❱ Utilisateur Kick",
                                     value: member.user.username
                                 },

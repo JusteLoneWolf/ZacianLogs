@@ -1,5 +1,7 @@
 const Command = require("../../Base/Command");
-const {HELPER } = require("../../Utils/Constant/CommandeHelper");
+const {
+    HELPER
+} = require("../../Utils/Constant/CommandeHelper");
 
 class ListMute extends Command {
     constructor(client) {
@@ -19,9 +21,9 @@ class ListMute extends Command {
 
         let mapmute = db.members[mention.id].mute.muteList.map(g => g);
 
-        for ( i = 0; i < 5; i++) {
+        for (i = 0; i < 5; i++) {
             let nombre = i + 1;
-            if(mapmute[i]){
+            if (mapmute[i]) {
                 mutelist.push(`Mute n°${nombre}:\n╚>Raison: ${mapmute[i].reason}\n╚>Date: ${mapmute[i].startAt} a ${mapmute[i].endAt ?mapmute[i].endAt : "Actuellement"}\n`)
 
             }
@@ -39,9 +41,15 @@ class ListMute extends Command {
                         const backF = (reaction, user) => reaction.emoji.name === '◀' && user.id === message.author.id;
                         const forF = (reaction, user) => reaction.emoji.name === '▶' && user.id === message.author.id;
                         const delF = (reaction, user) => reaction.emoji.name === '❌' && user.id === message.author.id;
-                        const del = msg.createReactionCollector(delF, {time: 180000});
-                        const back = msg.createReactionCollector(backF, {time: 180000});
-                        const forw = msg.createReactionCollector(forF, {time: 180000});
+                        const del = msg.createReactionCollector(delF, {
+                            time: 180000
+                        });
+                        const back = msg.createReactionCollector(backF, {
+                            time: 180000
+                        });
+                        const forw = msg.createReactionCollector(forF, {
+                            time: 180000
+                        });
 
                         back.on('collect', async r => {
                             let x = i - 5;
@@ -53,7 +61,7 @@ class ListMute extends Command {
                                 let nombre = i + 1;
 
                                 if (i >= 0 - 1) {
-                                    if(mapmute[i]){
+                                    if (mapmute[i]) {
                                         mutelist.push(`Mute n°${nombre}:\n╚>Raison: ${mapmute[i].reason}\n╚>Date: ${mapmute[i].addAt} a ${mapmute[i].endAt ?mapmute[i].endAt : "Actuellement"}\n`)
                                     }
                                 }
@@ -71,10 +79,10 @@ class ListMute extends Command {
 
                             let t = i + 5;
                             for (i; i < t; i++) {
-                                mutelist= [];
+                                mutelist = [];
                                 let nombre = i + 1;
                                 if (i <= mapmute.length - 1) {
-                                    if(mapmute[i]){
+                                    if (mapmute[i]) {
                                         mutelist.push(`Mute n°${nombre}:\n╚>Raison: ${mapmute[i].reason}\n╚>Date: ${mapmute[i].addAt} a ${mapmute[i].endAt ?mapmute[i].endAt : "Actuellement"}\n`)
 
                                     }
@@ -83,7 +91,7 @@ class ListMute extends Command {
                             await msg.edit({
                                 embed: {
                                     title: `Mutes de ${mention.user.username}`,
-                                    description:mutelist ? mutelist.join('\n') : "Aucun mute"
+                                    description: mutelist ? mutelist.join('\n') : "Aucun mute"
                                 }
                             });
 
@@ -91,12 +99,12 @@ class ListMute extends Command {
 
 
                         });
-                        del.on('collect', async ()=> {
+                        del.on('collect', async () => {
                             await msg.edit({
                                 embed: {
                                     description: "La liste de mutes a etait supprimé"
                                 }
-                            }).then(()=>{
+                            }).then(() => {
                                 forw.stop();
                                 back.stop();
                                 msg.reactions.removeAll()

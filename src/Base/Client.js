@@ -1,5 +1,9 @@
-const {Client, Collection} = require("discord.js"),
-    {readdir} = require("fs"),
+const {
+    Client,
+    Collection
+} = require("discord.js"), {
+        readdir
+    } = require("fs"),
     option = require("../../option"),
     Logger = require("../Utils/Logger"),
     Utils = require("../Utils/utils"),
@@ -9,7 +13,7 @@ const {Client, Collection} = require("discord.js"),
 class ZacianBot extends Client {
     constructor(options) {
         super(options);
-        ["commands","aliases","cooldowns","antiraid"].forEach(x=>this[x] = new Collection());
+        ["commands", "aliases", "cooldowns", "antiraid"].forEach(x => this[x] = new Collection());
         this.option = require("../../option");
         require("../Utils/errorHandler")(this.client);
         this.config = this.option.config;
@@ -23,14 +27,14 @@ class ZacianBot extends Client {
     init = () => {
         this._commandLoader();
         this._eventLoader();
-        this._connect().then(() =>{
+        this._connect().then(() => {
             console.log('Bot pret a l\'emploit')
-        } );
+        });
     }
 
     _connect = async () => {
-        require('../Utils/mongoose').init().then(()=>{
-            if(!this.option.config.token) throw new Error("Token du bot introuvable dans option.js veuillez verifier le fichier .env ou le README.md");
+        require('../Utils/mongoose').init().then(() => {
+            if (!this.option.config.token) throw new Error("Token du bot introuvable dans option.js veuillez verifier le fichier .env ou le README.md");
             return super.login(this.option.config.token)
         })
 
@@ -38,7 +42,7 @@ class ZacianBot extends Client {
 
 
 
-    _commandLoader= () => {
+    _commandLoader = () => {
         readdir("./src/commandes/", (err, files) => {
             if (err) this.emit("error", err);
             for (const dir of files) {
@@ -47,7 +51,7 @@ class ZacianBot extends Client {
                     for (const com of commands) {
                         try {
                             if (!com) return;
-                            const command = new (require(`../commandes/${dir}/${com}`))(this);
+                            const command = new(require(`../commandes/${dir}/${com}`))(this);
                             this.commands.set(command.help.name, command);
                             command.conf.aliases.forEach(a => this.aliases.set(a, command.help.name));
                             this.logger.info(`[Client] ${com} chargé`)
@@ -62,7 +66,7 @@ class ZacianBot extends Client {
         return this
     }
 
-    _eventLoader= () => {
+    _eventLoader = () => {
         readdir("./src/events", (err, files) => {
             if (!files) return;
             if (err) this.emit("error", err);
@@ -73,7 +77,7 @@ class ZacianBot extends Client {
                     for (const evt of file) {
                         try {
                             if (!evt) return;
-                            const event =require(`../events/${dir}/${evt}`);
+                            const event = require(`../events/${dir}/${evt}`);
                             this.logger.info(`[Client] ${evt} chargé`);
                             super.on(evt.split(".")[0], event.bind(null, this));
                         } catch (e) {

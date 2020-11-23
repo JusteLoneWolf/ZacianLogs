@@ -1,4 +1,4 @@
-module.exports = async (client,invite) => {
+module.exports = async (client, invite) => {
 
     if (!invite.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS", "MANAGE_CHANNELS", "MANAGE_GUILD"], true)) return;
 
@@ -23,8 +23,7 @@ module.exports = async (client,invite) => {
             embed: {
                 title: "Invitation Logs",
                 description: "Une invitation a etait supprimé",
-                fields: [
-                    {
+                fields: [{
                         name: "❱ Code",
                         value: aLogFound.changes[0].old
                     },
@@ -47,7 +46,8 @@ module.exports = async (client,invite) => {
                     {
                         name: "❱ Met le status membre provisoire",
                         value: aLogFound.changes[6].old
-                    }]
+                    }
+                ]
             }
         })
     })

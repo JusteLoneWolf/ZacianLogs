@@ -1,5 +1,4 @@
-
-module.exports = async (client,newMessage) => {
+module.exports = async (client, newMessage) => {
 
     if (!newMessage.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS", "MANAGE_CHANNELS", "MANAGE_GUILD"], true)) return;
 
@@ -19,8 +18,7 @@ module.exports = async (client,newMessage) => {
             title: "Message Logs",
             description: "Un message vient d'etre désépinglé",
             color: 0xF5AD2E,
-            fields: [
-                {
+            fields: [{
                     name: "❱ Utilisateur",
                     value: newMessage.member.user.username
                 },

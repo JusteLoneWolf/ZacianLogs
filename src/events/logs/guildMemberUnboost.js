@@ -1,4 +1,4 @@
-module.exports = async (client,member) => {
+module.exports = async (client, member) => {
 
     if (!member.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS", "MANAGE_CHANNELS", "MANAGE_GUILD"], true)) return;
 
@@ -13,12 +13,10 @@ module.exports = async (client,member) => {
             title: "Boost Logs",
             description: "Un membre vient de unboost",
             color: 0xF5AD2E,
-            fields: [
-                {
-                    name: "❱ Utilisateur",
-                    value: member.user.username
-                },
-            ]
+            fields: [{
+                name: "❱ Utilisateur",
+                value: member.user.username
+            }, ]
         }
     })
 };

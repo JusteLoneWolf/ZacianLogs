@@ -1,8 +1,8 @@
 module.exports = {
-    run: async (client,message) =>{
+    run: async (client, message) => {
         if (message.author.bot) return;
         const db = await client.dbmanager.getGuild(message.guild);
-        if(!db) return;
+        if (!db) return;
         if (!db.badwords.active) return;
 
         if (db.badwords.ignore_members.includes(message.author.id) || db.badwords.ignore_channel.includes(message.channel.id)) return;
@@ -29,7 +29,7 @@ module.exports = {
 
         }
     },
-    getRoles :(message) => {
+    getRoles: (message) => {
         let roles = [];
         message.member.roles.cache.filter(filter => filter.name !== "@everyone").forEach(data => {
             roles.push(data.id)

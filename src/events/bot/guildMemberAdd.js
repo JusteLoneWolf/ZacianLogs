@@ -1,4 +1,4 @@
-module.exports = async (client,newMember) => {
+module.exports = async (client, newMember) => {
     let db = await client.dbmanager.getGuild(newMember.guild);
     if (!db) return;
 
@@ -21,12 +21,10 @@ module.exports = async (client,newMember) => {
                 for (const channel of newMember.guild.channels.cache.array()) {
                     if (channel.id !== channels.id) {
                         if (channel.permissionsFor(capchatRole).has("SEND_MESSAGES") && channel.permissionsFor(capchatRole).has("VIEW_CHANNEL")) {
-                            await channel.overwritePermissions([
-                                {
-                                    id: capchatRole.id,
-                                    deny: ["SEND_MESSAGES", "VIEW_CHANNEL"]
-                                }
-                            ])
+                            await channel.overwritePermissions([{
+                                id: capchatRole.id,
+                                deny: ["SEND_MESSAGES", "VIEW_CHANNEL"]
+                            }])
                         }
                     }
 
@@ -39,7 +37,9 @@ module.exports = async (client,newMember) => {
                         client.logger.error(e);
                         channels.send(`Entre le code \`${code}\` dans ${channels}`)
                     }
-                    let collector = newMember.guild.channels.cache.get(channels.id).createMessageCollector(m => m.author.id === newMember.id, {time: 60000});
+                    let collector = newMember.guild.channels.cache.get(channels.id).createMessageCollector(m => m.author.id === newMember.id, {
+                        time: 60000
+                    });
                     collector.on("collect", message => {
                         if (message.content === code) {
                             try {
@@ -80,4 +80,3 @@ module.exports = async (client,newMember) => {
 
     }
 }
-

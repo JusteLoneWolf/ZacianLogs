@@ -1,5 +1,7 @@
 const Command = require("../../Base/Command");
-const {HELPER } = require("../../Utils/Constant/CommandeHelper");
+const {
+    HELPER
+} = require("../../Utils/Constant/CommandeHelper");
 class ListWarn extends Command {
     constructor(client) {
         super(client, HELPER.COMMANDS.MOD.LISTWARN);
@@ -18,7 +20,7 @@ class ListWarn extends Command {
 
         let mapwarn = db.warns[mention.id].map(g => g);
 
-        for ( i = 0; i < 5; i++) {
+        for (i = 0; i < 5; i++) {
             let nombre = i + 1;
             warnlist.push(`Warn n°${nombre}:\n╚>Raison: ${mapwarn[i].raison}\n╚>Date: ${mapwarn[i].time}\n`)
         }
@@ -34,9 +36,15 @@ class ListWarn extends Command {
                         const backF = (reaction, user) => reaction.emoji.name === '◀' && user.id === message.author.id;
                         const forF = (reaction, user) => reaction.emoji.name === '▶' && user.id === message.author.id;
                         const delF = (reaction, user) => reaction.emoji.name === '❌' && user.id === message.author.id;
-                        const del = msg.createReactionCollector(delF, {time: 180000});
-                        const back = msg.createReactionCollector(backF, {time: 180000});
-                        const forw = msg.createReactionCollector(forF, {time: 180000});
+                        const del = msg.createReactionCollector(delF, {
+                            time: 180000
+                        });
+                        const back = msg.createReactionCollector(backF, {
+                            time: 180000
+                        });
+                        const forw = msg.createReactionCollector(forF, {
+                            time: 180000
+                        });
 
                         back.on('collect', async r => {
                             let x = i - 5;
@@ -87,7 +95,7 @@ class ListWarn extends Command {
                                 embed: {
                                     description: "La liste de warn a etait supprimé"
                                 }
-                            }).then(()=>{
+                            }).then(() => {
                                 forw.stop();
                                 back.stop();
                                 msg.reactions.removeAll()

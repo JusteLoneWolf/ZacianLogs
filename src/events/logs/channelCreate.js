@@ -1,5 +1,4 @@
-
-module.exports =  async (client,channel) => {
+module.exports = async (client, channel) => {
     if (!channel.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS", "MANAGE_CHANNELS", "MANAGE_GUILD"], true)) return;
 
     if (channel.type === "dm") return;
@@ -19,8 +18,7 @@ module.exports =  async (client,channel) => {
             title: "Channel Logs",
             description: "Un channel vien d'etre créer",
             color: 0xF5AD2E,
-            fields: [
-                {
+            fields: [{
                     name: "❱ Créer par",
                     value: aLogFound ? aLogFound.executor.username : "Pas d'information recuperé"
                 },

@@ -1,5 +1,4 @@
-
-module.exports = async (client,guild) => {
+module.exports = async (client, guild) => {
     let data = await client.dbmanager.getGuild(guild);
     if (!data) return;
 

@@ -1,5 +1,4 @@
-
-module.exports = async (client,oldMessage,newMessage) => {
+module.exports = async (client, oldMessage, newMessage) => {
 
     if (!newMessage.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS", "MANAGE_CHANNELS", "MANAGE_GUILD"], true)) return;
 
@@ -24,8 +23,7 @@ module.exports = async (client,oldMessage,newMessage) => {
             title: "Message Logs",
             description: "Un membre vient de mettre a jours son message",
             color: 0xF5AD2E,
-            fields: [
-                {
+            fields: [{
                     name: "❱ Utilisateur",
                     value: newMessage.member.user.username
                 },

@@ -1,15 +1,17 @@
-const {ShardingManager} = require('discord.js');
+const {
+    ShardingManager
+} = require('discord.js');
 const Log = require('./src/Utils/Logger')
 const Logger = new Log()
 
-const manager = new ShardingManager("./main.js",{
-   token: require('./option').config.token,
-   totalShards: "auto",
-   respawn: true
+const manager = new ShardingManager("./main.js", {
+    token: require('./option').config.token,
+    totalShards: "auto",
+    respawn: true
 });
 
 
-manager.on("shardCreate",()=>{
+manager.on("shardCreate", () => {
     Logger.info('shard lancé')
 });
 

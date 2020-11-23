@@ -1,5 +1,4 @@
-
-module.exports = async (client,oldMessage,newMessage) => {
+module.exports = async (client, oldMessage, newMessage) => {
 
     //if(!newMessage.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS","MANAGE_CHANNELS","MANAGE_GUILD"], true)) return;
 

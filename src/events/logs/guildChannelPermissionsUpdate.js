@@ -1,4 +1,4 @@
-module.exports= async (client,oldChannel,newChannel) => {
+module.exports = async (client, oldChannel, newChannel) => {
 
     if (!newChannel.guild.me.permissions.has(["SEND_MESSAGES", "VIEW_AUDIT_LOG", "EMBED_LINKS", "MANAGE_CHANNELS", "MANAGE_GUILD"], true)) return;
 
@@ -13,8 +13,7 @@ module.exports= async (client,oldChannel,newChannel) => {
             title: "Channel Logs",
             description: "Les permission d'un channel ont etait chnage",
             color: 0xF5AD2E,
-            fields: [
-                {
+            fields: [{
                     name: "❱ Ancien Permission",
                     value: oldChannel.permissionOverwrites
                 },

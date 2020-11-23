@@ -1,8 +1,8 @@
 module.exports = async (client) => {
 
-    process.on('unhandledRejection', err =>{
-        if(err) {
-            if(err.stack) {
+    process.on('unhandledRejection', err => {
+        if (err) {
+            if (err.stack) {
                 switch (err.stack) {
                     case err.stack.includes('An invalid token was provided.'):
                         console.log('Mauvais token');
@@ -15,18 +15,18 @@ module.exports = async (client) => {
                         client.destroy();
                         process.exit(0);
                         break;
-                    case err.stack :
+                    case err.stack:
                         console.log(err.stack);
                         break;
 
                 }
-            }else{
+            } else {
                 console.log(err)
             }
         }
     });
 
-    process.on('uncaughtException', err =>{
+    process.on('uncaughtException', err => {
         if (err.stack.includes('Promise { <pending> }')) return;
         console.log(err.stack)
     });
