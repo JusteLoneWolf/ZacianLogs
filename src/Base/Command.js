@@ -20,7 +20,7 @@
             };
             this.cooldown = new Set();
         }
-        startCooldown = (user) => {
+        set startCooldown(user) {
             if (!user) return console.log("[CoolDown] Pas d'utilisateur donnée")
             this.cooldown.add(user);
             setTimeout(() => {
