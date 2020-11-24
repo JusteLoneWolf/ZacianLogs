@@ -17,7 +17,6 @@ module.exports = async (client, message) => {
                     data.push(fields)
                 }
             }
-
             return message.channel.send({
                 embed: {
                     title: `Message de ${msg.author.username}`,
@@ -27,9 +26,9 @@ module.exports = async (client, message) => {
 
             })
         }).catch((err) => {
-            console.log(err)
+            console.error(err)
         })
     } catch (err) {
-        console.log(err)
+        console.error(err)
     }
 };

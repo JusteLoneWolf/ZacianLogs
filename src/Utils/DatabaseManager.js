@@ -36,7 +36,7 @@ class DatabaseManager {
         Guild.deleteOne({
             GuildId: guild.id
         }, function(err) {
-            if (err) console.log(err);
+            if (err) console.error(err);
             console.log("Successful deletion");
         });
 
