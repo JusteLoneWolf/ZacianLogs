@@ -29,7 +29,7 @@ class Command {
         }, this.conf.cooldown);
     }
 
-    set setMessage(message) {
+    setMessage(message) {
         this.message = message;
     }
 }
