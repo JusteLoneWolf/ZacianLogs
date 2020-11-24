@@ -9,7 +9,7 @@ class Purge extends Command {
 
     }
 
-    async run(message, args) {
+    run = async (message, args) =>  {
         if (args[0] === "search") return purgeSearch(message, this.client);
         else return purge(message, this.client);
 

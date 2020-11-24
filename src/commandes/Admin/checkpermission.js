@@ -9,7 +9,7 @@ class Checkpermission extends Command {
 
     }
 
-    run(message) {
+    run = (message) => {
         let permMessage = "";
         message.guild.channels.cache.filter(channel => channel.type === "text").map(channel => {
             permMessage += `${channel.name} =>`;

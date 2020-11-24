@@ -12,7 +12,7 @@ class Botinfo extends Command {
 
     }
 
-    run(message) {
+    run = (message) => {
         return message.channel.send({
             embed: {
                 description: "Information du bot",

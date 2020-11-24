@@ -10,7 +10,7 @@ class ListMute extends Command {
 
     }
 
-    async run(message) {
+    run = async (message) =>  {
         let i;
         const mention = message.mentions.members.first();
         if (!mention) return message.channel.send("Vous devez mentionné un utilisateur");
@@ -28,7 +28,6 @@ class ListMute extends Command {
 
             }
         }
-        console.log(mutelist);
         message.channel.send({
             embed: {
                 title: `Mutes de ${mention.user.username}`,

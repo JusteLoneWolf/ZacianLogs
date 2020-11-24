@@ -9,7 +9,7 @@ class Ping extends Command {
 
     }
 
-    async run(message) {
+     run = async (message) =>  {
         const ping = await message.channel.send("Calcul du ping en cours...");
         return ping.edit(`Ping: ${ping.createdAt - message.createdAt}ms\nPing du bot ${this.client.ws.ping}ms `)
     }

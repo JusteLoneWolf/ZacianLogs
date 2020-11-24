@@ -9,7 +9,7 @@ class Help extends Command {
         this.client = client
     }
 
-    async run(message, args, guildData) {
+    run = async (message, args, guildData) =>  {
         if (!args[0]) {
             const categorie = [];
 

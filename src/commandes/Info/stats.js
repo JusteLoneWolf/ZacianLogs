@@ -17,7 +17,7 @@ class Ping extends Command {
 
     }
 
-    run(message) {
+    run = (message) =>  {
         return message.channel.send({
             embed: {
                 description: "Statistiques du bot",

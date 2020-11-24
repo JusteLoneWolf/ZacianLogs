@@ -8,7 +8,7 @@ class Tweet extends Command {
         super(client, HELPER.COMMANDS.OWNER.TWEET);
     }
 
-    async run(message, args) {
+    run = async (message, args) =>  {
         if (!this.client.config.owner.includes(message.author.id)) return message.channel.send("Vous devez etre dévellopeur du bot");
         switch (args[0]) {
             case "post":

@@ -9,7 +9,7 @@ class Poll extends Command {
 
     }
 
-    async run(message, args) {
+    run = async (message, args) =>  {
 
         const slipAws = args.join(" ").split("/")
 

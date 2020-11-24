@@ -9,7 +9,7 @@ class Configuration extends Command {
 
     }
 
-    async run(message, args, guildData) {
+    async = async (message,args, guildData) => {
         let text = ""
         if (!message.member.permissions.has("MANAGE_GUILD", true)) return message.channel.send("Tu n\"as pas la permission `GERER LE SERVER` ou `ADMINISTRATOR`");
 

@@ -12,7 +12,7 @@ class Lockdown extends Command {
 
     }
 
-    async run(message, args) {
+    run = async (message, args) =>  {
         if (!this.client.utils.resolveUser(message, null, HELPER.COMMANDS.MOD.MUTE.permission)) return;
         lockChannel(message.guild).then((isFinish) => {
             if (isFinish) {

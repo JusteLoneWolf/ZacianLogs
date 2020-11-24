@@ -11,7 +11,7 @@ class Mute extends Command {
 
     }
 
-    async run(message, args, guildData) {
+     run = async (message, args, guildData) =>  {
         let member = message.mentions.members.first();
         if (!this.client.utils.resolveUser(message, member, HELPER.COMMANDS.MOD.MUTE.permission)) return;
         let role = message.guild.roles.cache.find(r => r.name === "Mute" || r.id === guildData.settings.roles ? guildData.settings.roles.mute : false);
