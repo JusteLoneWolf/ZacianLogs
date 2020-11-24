@@ -5,10 +5,10 @@ module.exports = async (client) => {
             if (err.stack) {
                 switch (err.stack) {
                     case err.stack.includes("An invalid token was provided."):
-                        console.log("Mauvais token");
+                        console.error("Mauvais token");
                         break;
                     case err.stack.includes("Missing Permissions"):
-                        console.log("Permission Error");
+                        console.error("Permission Error");
                         break;
                     case err.stack.includes(" getaddrinfo ENOTFOUND discordapp.com"):
                         console.log("Impossible to get information from discord");
@@ -16,7 +16,7 @@ module.exports = async (client) => {
                         process.exit(0);
                         break;
                     case err.stack:
-                        console.log(err.stack);
+                        console.error(err.stack);
                         break;
 
                 }

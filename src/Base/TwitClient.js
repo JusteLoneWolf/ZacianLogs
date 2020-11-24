@@ -9,13 +9,14 @@ if (process.env.CTOKEN.length !== 0 || process.env.CSECRETTOKEN.length !== 0 || 
             this.logger = new Logger();
 
         }
+
         postTweet = (message) => {
             if (!message) return;
             return new Promise(async (resolve, reject) => {
                 try {
                     Client.post("statuses/update", {
                         status: message
-                    }, function(err, data, response) {
+                    }, function (err, data, response) {
                         resolve(data)
                     })
                 } catch (e) {
@@ -30,7 +31,7 @@ if (process.env.CTOKEN.length !== 0 || process.env.CSECRETTOKEN.length !== 0 || 
                 try {
                     Client.get("statuses/user_timeline/:id", {
                         id: id
-                    }, function(err, data, response) {
+                    }, function (err, data, response) {
                         resolve(data)
                     })
                 } catch (e) {
@@ -45,7 +46,7 @@ if (process.env.CTOKEN.length !== 0 || process.env.CSECRETTOKEN.length !== 0 || 
                 try {
                     Client.post("statuses/destroy/:id", {
                         id: id
-                    }, function(err, data, response) {
+                    }, function (err, data, response) {
                         resolve(data)
                     })
                 } catch (e) {

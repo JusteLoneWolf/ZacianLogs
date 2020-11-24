@@ -10,7 +10,7 @@ class ListMute extends Command {
 
     }
 
-    run = async (message) =>  {
+    run = async (message) => {
         let i;
         const mention = message.mentions.members.first();
         if (!mention) return message.channel.send("Vous devez mentionné un utilisateur");
@@ -24,7 +24,7 @@ class ListMute extends Command {
         for (i = 0; i < 5; i++) {
             let nombre = i + 1;
             if (mapmute[i]) {
-                mutelist.push(`Mute n°${nombre}:\n╚>Raison: ${mapmute[i].reason}\n╚>Date: ${mapmute[i].startAt} a ${mapmute[i].endAt ?mapmute[i].endAt : "Actuellement"}\n`)
+                mutelist.push(`Mute n°${nombre}:\n╚>Raison: ${mapmute[i].reason}\n╚>Date: ${mapmute[i].startAt} a ${mapmute[i].endAt ? mapmute[i].endAt : "Actuellement"}\n`)
 
             }
         }
@@ -61,7 +61,7 @@ class ListMute extends Command {
 
                                 if (i >= 0 - 1) {
                                     if (mapmute[i]) {
-                                        mutelist.push(`Mute n°${nombre}:\n╚>Raison: ${mapmute[i].reason}\n╚>Date: ${mapmute[i].addAt} a ${mapmute[i].endAt ?mapmute[i].endAt : "Actuellement"}\n`)
+                                        mutelist.push(`Mute n°${nombre}:\n╚>Raison: ${mapmute[i].reason}\n╚>Date: ${mapmute[i].addAt} a ${mapmute[i].endAt ? mapmute[i].endAt : "Actuellement"}\n`)
                                     }
                                 }
                             }
@@ -82,7 +82,7 @@ class ListMute extends Command {
                                 let nombre = i + 1;
                                 if (i <= mapmute.length - 1) {
                                     if (mapmute[i]) {
-                                        mutelist.push(`Mute n°${nombre}:\n╚>Raison: ${mapmute[i].reason}\n╚>Date: ${mapmute[i].addAt} a ${mapmute[i].endAt ?mapmute[i].endAt : "Actuellement"}\n`)
+                                        mutelist.push(`Mute n°${nombre}:\n╚>Raison: ${mapmute[i].reason}\n╚>Date: ${mapmute[i].addAt} a ${mapmute[i].endAt ? mapmute[i].endAt : "Actuellement"}\n`)
 
                                     }
                                 }

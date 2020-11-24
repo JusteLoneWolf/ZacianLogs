@@ -3,6 +3,7 @@ const {
     HELPER
 } = require("../../Utils/Constant/CommandeHelper");
 const moment = require("moment");
+
 class Warn extends Command {
     constructor(client) {
         super(client, HELPER.COMMANDS.MOD.WARN);
@@ -10,7 +11,7 @@ class Warn extends Command {
 
     }
 
-    run = async (message, args) =>  {
+    run = async (message, args) => {
 
         const mention = message.mentions.members.first();
 

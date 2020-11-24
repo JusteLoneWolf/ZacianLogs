@@ -2,6 +2,7 @@ const Command = require("../../Base/Command");
 const {
     HELPER
 } = require("../../Utils/Constant/CommandeHelper");
+
 class Poll extends Command {
     constructor(client) {
         super(client, HELPER.COMMANDS.MOD.POLL);
@@ -9,7 +10,7 @@ class Poll extends Command {
 
     }
 
-    run = async (message, args) =>  {
+    run = async (message, args) => {
 
         const slipAws = args.join(" ").split("/")
 

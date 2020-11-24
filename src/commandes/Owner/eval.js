@@ -8,7 +8,7 @@ class Eval extends Command {
         super(client, HELPER.COMMANDS.OWNER.EVAL);
     }
 
-    run = async (message, args) =>  {
+    run = async (message, args) => {
         if (!this.client.config.owner.includes(message.author.id)) return message.channel.send("Vous devez etre dévellopeur du bot");
         const initialTime = process.hrtime();
         try {
@@ -27,14 +27,13 @@ class Eval extends Command {
             }
 
 
-
             const evalDiff = process.hrtime(initialTime);
             await message.channel.send({
                 embed: {
                     fields: [{
-                            name: "❱ Code",
-                            value: `\`\`\`js\n ${code} \`\`\``
-                        },
+                        name: "❱ Code",
+                        value: `\`\`\`js\n ${code} \`\`\``
+                    },
                         {
                             name: "❱ Resultat",
                             value: `\`\`\`js\n ${evaled} \`\`\``

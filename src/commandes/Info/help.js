@@ -9,7 +9,7 @@ class Help extends Command {
         this.client = client
     }
 
-    run = async (message, args, guildData) =>  {
+    run = async (message, args, guildData) => {
         if (!args[0]) {
             const categorie = [];
 
@@ -55,9 +55,9 @@ class Help extends Command {
                 embed: {
                     title: `Page d'aide de ${command.help.name}`,
                     fields: [{
-                            name: "Description",
-                            value: command.help.description
-                        },
+                        name: "Description",
+                        value: command.help.description
+                    },
                         {
                             name: "Usage",
                             value: command.help.usage
@@ -97,9 +97,9 @@ class Help extends Command {
                                     embed: {
                                         title: `Page d'aide de ${command.help.name}`,
                                         fields: [{
-                                                name: "Description",
-                                                value: command.help.description
-                                            },
+                                            name: "Description",
+                                            value: command.help.description
+                                        },
                                             {
                                                 name: "Usage",
                                                 value: command.help.usage

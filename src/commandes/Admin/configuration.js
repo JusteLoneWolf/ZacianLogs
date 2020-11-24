@@ -2,6 +2,7 @@ const Command = require("../../Base/Command");
 const {
     HELPER
 } = require("../../Utils/Constant/CommandeHelper");
+
 class Configuration extends Command {
     constructor(client) {
         super(client, HELPER.COMMANDS.ADMIN.CONFIGURATION);
@@ -9,7 +10,7 @@ class Configuration extends Command {
 
     }
 
-    async = async (message,args, guildData) => {
+    async = async (message, args, guildData) => {
         let text = ""
         if (!message.member.permissions.has("MANAGE_GUILD", true)) return message.channel.send("Tu n\"as pas la permission `GERER LE SERVER` ou `ADMINISTRATOR`");
 
@@ -43,6 +44,7 @@ class Configuration extends Command {
 
             }
         }
+
         switch (args[0]) {
             case "set":
                 if (!args[1] || args[1] !== "logs" && args[1] !== "ignorerole" && args[1] !== "blacklistwords" && args[1] !== "prefix" && args[1] !== "capchat" && args[1] !== "welcome") {
@@ -394,4 +396,5 @@ class Configuration extends Command {
         }
     }
 }
+
 module.exports = Configuration;

@@ -5,7 +5,7 @@ const Client = require("./src/Base/Client"),
 client.init();
 
 process.on("rejectionHandled", (err) => {
-client.logger.error(err)
+    client.logger.error(err)
 });
 
 process.on("unhandledRejection", (err) => {

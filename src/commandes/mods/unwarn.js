@@ -2,6 +2,7 @@ const Command = require("../../Base/Command");
 const {
     HELPER
 } = require("../../Utils/Constant/CommandeHelper");
+
 class UnWarn extends Command {
     constructor(client) {
         super(client, HELPER.COMMANDS.MOD.UNWARN);
@@ -9,7 +10,7 @@ class UnWarn extends Command {
 
     }
 
-    run = async (message, args) =>  {
+    run = async (message, args) => {
 
         const mention = message.mentions.members.first();
         if (!mention) return message.channel.send("Vous devez mentionné un utilisateur");
@@ -32,7 +33,7 @@ class UnWarn extends Command {
                 newWarn.push(db.warns[mention.user.id][select])
             }
         }
-        message.channel.send(`Le warn ${args[1]} a etait supprime\nRaison du warn: ${db.warns[mention.user.id][args[1]-1].raison}`);
+        message.channel.send(`Le warn ${args[1]} a etait supprime\nRaison du warn: ${db.warns[mention.user.id][args[1] - 1].raison}`);
         this.client.emit("warnDelete", message, mention, db, args);
         db.warns[mention.user.id] = newWarn;
 

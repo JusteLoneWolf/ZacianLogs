@@ -37,7 +37,6 @@ class DatabaseManager {
             GuildId: guild.id
         }, function(err) {
             if (err) console.error(err);
-            console.log("Successful deletion");
         });
 
     };

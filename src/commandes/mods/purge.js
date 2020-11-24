@@ -2,6 +2,7 @@ const Command = require("../../Base/Command");
 const {
     HELPER
 } = require("../../Utils/Constant/CommandeHelper");
+
 class Purge extends Command {
     constructor(client) {
         super(client, HELPER.COMMANDS.MOD.PURGE);
@@ -9,7 +10,7 @@ class Purge extends Command {
 
     }
 
-    run = async (message, args) =>  {
+    run = async (message, args) => {
         if (args[0] === "search") return purgeSearch(message, this.client);
         else return purge(message, this.client);
 
@@ -50,8 +51,8 @@ class Purge extends Command {
                 if (num > 100) num = 100;
 
                 message.channel.messages.fetch({
-                        limit: num
-                    })
+                    limit: num
+                })
                     .then(msgs => {
 
                         msgs = filter(message, msgs);
@@ -104,4 +105,5 @@ class Purge extends Command {
         }
     }
 }
+
 module.exports = Purge;

@@ -2,6 +2,7 @@ const Command = require("../../Base/Command");
 const {
     HELPER
 } = require("../../Utils/Constant/CommandeHelper");
+
 class ListWarn extends Command {
     constructor(client) {
         super(client, HELPER.COMMANDS.MOD.LISTWARN);
@@ -9,7 +10,7 @@ class ListWarn extends Command {
 
     }
 
-    run = async (message) =>  {
+    run = async (message) => {
         let i;
         const mention = message.mentions.members.first();
         if (!mention) return message.channel.send("Vous devez mentionné un utilisateur");

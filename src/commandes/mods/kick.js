@@ -10,7 +10,7 @@ class Kick extends Command {
 
     }
 
-    run = async (message, args) =>  {
+    run = async (message, args) => {
         let member = message.mentions.members.first();
         const reason = args.slice(1).join(" ") || "Aucune raison";
         if (!this.client.utils.resolveUser(message, member, HELPER.COMMANDS.MOD.KICK.permission)) return;

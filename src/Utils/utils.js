@@ -21,15 +21,13 @@ class Utils {
                 inviteData[guild.id] = invite;
 
                 Object.assign(db.invites, inviteData)
-                await client.dbmanager.updateGuild(guild, {
-                    invites: db.invites
-                });
+                await client.dbmanager.updateGuild(guild, {invites: db.invites});
             }).catch((err) => {
                 console.error(err)
             })
             //TODO FIX getInvitation for guildMemberAdd event log
         } catch (e) {
-            return
+            console.error(e)
         }
 
     }

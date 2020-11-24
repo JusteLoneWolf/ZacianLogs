@@ -5,6 +5,7 @@ const {
 const {
     lockChannel
 } = require("../../modules/antiraid")
+
 class Lockdown extends Command {
     constructor(client) {
         super(client, HELPER.COMMANDS.MOD.LOCKDOWN);
@@ -12,7 +13,7 @@ class Lockdown extends Command {
 
     }
 
-    run = async (message, args) =>  {
+    run = async (message, args) => {
         if (!this.client.utils.resolveUser(message, null, HELPER.COMMANDS.MOD.MUTE.permission)) return;
         lockChannel(message.guild).then((isFinish) => {
             if (isFinish) {

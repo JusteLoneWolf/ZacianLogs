@@ -10,7 +10,7 @@ class Checkuser extends Command {
 
     }
 
-    run = async (message) =>  {
+    run = async (message) => {
 
         const members = message.guild.members;
         const withInvite = members.cache.filter((m) => m.user.presence.activities.name && /(discord\.(gg|io|me|li)\/.+|discordapp\.com\/invite\/.+)/i.test(m.user.presence.activities.name));

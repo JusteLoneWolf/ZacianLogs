@@ -2,6 +2,7 @@ const Command = require("../../Base/Command");
 const {
     HELPER
 } = require("../../Utils/Constant/CommandeHelper");
+
 class Checkinvite extends Command {
     constructor(client) {
         super(client, HELPER.COMMANDS.MOD.CHECKINVITE);
@@ -15,9 +16,9 @@ class Checkinvite extends Command {
             message.channel.send({
                 embed: {
                     fields: [{
-                            name: "ID du serveur",
-                            value: invite.guild.id
-                        },
+                        name: "ID du serveur",
+                        value: invite.guild.id
+                    },
                         {
                             name: "Nom du serveur de l'invitation",
                             value: invite.guild.name

@@ -20,6 +20,8 @@ module.exports = {
                         let data = msg[word];
                         return message.channel.send("Ce message est dans les mot interdit").then(() => {
                             client.emit("InsulteLogs", message, data)
+                        }).catch((err) => {
+                            console.error(err)
                         })
                     });
                     return;
