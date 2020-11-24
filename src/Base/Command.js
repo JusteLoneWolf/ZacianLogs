@@ -28,14 +28,9 @@
             }, this.conf.cooldown);
         }
 
-        setMessage = (message) => {
+        set setMessage(message) {
             this.message = message;
         }
-
-        respond = (message) => {
-            this.message.channel.send(this.client.utils.parseMessage(message));
-        }
-
     }
 
     module.exports = Command;

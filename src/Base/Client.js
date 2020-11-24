@@ -40,8 +40,6 @@ class ZacianBot extends Client {
 
     }
 
-
-
     _commandLoader = () => {
         readdir("./src/commandes/", (err, files) => {
             if (err) this.emit("error", err);
