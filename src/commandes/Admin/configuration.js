@@ -43,10 +43,7 @@ class Configuration extends Command {
 
             }
         }
-
-
         switch (args[0]) {
-
             case "set":
                 if (!args[1] || args[1] !== "logs" && args[1] !== "ignorerole" && args[1] !== "blacklistwords" && args[1] !== "prefix" && args[1] !== "capchat" && args[1] !== "welcome") {
                     return message.channel.send({
