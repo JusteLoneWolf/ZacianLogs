@@ -1,6 +1,6 @@
 class Utils {
 
-    parseMessage(content) {
+    set parseMessage(content) {
         return content.replace(/@(everyone|here)/g, "@\u200b$1").replace(/\u202e/g, "")
     }
 
