@@ -211,7 +211,7 @@ const HELPER = {
                 usage: "checkinvite [invitation]",
                 cooldowns: 1000,
                 aliases: ["wi"],
-                permission: "MANAGE_GUILd",
+                permission: "MANAGE_GUILD",
                 category: "Admin",
                 mention: true
             },
@@ -231,7 +231,7 @@ const HELPER = {
                 usage: "poll <time> <raison>",
                 cooldowns: 10000,
                 aliases: ["ulc"],
-                permission: "MANAGE_GUILd",
+                permission: "MANAGE_GUILD",
                 category: "Modération",
                 mention: true,
                 exemple: "zac!poll Chien ou chat ?/Chien | Chat | Je sais pas"
