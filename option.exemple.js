@@ -20,7 +20,7 @@ module.exports = {
             fetchAllMembers: false,
             messageCacheMaxSize: 100,
             messageSweepInterval: 120,
-            partials: ["GUILD_MEMBER", "MESSAGE", "USER", "CHANNEl']
+            partials: ["GUILD_MEMBER", "MESSAGE", "USER", "CHANNEL"]
             },
             perm: {},
             DBconnection: process.env.DBCONNECT
