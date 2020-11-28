@@ -6,7 +6,7 @@ const Logger = new Log()
 
 const manager = new ShardingManager("./main.js", {
     token: require("./option").config.token,
-    totalShards: "auto",
+    autoSpawn: true,
     respawn: true
 });
 
