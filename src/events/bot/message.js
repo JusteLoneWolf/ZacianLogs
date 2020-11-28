@@ -22,7 +22,7 @@ module.exports = async (client, message) => {
 
     const args = message.content.split(" ").slice(1);
 
-    const command = message.content.split(" ")[0].slice((guildData ? guildData.prefix : "zac!").length);
+    const command = message.content.split(" ")[0].toLowerCase().slice((guildData ? guildData.prefix : "zac!").length);
     const cmd = client.commands.get(command) || client.commands.get(client.aliases.get(command));
     //console.log(message.content)
     /* if (message.content.startsWith("<@!717658826379231256>") || message.content.startsWith("<@&719837291794923581>")) {
