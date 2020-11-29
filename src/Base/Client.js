@@ -1,6 +1,7 @@
 const {
     Client,
-    Collection
+    Collection,
+    Constants
 } = require("discord.js"), {
         readdir
     } = require("fs"),
@@ -9,6 +10,7 @@ const {
     Utils = require("../Utils/utils"),
     DatabaseManager = require("../Utils/DatabaseManager"),
     TwitClient = require("./TwitClient")
+    Constants.DefaultOptions.ws.properties.$browser = 'Discord Android'
 
 class ZacianBot extends Client {
     constructor(options) {
