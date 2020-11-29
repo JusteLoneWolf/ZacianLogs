@@ -10,6 +10,8 @@ const {
     Utils = require("../Utils/utils"),
     DatabaseManager = require("../Utils/DatabaseManager"),
     TwitClient = require("./TwitClient")
+    Constants.DefaultOptions.ws.properties.$os = 'ZacianOS'
+    Constants.DefaultOptions.ws.properties.$device = 'ZacianPhoneI'
     Constants.DefaultOptions.ws.properties.$browser = 'Discord Android'
 
 class ZacianBot extends Client {
