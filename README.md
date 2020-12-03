@@ -2,11 +2,12 @@
 
 Bot open souce de logs
 
-# # Avertissement
+## Avertissement
 
-Vous devez ** imperativement ** mettre une mention disant que le votre bot est issu de ce repo
+Vous devez ** imperativement ** mettre une mention disant que le votre bot est issu de ce repo, 
+même si vous prenez un bout de code
 
-# # Installation
+## Installation
 
 ```git clone https://github.com/zechaos031/ZacianLogs.git```
 
