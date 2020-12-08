@@ -6,6 +6,7 @@ const {
 class Eval extends Command {
     constructor(client) {
         super(client, HELPER.COMMANDS.OWNER.EVAL);
+        this.client = client
     }
 
     run = async (message, args) => {
